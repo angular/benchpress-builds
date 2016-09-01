@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":1,"metadata":{"formatNum":{"__symbolic":"function","parameters":["n"],"value":{"__symbolic":"call","expression":{"__symbolic":"select","expression":{"__symbolic":"reference","module":"../facade/lang","name":"NumberWrapper"},"member":"toFixed"},"arguments":[{"__symbolic":"reference","name":"n"},2]}}}}
