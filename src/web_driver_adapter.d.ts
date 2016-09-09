@@ -14,6 +14,8 @@ export declare abstract class WebDriverAdapter {
     waitFor(callback: Function): Promise<any>;
     executeScript(script: string): Promise<any>;
     executeAsyncScript(script: string): Promise<any>;
-    capabilities(): Promise<Map<string, any>>;
+    capabilities(): Promise<{
+        [key: string]: any;
+    }>;
     logs(type: string): Promise<any[]>;
 }

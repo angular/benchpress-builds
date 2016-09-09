@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var webdriver = require('selenium-webdriver');
 var web_driver_adapter_1 = require('../web_driver_adapter');
 /**
  * Adapter for the selenium-webdriver.
@@ -22,36 +21,22 @@ var SeleniumWebDriverAdapter = (function (_super) {
         _super.call(this);
         this._driver = _driver;
     }
-    /** @internal */
-    SeleniumWebDriverAdapter.prototype._convertPromise = function (thenable) {
-        var resolve;
-        var reject;
-        var promise = new Promise(function (res, rej) {
-            resolve = res;
-            reject = rej;
-        });
-        thenable.then(
-        // selenium-webdriver uses an own Node.js context,
-        // so we need to convert data into objects of this context.
-        function (data) { return resolve(convertToLocalProcess(data)); }, reject);
-        return promise;
-    };
-    SeleniumWebDriverAdapter.prototype.waitFor = function (callback) {
-        return this._convertPromise(this._driver.controlFlow().execute(callback));
-    };
-    SeleniumWebDriverAdapter.prototype.executeScript = function (script) {
-        return this._convertPromise(this._driver.executeScript(script));
-    };
+    SeleniumWebDriverAdapter.prototype.waitFor = function (callback) { return this._driver.call(callback); };
+    SeleniumWebDriverAdapter.prototype.executeScript = function (script) { return this._driver.executeScript(script); };
     SeleniumWebDriverAdapter.prototype.executeAsyncScript = function (script) {
-        return this._convertPromise(this._driver.executeAsyncScript(script));
+        return this._driver.executeAsyncScript(script);
     };
     SeleniumWebDriverAdapter.prototype.capabilities = function () {
-        return this._convertPromise(this._driver.getCapabilities().then(function (capsObject) { return capsObject.serialize(); }));
+        return this._driver.getCapabilities().then(function (capsObject) {
+            var localData = {};
+            capsObject.forEach(function (value, key) { localData[key] = value; });
+            return localData;
+        });
     };
     SeleniumWebDriverAdapter.prototype.logs = function (type) {
         // Needed as selenium-webdriver does not forward
         // performance logs in the correct way via manage().logs
-        return this._convertPromise(this._driver.schedule(new webdriver.Command(webdriver.CommandName.GET_LOG).setParameter('type', type), 'WebDriver.manage().logs().get(' + type + ')'));
+        return this._driver.schedule(new Command('getLog').setParameter('type', type), 'WebDriver.manage().logs().get(' + type + ')');
     };
     SeleniumWebDriverAdapter.PROTRACTOR_PROVIDERS = [{
             provide: web_driver_adapter_1.WebDriverAdapter,
@@ -60,11 +45,26 @@ var SeleniumWebDriverAdapter = (function (_super) {
     return SeleniumWebDriverAdapter;
 }(web_driver_adapter_1.WebDriverAdapter));
 exports.SeleniumWebDriverAdapter = SeleniumWebDriverAdapter;
-function convertToLocalProcess(data) {
-    var serialized = JSON.stringify(data);
-    if ('' + serialized === 'undefined') {
-        return undefined;
+/**
+ * Copy of the `Command` class of webdriver as
+ * it is not exposed via index.js in selenium-webdriver.
+ */
+var Command = (function () {
+    function Command(name_) {
+        this.name_ = name_;
+        this.parameters_ = {};
     }
-    return JSON.parse(serialized);
-}
+    Command.prototype.getName = function () { return this.name_; };
+    Command.prototype.setParameter = function (name, value) {
+        this.parameters_[name] = value;
+        return this;
+    };
+    Command.prototype.setParameters = function (parameters) {
+        this.parameters_ = parameters;
+        return this;
+    };
+    Command.prototype.getParameter = function (key) { return this.parameters_[key]; };
+    Command.prototype.getParameters = function () { return this.parameters_; };
+    return Command;
+}());
 //# sourceMappingURL=selenium_webdriver_adapter.js.map
