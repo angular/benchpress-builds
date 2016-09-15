@@ -13,8 +13,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var core_1 = require('@angular/core');
 var common_options_1 = require('../common_options');
-var collection_1 = require('../facade/collection');
-var lang_1 = require('../facade/lang');
 var metric_1 = require('../metric');
 var web_driver_extension_1 = require('../web_driver_extension');
 /**
@@ -84,7 +82,9 @@ var PerflogMetric = (function (_super) {
                 res['frameTime.smooth'] = 'percentage of frames that hit 60fps';
             }
         }
-        collection_1.StringMapWrapper.forEach(this._microMetrics, function (desc, name) { collection_1.StringMapWrapper.set(res, name, desc); });
+        for (var name_1 in this._microMetrics) {
+            res[name_1] = this._microMetrics[name_1];
+        }
         return res;
     };
     PerflogMetric.prototype.beginMeasure = function () {
@@ -114,8 +114,8 @@ var PerflogMetric = (function (_super) {
                 .then(function (_) { return _this._endMeasure(restartMeasure); })
                 .then(function (forceGcMeasureValues) {
                 _this._captureFrames = originalFrameCaptureValue;
-                collection_1.StringMapWrapper.set(measureValues, 'forcedGcTime', forceGcMeasureValues['gcTime']);
-                collection_1.StringMapWrapper.set(measureValues, 'forcedGcAmount', forceGcMeasureValues['gcAmount']);
+                measureValues['forcedGcTime'] = forceGcMeasureValues['gcTime'];
+                measureValues['forcedGcAmount'] = forceGcMeasureValues['gcAmount'];
                 return measureValues;
             });
         });
@@ -140,7 +140,7 @@ var PerflogMetric = (function (_super) {
         return this._driverExtension.readPerfLog().then(function (events) {
             _this._addEvents(events);
             var result = _this._aggregateEvents(_this._remainingEvents, markName);
-            if (lang_1.isPresent(result)) {
+            if (result) {
                 _this._remainingEvents = events;
                 return result;
             }
@@ -154,14 +154,14 @@ var PerflogMetric = (function (_super) {
         var _this = this;
         var needSort = false;
         events.forEach(function (event) {
-            if (lang_1.StringWrapper.equals(event['ph'], 'X')) {
+            if (event['ph'] === 'X') {
                 needSort = true;
                 var startEvent = {};
                 var endEvent = {};
-                collection_1.StringMapWrapper.forEach(event, function (value, prop) {
-                    startEvent[prop] = value;
-                    endEvent[prop] = value;
-                });
+                for (var prop in event) {
+                    startEvent[prop] = event[prop];
+                    endEvent[prop] = event[prop];
+                }
                 startEvent['ph'] = 'B';
                 endEvent['ph'] = 'E';
                 endEvent['ts'] = startEvent['ts'] + startEvent['dur'];
@@ -174,7 +174,7 @@ var PerflogMetric = (function (_super) {
         });
         if (needSort) {
             // Need to sort because of the ph==='X' events
-            collection_1.ListWrapper.sort(this._remainingEvents, function (a, b) {
+            this._remainingEvents.sort(function (a, b) {
                 var diff = a['ts'] - b['ts'];
                 return diff > 0 ? 1 : diff < 0 ? -1 : 0;
             });
@@ -197,7 +197,9 @@ var PerflogMetric = (function (_super) {
             result['frameTime.worst'] = 0;
             result['frameTime.smooth'] = 0;
         }
-        collection_1.StringMapWrapper.forEach(this._microMetrics, function (desc, name) { result[name] = 0; });
+        for (var name_2 in this._microMetrics) {
+            result[name_2] = 0;
+        }
         if (this._receivedData) {
             result['receivedData'] = 0;
         }
@@ -206,6 +208,25 @@ var PerflogMetric = (function (_super) {
         }
         var markStartEvent = null;
         var markEndEvent = null;
+        events.forEach(function (event) {
+            var ph = event['ph'];
+            var name = event['name'];
+            if (ph === 'B' && name === markName) {
+                markStartEvent = event;
+            }
+            else if (ph === 'I' && name === 'navigationStart') {
+                // if a benchmark measures reload of a page, use the last
+                // navigationStart as begin event
+                markStartEvent = event;
+            }
+            else if (ph === 'E' && name === markName) {
+                markEndEvent = event;
+            }
+        });
+        if (!markStartEvent || !markEndEvent) {
+            // not all events have been received, no further processing for now
+            return null;
+        }
         var gcTimeInScript = 0;
         var renderTimeInScript = 0;
         var frameTimestamps = [];
@@ -214,119 +235,99 @@ var PerflogMetric = (function (_super) {
         var frameCaptureEndEvent = null;
         var intervalStarts = {};
         var intervalStartCount = {};
+        var inMeasureRange = false;
         events.forEach(function (event) {
             var ph = event['ph'];
             var name = event['name'];
             var microIterations = 1;
             var microIterationsMatch = name.match(_MICRO_ITERATIONS_REGEX);
-            if (lang_1.isPresent(microIterationsMatch)) {
+            if (microIterationsMatch) {
                 name = microIterationsMatch[1];
-                microIterations = lang_1.NumberWrapper.parseInt(microIterationsMatch[2], 10);
+                microIterations = parseInt(microIterationsMatch[2], 10);
             }
-            if (lang_1.StringWrapper.equals(ph, 'b') && lang_1.StringWrapper.equals(name, markName)) {
-                markStartEvent = event;
+            if (event === markStartEvent) {
+                inMeasureRange = true;
             }
-            else if (lang_1.StringWrapper.equals(ph, 'e') && lang_1.StringWrapper.equals(name, markName)) {
-                markEndEvent = event;
+            else if (event === markEndEvent) {
+                inMeasureRange = false;
             }
-            var isInstant = lang_1.StringWrapper.equals(ph, 'I') || lang_1.StringWrapper.equals(ph, 'i');
-            if (_this._requestCount && lang_1.StringWrapper.equals(name, 'sendRequest')) {
+            if (!inMeasureRange || event['pid'] !== markStartEvent['pid']) {
+                return;
+            }
+            if (_this._requestCount && name === 'sendRequest') {
                 result['requestCount'] += 1;
             }
-            else if (_this._receivedData && lang_1.StringWrapper.equals(name, 'receivedData') && isInstant) {
+            else if (_this._receivedData && name === 'receivedData' && ph === 'I') {
                 result['receivedData'] += event['args']['encodedDataLength'];
             }
-            else if (lang_1.StringWrapper.equals(name, 'navigationStart')) {
-                // We count data + requests since the last navigationStart
-                // (there might be chrome extensions loaded by selenium before our page, so there
-                // will likely be more than one navigationStart).
-                if (_this._receivedData) {
-                    result['receivedData'] = 0;
+            if (ph === 'B' && name === _MARK_NAME_FRAME_CAPUTRE) {
+                if (frameCaptureStartEvent) {
+                    throw new Error('can capture frames only once per benchmark run');
                 }
-                if (_this._requestCount) {
-                    result['requestCount'] = 0;
+                if (!_this._captureFrames) {
+                    throw new Error('found start event for frame capture, but frame capture was not requested in benchpress');
+                }
+                frameCaptureStartEvent = event;
+            }
+            else if (ph === 'E' && name === _MARK_NAME_FRAME_CAPUTRE) {
+                if (!frameCaptureStartEvent) {
+                    throw new Error('missing start event for frame capture');
+                }
+                frameCaptureEndEvent = event;
+            }
+            if (ph === 'I' && frameCaptureStartEvent && !frameCaptureEndEvent && name === 'frame') {
+                frameTimestamps.push(event['ts']);
+                if (frameTimestamps.length >= 2) {
+                    frameTimes.push(frameTimestamps[frameTimestamps.length - 1] -
+                        frameTimestamps[frameTimestamps.length - 2]);
                 }
             }
-            if (lang_1.isPresent(markStartEvent) && lang_1.isBlank(markEndEvent) &&
-                event['pid'] === markStartEvent['pid']) {
-                if (lang_1.StringWrapper.equals(ph, 'b') && lang_1.StringWrapper.equals(name, _MARK_NAME_FRAME_CAPUTRE)) {
-                    if (lang_1.isPresent(frameCaptureStartEvent)) {
-                        throw new Error('can capture frames only once per benchmark run');
-                    }
-                    if (!_this._captureFrames) {
-                        throw new Error('found start event for frame capture, but frame capture was not requested in benchpress');
-                    }
-                    frameCaptureStartEvent = event;
+            if (ph === 'B') {
+                if (!intervalStarts[name]) {
+                    intervalStartCount[name] = 1;
+                    intervalStarts[name] = event;
                 }
-                else if (lang_1.StringWrapper.equals(ph, 'e') && lang_1.StringWrapper.equals(name, _MARK_NAME_FRAME_CAPUTRE)) {
-                    if (lang_1.isBlank(frameCaptureStartEvent)) {
-                        throw new Error('missing start event for frame capture');
-                    }
-                    frameCaptureEndEvent = event;
+                else {
+                    intervalStartCount[name]++;
                 }
-                if (isInstant) {
-                    if (lang_1.isPresent(frameCaptureStartEvent) && lang_1.isBlank(frameCaptureEndEvent) &&
-                        lang_1.StringWrapper.equals(name, 'frame')) {
-                        frameTimestamps.push(event['ts']);
-                        if (frameTimestamps.length >= 2) {
-                            frameTimes.push(frameTimestamps[frameTimestamps.length - 1] -
-                                frameTimestamps[frameTimestamps.length - 2]);
+            }
+            else if ((ph === 'E') && intervalStarts[name]) {
+                intervalStartCount[name]--;
+                if (intervalStartCount[name] === 0) {
+                    var startEvent = intervalStarts[name];
+                    var duration = (event['ts'] - startEvent['ts']);
+                    intervalStarts[name] = null;
+                    if (name === 'gc') {
+                        result['gcTime'] += duration;
+                        var amount = (startEvent['args']['usedHeapSize'] - event['args']['usedHeapSize']) / 1000;
+                        result['gcAmount'] += amount;
+                        var majorGc = event['args']['majorGc'];
+                        if (majorGc && majorGc) {
+                            result['majorGcTime'] += duration;
+                        }
+                        if (intervalStarts['script']) {
+                            gcTimeInScript += duration;
                         }
                     }
-                }
-                if (lang_1.StringWrapper.equals(ph, 'B') || lang_1.StringWrapper.equals(ph, 'b')) {
-                    if (lang_1.isBlank(intervalStarts[name])) {
-                        intervalStartCount[name] = 1;
-                        intervalStarts[name] = event;
+                    else if (name === 'render') {
+                        result['renderTime'] += duration;
+                        if (intervalStarts['script']) {
+                            renderTimeInScript += duration;
+                        }
                     }
-                    else {
-                        intervalStartCount[name]++;
+                    else if (name === 'script') {
+                        result['scriptTime'] += duration;
                     }
-                }
-                else if ((lang_1.StringWrapper.equals(ph, 'E') || lang_1.StringWrapper.equals(ph, 'e')) &&
-                    lang_1.isPresent(intervalStarts[name])) {
-                    intervalStartCount[name]--;
-                    if (intervalStartCount[name] === 0) {
-                        var startEvent = intervalStarts[name];
-                        var duration = (event['ts'] - startEvent['ts']);
-                        intervalStarts[name] = null;
-                        if (lang_1.StringWrapper.equals(name, 'gc')) {
-                            result['gcTime'] += duration;
-                            var amount = (startEvent['args']['usedHeapSize'] - event['args']['usedHeapSize']) / 1000;
-                            result['gcAmount'] += amount;
-                            var majorGc = event['args']['majorGc'];
-                            if (lang_1.isPresent(majorGc) && majorGc) {
-                                result['majorGcTime'] += duration;
-                            }
-                            if (lang_1.isPresent(intervalStarts['script'])) {
-                                gcTimeInScript += duration;
-                            }
-                        }
-                        else if (lang_1.StringWrapper.equals(name, 'render')) {
-                            result['renderTime'] += duration;
-                            if (lang_1.isPresent(intervalStarts['script'])) {
-                                renderTimeInScript += duration;
-                            }
-                        }
-                        else if (lang_1.StringWrapper.equals(name, 'script')) {
-                            result['scriptTime'] += duration;
-                        }
-                        else if (lang_1.isPresent(_this._microMetrics[name])) {
-                            result[name] += duration / microIterations;
-                        }
+                    else if (_this._microMetrics[name]) {
+                        result[name] += duration / microIterations;
                     }
                 }
             }
         });
-        if (!lang_1.isPresent(markStartEvent) || !lang_1.isPresent(markEndEvent)) {
-            // not all events have been received, no further processing for now
-            return null;
-        }
-        if (lang_1.isPresent(markEndEvent) && lang_1.isPresent(frameCaptureStartEvent) &&
-            lang_1.isBlank(frameCaptureEndEvent)) {
+        if (frameCaptureStartEvent && !frameCaptureEndEvent) {
             throw new Error('missing end event for frame capture');
         }
-        if (this._captureFrames && lang_1.isBlank(frameCaptureStartEvent)) {
+        if (this._captureFrames && !frameCaptureStartEvent) {
             throw new Error('frame capture requested in benchpress, but no start event was found');
         }
         if (frameTimes.length > 0) {

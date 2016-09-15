@@ -50,8 +50,7 @@ var WebDriverExtension = (function () {
      * Format:
      * - cat: category of the event
      * - name: event name: 'script', 'gc', 'render', ...
-     * - ph: phase: 'B' (begin), 'E' (end), 'b' (nestable start), 'e' (nestable end), 'X' (Complete
-     *event)
+     * - ph: phase: 'B' (begin), 'E' (end), 'X' (Complete event), 'I' (Instant event)
      * - ts: timestamp in ms, e.g. 12345
      * - pid: process id
      * - args: arguments, e.g. {heapSize: 1234}

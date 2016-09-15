@@ -1,6 +1,7 @@
 export declare type PerfLogEvent = {
-    cat?: string;
-    ph?: 'X' | 'B' | 'E' | 'b' | 'e';
+    [key: string]: any;
+} & {
+    ph?: 'X' | 'B' | 'E' | 'I';
     ts?: number;
     dur?: number;
     name?: string;
@@ -8,7 +9,9 @@ export declare type PerfLogEvent = {
     args?: {
         encodedDataLength?: number;
         usedHeapSize?: number;
-        majorGc?: number;
+        majorGc?: boolean;
+        url?: string;
+        method?: string;
     };
 };
 /**
@@ -25,8 +28,7 @@ export declare abstract class WebDriverExtension {
      * Format:
      * - cat: category of the event
      * - name: event name: 'script', 'gc', 'render', ...
-     * - ph: phase: 'B' (begin), 'E' (end), 'b' (nestable start), 'e' (nestable end), 'X' (Complete
-     *event)
+     * - ph: phase: 'B' (begin), 'E' (end), 'X' (Complete event), 'I' (Instant event)
      * - ts: timestamp in ms, e.g. 12345
      * - pid: process id
      * - args: arguments, e.g. {heapSize: 1234}

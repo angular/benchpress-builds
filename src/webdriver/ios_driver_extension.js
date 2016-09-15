@@ -132,9 +132,9 @@ function createEndEvent(name, time, args) {
     return createEvent('E', name, time, args);
 }
 function createMarkStartEvent(name, time) {
-    return createEvent('b', name, time);
+    return createEvent('B', name, time);
 }
 function createMarkEndEvent(name, time) {
-    return createEvent('e', name, time);
+    return createEvent('E', name, time);
 }
 //# sourceMappingURL=ios_driver_extension.js.map

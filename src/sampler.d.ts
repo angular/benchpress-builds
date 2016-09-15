@@ -1,3 +1,4 @@
+import { MeasureValues } from './measure_values';
 import { Metric } from './metric';
 import { Reporter } from './reporter';
 import { Validator } from './validator';
@@ -25,7 +26,7 @@ export declare class Sampler {
     private _report(state, metricValues);
 }
 export declare class SampleState {
-    completeSample: any[];
-    validSample: any[];
-    constructor(completeSample: any[], validSample: any[]);
+    completeSample: MeasureValues[];
+    validSample: MeasureValues[];
+    constructor(completeSample: MeasureValues[], validSample: MeasureValues[]);
 }
