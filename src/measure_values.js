@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var lang_1 = require('./facade/lang');
 var MeasureValues = (function () {
     function MeasureValues(runIndex, timeStamp, values) {
         this.runIndex = runIndex;
@@ -15,9 +14,9 @@ var MeasureValues = (function () {
     }
     MeasureValues.prototype.toJson = function () {
         return {
-            'timeStamp': lang_1.DateWrapper.toJson(this.timeStamp),
+            'timeStamp': this.timeStamp.toJSON(),
             'runIndex': this.runIndex,
-            'values': this.values
+            'values': this.values,
         };
     };
     return MeasureValues;

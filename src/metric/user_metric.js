@@ -46,9 +46,9 @@ var UserMetric = (function (_super) {
                 if (values.every(lang_1.isNumber)) {
                     Promise.all(names.map(function (name) { return adapter.executeScript("delete window." + name); }))
                         .then(function (_) {
-                        var map = collection_1.StringMapWrapper.create();
+                        var map = {};
                         for (var i = 0, n = names.length; i < n; i++) {
-                            collection_1.StringMapWrapper.set(map, names[i], values[i]);
+                            map[names[i]] = values[i];
                         }
                         resolve(map);
                     }, reject);

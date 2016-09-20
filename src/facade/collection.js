@@ -7,20 +7,18 @@
  */
 "use strict";
 var lang_1 = require('./lang');
-exports.Map = lang_1.global.Map;
-exports.Set = lang_1.global.Set;
 // Safari and Internet Explorer do not support the iterable parameter to the
 // Map constructor.  We work around that by manually adding the items.
 var createMapFromPairs = (function () {
     try {
-        if (new exports.Map([[1, 2]]).size === 1) {
-            return function createMapFromPairs(pairs) { return new exports.Map(pairs); };
+        if (new Map([[1, 2]]).size === 1) {
+            return function createMapFromPairs(pairs) { return new Map(pairs); };
         }
     }
     catch (e) {
     }
     return function createMapAndPopulateFromPairs(pairs) {
-        var map = new exports.Map();
+        var map = new Map();
         for (var i = 0; i < pairs.length; i++) {
             var pair = pairs[i];
             map.set(pair[0], pair[1]);
@@ -30,20 +28,20 @@ var createMapFromPairs = (function () {
 })();
 var createMapFromMap = (function () {
     try {
-        if (new exports.Map(new exports.Map())) {
-            return function createMapFromMap(m) { return new exports.Map(m); };
+        if (new Map(new Map())) {
+            return function createMapFromMap(m) { return new Map(m); };
         }
     }
     catch (e) {
     }
     return function createMapAndPopulateFromMap(m) {
-        var map = new exports.Map();
+        var map = new Map();
         m.forEach(function (v, k) { map.set(k, v); });
         return map;
     };
 })();
 var _clearValues = (function () {
-    if ((new exports.Map()).keys().next) {
+    if ((new Map()).keys().next) {
         return function _clearValues(m) {
             var keyIterator = m.keys();
             var k;
@@ -62,7 +60,7 @@ var _clearValues = (function () {
 // TODO(mlaval): remove the work around once we have a working polyfill of Array.from
 var _arrayFromMap = (function () {
     try {
-        if ((new exports.Map()).values().next) {
+        if ((new Map()).values().next) {
             return function createArrayFromMap(m, getValues) {
                 return getValues ? Array.from(m.values()) : Array.from(m.keys());
             };
@@ -71,7 +69,7 @@ var _arrayFromMap = (function () {
     catch (e) {
     }
     return function createArrayFromMapWithForeach(m, getValues) {
-        var res = ListWrapper.createFixedSize(m.size), i = 0;
+        var res = new Array(m.size), i = 0;
         m.forEach(function (v, k) {
             res[i] = getValues ? v : k;
             i++;
@@ -82,9 +80,8 @@ var _arrayFromMap = (function () {
 var MapWrapper = (function () {
     function MapWrapper() {
     }
-    MapWrapper.clone = function (m) { return createMapFromMap(m); };
     MapWrapper.createFromStringMap = function (stringMap) {
-        var result = new exports.Map();
+        var result = new Map();
         for (var prop in stringMap) {
             result.set(prop, stringMap[prop]);
         }
@@ -96,7 +93,6 @@ var MapWrapper = (function () {
         return r;
     };
     MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
-    MapWrapper.clearValues = function (m) { _clearValues(m); };
     MapWrapper.iterable = function (m) { return m; };
     MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
     MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
@@ -109,15 +105,6 @@ exports.MapWrapper = MapWrapper;
 var StringMapWrapper = (function () {
     function StringMapWrapper() {
     }
-    StringMapWrapper.create = function () {
-        // Note: We are not using Object.create(null) here due to
-        // performance!
-        // http://jsperf.com/ng2-object-create-null
-        return {};
-    };
-    StringMapWrapper.contains = function (map, key) {
-        return map.hasOwnProperty(key);
-    };
     StringMapWrapper.get = function (map, key) {
         return map.hasOwnProperty(key) ? map[key] : undefined;
     };
@@ -132,7 +119,6 @@ var StringMapWrapper = (function () {
         }
         return true;
     };
-    StringMapWrapper.delete = function (map, key) { delete map[key]; };
     StringMapWrapper.forEach = function (map, callback) {
         for (var _i = 0, _a = Object.keys(map); _i < _a.length; _i++) {
             var k = _a[_i];
@@ -303,7 +289,7 @@ function isListLikeIterable(obj) {
     if (!lang_1.isJsObject(obj))
         return false;
     return lang_1.isArray(obj) ||
-        (!(obj instanceof exports.Map) &&
+        (!(obj instanceof Map) &&
             lang_1.getSymbolIterator() in obj); // JS Iterable have a Symbol.iterator prop
 }
 exports.isListLikeIterable = isListLikeIterable;
@@ -340,13 +326,13 @@ exports.iterateListLike = iterateListLike;
 // Safari and Internet Explorer do not support the iterable parameter to the
 // Set constructor.  We work around that by manually adding the items.
 var createSetFromList = (function () {
-    var test = new exports.Set([1, 2, 3]);
+    var test = new Set([1, 2, 3]);
     if (test.size === 3) {
-        return function createSetFromList(lst) { return new exports.Set(lst); };
+        return function createSetFromList(lst) { return new Set(lst); };
     }
     else {
         return function createSetAndPopulateFromList(lst) {
-            var res = new exports.Set(lst);
+            var res = new Set(lst);
             if (res.size !== lst.length) {
                 for (var i = 0; i < lst.length; i++) {
                     res.add(lst[i]);
