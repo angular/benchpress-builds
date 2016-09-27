@@ -28,14 +28,9 @@ exports.scheduleMicroTask = scheduleMicroTask;
 var _global = globalScope;
 exports.global = _global;
 function getTypeNameForDebugging(type) {
-    if (type['name']) {
-        return type['name'];
-    }
-    return typeof type;
+    return type['name'] || typeof type;
 }
 exports.getTypeNameForDebugging = getTypeNameForDebugging;
-exports.Math = _global.Math;
-exports.Date = _global.Date;
 // TODO: remove calls to assert in production environment
 // Note: Can't just export this and import in in other files
 // as `assert` is a reserved keyword in Dart
@@ -84,7 +79,7 @@ function isArray(obj) {
 }
 exports.isArray = isArray;
 function isDate(obj) {
-    return obj instanceof exports.Date && !isNaN(obj.valueOf());
+    return obj instanceof Date && !isNaN(obj.valueOf());
 }
 exports.isDate = isDate;
 function noop() { }
@@ -104,23 +99,9 @@ function stringify(token) {
     }
     var res = token.toString();
     var newLineIndex = res.indexOf('\n');
-    return (newLineIndex === -1) ? res : res.substring(0, newLineIndex);
+    return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
 }
 exports.stringify = stringify;
-// serialize / deserialize enum exist only for consistency with dart API
-// enums in typescript don't need to be serialized
-function serializeEnum(val) {
-    return val;
-}
-exports.serializeEnum = serializeEnum;
-function deserializeEnum(val, values) {
-    return val;
-}
-exports.deserializeEnum = deserializeEnum;
-function resolveEnumToken(enumValue, val) {
-    return enumValue[val];
-}
-exports.resolveEnumToken = resolveEnumToken;
 var StringWrapper = (function () {
     function StringWrapper() {
     }
@@ -304,12 +285,12 @@ var DateWrapper = (function () {
         if (minutes === void 0) { minutes = 0; }
         if (seconds === void 0) { seconds = 0; }
         if (milliseconds === void 0) { milliseconds = 0; }
-        return new exports.Date(year, month - 1, day, hour, minutes, seconds, milliseconds);
+        return new Date(year, month - 1, day, hour, minutes, seconds, milliseconds);
     };
-    DateWrapper.fromISOString = function (str) { return new exports.Date(str); };
-    DateWrapper.fromMillis = function (ms) { return new exports.Date(ms); };
+    DateWrapper.fromISOString = function (str) { return new Date(str); };
+    DateWrapper.fromMillis = function (ms) { return new Date(ms); };
     DateWrapper.toMillis = function (date) { return date.getTime(); };
-    DateWrapper.now = function () { return new exports.Date(); };
+    DateWrapper.now = function () { return new Date(); };
     DateWrapper.toJson = function (date) { return date.toJSON(); };
     return DateWrapper;
 }());
