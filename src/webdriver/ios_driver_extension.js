@@ -55,7 +55,7 @@ var IOsDriverExtension = (function (_super) {
     IOsDriverExtension.prototype._convertPerfRecordsToEvents = function (records, events) {
         var _this = this;
         if (events === void 0) { events = null; }
-        if (lang_1.isBlank(events)) {
+        if (!events) {
             events = [];
         }
         records.forEach(function (record) {

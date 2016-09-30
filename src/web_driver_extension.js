@@ -8,7 +8,6 @@
 "use strict";
 var core_1 = require('@angular/core');
 var common_options_1 = require('./common_options');
-var lang_1 = require('./facade/lang');
 /**
  * A WebDriverExtension implements extended commands of the webdriver protocol
  * for a given browser, independent of the WebDriverAdapter.
@@ -33,7 +32,7 @@ var WebDriverExtension = (function () {
                             delegate = extension;
                         }
                     });
-                    if (lang_1.isBlank(delegate)) {
+                    if (!delegate) {
                         throw new Error('Could not find a delegate for given capabilities!');
                     }
                     return delegate;
