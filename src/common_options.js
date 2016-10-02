@@ -8,7 +8,6 @@
 "use strict";
 var core_1 = require('@angular/core');
 var fs = require('fs');
-var lang_1 = require('./facade/lang');
 var Options = (function () {
     function Options() {
     }
@@ -34,7 +33,7 @@ var Options = (function () {
         { provide: Options.FORCE_GC, useValue: false },
         { provide: Options.PREPARE, useValue: Options.NO_PREPARE },
         { provide: Options.MICRO_METRICS, useValue: {} }, { provide: Options.USER_METRICS, useValue: {} },
-        { provide: Options.NOW, useValue: function () { return lang_1.DateWrapper.now(); } },
+        { provide: Options.NOW, useValue: function () { return new Date(); } },
         { provide: Options.RECEIVED_DATA, useValue: false },
         { provide: Options.REQUEST_COUNT, useValue: false },
         { provide: Options.CAPTURE_FRAMES, useValue: false },

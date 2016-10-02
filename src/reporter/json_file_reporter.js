@@ -41,7 +41,7 @@ var JsonFileReporter = (function (_super) {
             'completeSample': completeSample,
             'validSample': validSample,
         });
-        var filePath = this._path + "/" + this._description.id + "_" + lang_1.DateWrapper.toMillis(this._now()) + ".json";
+        var filePath = this._path + "/" + this._description.id + "_" + this._now().getTime() + ".json";
         return this._writeFile(filePath, content);
     };
     JsonFileReporter.PATH = new core_1.OpaqueToken('JsonFileReporter.path');
