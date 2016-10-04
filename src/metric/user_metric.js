@@ -13,7 +13,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var core_1 = require('@angular/core');
 var common_options_1 = require('../common_options');
-var collection_1 = require('../facade/collection');
 var lang_1 = require('../facade/lang');
 var metric_1 = require('../metric');
 var web_driver_adapter_1 = require('../web_driver_adapter');
@@ -39,7 +38,7 @@ var UserMetric = (function (_super) {
             reject = rej;
         });
         var adapter = this._wdAdapter;
-        var names = collection_1.StringMapWrapper.keys(this._userMetrics);
+        var names = Object.keys(this._userMetrics);
         function getAndClearValues() {
             Promise.all(names.map(function (name) { return adapter.executeScript("return window." + name); }))
                 .then(function (values) {

@@ -7,7 +7,6 @@
  */
 "use strict";
 var common_options_1 = require('./common_options');
-var collection_1 = require('./facade/collection');
 var metric_1 = require('./metric');
 var validator_1 = require('./validator');
 /**
@@ -20,7 +19,7 @@ var SampleDescription = (function () {
         this.metrics = metrics;
         this.description = {};
         descriptions.forEach(function (description) {
-            collection_1.StringMapWrapper.forEach(description, function (value, prop) { return _this.description[prop] = value; });
+            Object.keys(description).forEach(function (prop) { _this.description[prop] = description[prop]; });
         });
     }
     SampleDescription.prototype.toJson = function () { return { 'id': this.id, 'description': this.description, 'metrics': this.metrics }; };

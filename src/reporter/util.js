@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var collection_1 = require('../facade/collection');
 var lang_1 = require('../facade/lang');
 var statistic_1 = require('../statistic');
 function formatNum(n) {
@@ -15,7 +14,7 @@ function formatNum(n) {
 exports.formatNum = formatNum;
 function sortedProps(obj) {
     var props = [];
-    collection_1.StringMapWrapper.forEach(obj, function (value, prop) { return props.push(prop); });
+    props.push.apply(props, Object.keys(obj));
     props.sort();
     return props;
 }
