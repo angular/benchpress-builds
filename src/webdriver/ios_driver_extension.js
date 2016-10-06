@@ -44,7 +44,7 @@ var IOsDriverExtension = (function (_super) {
             var records = [];
             entries.forEach(function (entry) {
                 var message = JSON.parse(entry['message'])['message'];
-                if (message['method'] === 'Timeline.eventRecorded') {
+                if (lang_1.StringWrapper.equals(message['method'], 'Timeline.eventRecorded')) {
                     records.push(message['params']['record']);
                 }
             });
@@ -64,18 +64,21 @@ var IOsDriverExtension = (function (_super) {
             var data = record['data'];
             var startTime = record['startTime'];
             var endTime = record['endTime'];
-            if (type === 'FunctionCall' && (lang_1.isBlank(data) || data['scriptName'] !== 'InjectedScript')) {
+            if (lang_1.StringWrapper.equals(type, 'FunctionCall') &&
+                (lang_1.isBlank(data) || !lang_1.StringWrapper.equals(data['scriptName'], 'InjectedScript'))) {
                 events.push(createStartEvent('script', startTime));
                 endEvent = createEndEvent('script', endTime);
             }
-            else if (type === 'Time') {
+            else if (lang_1.StringWrapper.equals(type, 'Time')) {
                 events.push(createMarkStartEvent(data['message'], startTime));
             }
-            else if (type === 'TimeEnd') {
+            else if (lang_1.StringWrapper.equals(type, 'TimeEnd')) {
                 events.push(createMarkEndEvent(data['message'], startTime));
             }
-            else if (type === 'RecalculateStyles' || type === 'Layout' || type === 'UpdateLayerTree' ||
-                type === 'Paint' || type === 'Rasterize' || type === 'CompositeLayers') {
+            else if (lang_1.StringWrapper.equals(type, 'RecalculateStyles') || lang_1.StringWrapper.equals(type, 'Layout') ||
+                lang_1.StringWrapper.equals(type, 'UpdateLayerTree') || lang_1.StringWrapper.equals(type, 'Paint') ||
+                lang_1.StringWrapper.equals(type, 'Rasterize') ||
+                lang_1.StringWrapper.equals(type, 'CompositeLayers')) {
                 events.push(createStartEvent('render', startTime));
                 endEvent = createEndEvent('render', endTime);
             }
@@ -91,7 +94,7 @@ var IOsDriverExtension = (function (_super) {
     };
     IOsDriverExtension.prototype.perfLogFeatures = function () { return new web_driver_extension_1.PerfLogFeatures({ render: true }); };
     IOsDriverExtension.prototype.supports = function (capabilities) {
-        return capabilities['browserName'].toLowerCase() === 'safari';
+        return lang_1.StringWrapper.equals(capabilities['browserName'].toLowerCase(), 'safari');
     };
     IOsDriverExtension.PROVIDERS = [IOsDriverExtension];
     IOsDriverExtension.decorators = [
