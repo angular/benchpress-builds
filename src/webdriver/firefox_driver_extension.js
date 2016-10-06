@@ -43,7 +43,7 @@ var FirefoxDriverExtension = (function (_super) {
     };
     FirefoxDriverExtension.prototype.perfLogFeatures = function () { return new web_driver_extension_1.PerfLogFeatures({ render: true, gc: true }); };
     FirefoxDriverExtension.prototype.supports = function (capabilities) {
-        return lang_1.StringWrapper.equals(capabilities['browserName'].toLowerCase(), 'firefox');
+        return capabilities['browserName'].toLowerCase() === 'firefox';
     };
     FirefoxDriverExtension.PROVIDERS = [FirefoxDriverExtension];
     FirefoxDriverExtension.decorators = [
