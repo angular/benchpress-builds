@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var math_1 = require('./facade/math');
 var Statistic = (function () {
     function Statistic() {
     }
@@ -22,9 +21,9 @@ var Statistic = (function () {
     Statistic.calculateStandardDeviation = function (samples, mean) {
         var deviation = 0;
         // TODO: use reduce
-        samples.forEach(function (x) { return deviation += math_1.Math.pow(x - mean, 2); });
+        samples.forEach(function (x) { return deviation += Math.pow(x - mean, 2); });
         deviation = deviation / (samples.length);
-        deviation = math_1.Math.sqrt(deviation);
+        deviation = Math.sqrt(deviation);
         return deviation;
     };
     Statistic.calculateRegressionSlope = function (xValues, xMean, yValues, yMean) {
@@ -33,7 +32,7 @@ var Statistic = (function () {
         var divisorSum = 0;
         for (var i = 0; i < xValues.length; i++) {
             dividendSum += (xValues[i] - xMean) * (yValues[i] - yMean);
-            divisorSum += math_1.Math.pow(xValues[i] - xMean, 2);
+            divisorSum += Math.pow(xValues[i] - xMean, 2);
         }
         return dividendSum / divisorSum;
     };

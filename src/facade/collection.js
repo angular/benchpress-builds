@@ -199,7 +199,7 @@ function _flattenArray(source, target) {
     if (lang_1.isPresent(source)) {
         for (var i = 0; i < source.length; i++) {
             var item = source[i];
-            if (lang_1.isArray(item)) {
+            if (Array.isArray(item)) {
                 _flattenArray(item, target);
             }
             else {
@@ -212,7 +212,7 @@ function _flattenArray(source, target) {
 function isListLikeIterable(obj) {
     if (!lang_1.isJsObject(obj))
         return false;
-    return lang_1.isArray(obj) ||
+    return Array.isArray(obj) ||
         (!(obj instanceof Map) &&
             lang_1.getSymbolIterator() in obj); // JS Iterable have a Symbol.iterator prop
 }
@@ -233,14 +233,14 @@ function areIterablesEqual(a, b, comparator) {
 }
 exports.areIterablesEqual = areIterablesEqual;
 function iterateListLike(obj, fn) {
-    if (lang_1.isArray(obj)) {
+    if (Array.isArray(obj)) {
         for (var i = 0; i < obj.length; i++) {
             fn(obj[i]);
         }
     }
     else {
         var iterator = obj[lang_1.getSymbolIterator()]();
-        var item;
+        var item = void 0;
         while (!((item = iterator.next()).done)) {
             fn(item.value);
         }
