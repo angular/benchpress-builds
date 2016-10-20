@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var core_1 = require('@angular/core');
 var common_options_1 = require('../common_options');
+var lang_1 = require('../facade/lang');
 var reporter_1 = require('../reporter');
 var sample_description_1 = require('../sample_description');
 var util_1 = require('./util');
@@ -34,12 +35,12 @@ var JsonFileReporter = (function (_super) {
         util_1.sortedProps(this._description.metrics).forEach(function (metricName) {
             stats[metricName] = util_1.formatStats(validSample, metricName);
         });
-        var content = JSON.stringify({
+        var content = lang_1.Json.stringify({
             'description': this._description,
             'stats': stats,
             'completeSample': completeSample,
             'validSample': validSample,
-        }, null, 2);
+        });
         var filePath = this._path + "/" + this._description.id + "_" + this._now().getTime() + ".json";
         return this._writeFile(filePath, content);
     };
