@@ -45,39 +45,11 @@ function isBlank(obj) {
     return obj === undefined || obj === null;
 }
 exports.isBlank = isBlank;
-function isBoolean(obj) {
-    return typeof obj === 'boolean';
-}
-exports.isBoolean = isBoolean;
-function isNumber(obj) {
-    return typeof obj === 'number';
-}
-exports.isNumber = isNumber;
-function isString(obj) {
-    return typeof obj === 'string';
-}
-exports.isString = isString;
-function isFunction(obj) {
-    return typeof obj === 'function';
-}
-exports.isFunction = isFunction;
-function isType(obj) {
-    return isFunction(obj);
-}
-exports.isType = isType;
-function isStringMap(obj) {
-    return typeof obj === 'object' && obj !== null;
-}
-exports.isStringMap = isStringMap;
 var STRING_MAP_PROTO = Object.getPrototypeOf({});
 function isStrictStringMap(obj) {
-    return isStringMap(obj) && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
+    return typeof obj === 'object' && obj !== null && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
 }
 exports.isStrictStringMap = isStrictStringMap;
-function isArray(obj) {
-    return Array.isArray(obj);
-}
-exports.isArray = isArray;
 function isDate(obj) {
     return obj instanceof Date && !isNaN(obj.valueOf());
 }
@@ -102,21 +74,9 @@ function stringify(token) {
     return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
 }
 exports.stringify = stringify;
-var StringJoiner = (function () {
-    function StringJoiner(parts) {
-        if (parts === void 0) { parts = []; }
-        this.parts = parts;
-    }
-    StringJoiner.prototype.add = function (part) { this.parts.push(part); };
-    StringJoiner.prototype.toString = function () { return this.parts.join(''); };
-    return StringJoiner;
-}());
-exports.StringJoiner = StringJoiner;
 var NumberWrapper = (function () {
     function NumberWrapper() {
     }
-    NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
-    NumberWrapper.equal = function (a, b) { return a === b; };
     NumberWrapper.parseIntAutoRadix = function (text) {
         var result = parseInt(text);
         if (isNaN(result)) {
@@ -143,37 +103,15 @@ var NumberWrapper = (function () {
         }
         throw new Error('Invalid integer literal when parsing ' + text + ' in base ' + radix);
     };
-    Object.defineProperty(NumberWrapper, "NaN", {
-        get: function () { return NaN; },
-        enumerable: true,
-        configurable: true
-    });
     NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
-    NumberWrapper.isNaN = function (value) { return isNaN(value); };
-    NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
     return NumberWrapper;
 }());
 exports.NumberWrapper = NumberWrapper;
-exports.RegExp = _global.RegExp;
-var FunctionWrapper = (function () {
-    function FunctionWrapper() {
-    }
-    FunctionWrapper.apply = function (fn, posArgs) { return fn.apply(null, posArgs); };
-    FunctionWrapper.bind = function (fn, scope) { return fn.bind(scope); };
-    return FunctionWrapper;
-}());
-exports.FunctionWrapper = FunctionWrapper;
 // JS has NaN !== NaN
 function looseIdentical(a, b) {
     return a === b || typeof a === 'number' && typeof b === 'number' && isNaN(a) && isNaN(b);
 }
 exports.looseIdentical = looseIdentical;
-// JS considers NaN is the same as NaN for map Key (while NaN !== NaN otherwise)
-// see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
-function getMapKey(value) {
-    return value;
-}
-exports.getMapKey = getMapKey;
 function normalizeBlank(obj) {
     return isBlank(obj) ? null : obj;
 }
@@ -194,18 +132,6 @@ function warn(obj) {
     console.warn(obj);
 }
 exports.warn = warn;
-// Can't be all uppercase as our transpiler would think it is a special directive...
-var Json = (function () {
-    function Json() {
-    }
-    Json.parse = function (s) { return _global.JSON.parse(s); };
-    Json.stringify = function (data) {
-        // Dart doesn't take 3 arguments
-        return _global.JSON.stringify(data, null, 2);
-    };
-    return Json;
-}());
-exports.Json = Json;
 function setValueOnPath(global, path, value) {
     var parts = path.split('.');
     var obj = global;
@@ -245,29 +171,10 @@ function getSymbolIterator() {
     return _symbolIterator;
 }
 exports.getSymbolIterator = getSymbolIterator;
-function evalExpression(sourceUrl, expr, declarations, vars) {
-    var fnBody = declarations + "\nreturn " + expr + "\n//# sourceURL=" + sourceUrl;
-    var fnArgNames = [];
-    var fnArgValues = [];
-    for (var argName in vars) {
-        fnArgNames.push(argName);
-        fnArgValues.push(vars[argName]);
-    }
-    return new (Function.bind.apply(Function, [void 0].concat(fnArgNames.concat(fnBody))))().apply(void 0, fnArgValues);
-}
-exports.evalExpression = evalExpression;
 function isPrimitive(obj) {
     return !isJsObject(obj);
 }
 exports.isPrimitive = isPrimitive;
-function hasConstructor(value, type) {
-    return value.constructor === type;
-}
-exports.hasConstructor = hasConstructor;
-function escape(s) {
-    return _global.encodeURI(s);
-}
-exports.escape = escape;
 function escapeRegExp(s) {
     return s.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
 }

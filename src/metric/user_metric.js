@@ -13,7 +13,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var core_1 = require('@angular/core');
 var common_options_1 = require('../common_options');
-var lang_1 = require('../facade/lang');
 var metric_1 = require('../metric');
 var web_driver_adapter_1 = require('../web_driver_adapter');
 var UserMetric = (function (_super) {
@@ -42,7 +41,7 @@ var UserMetric = (function (_super) {
         function getAndClearValues() {
             Promise.all(names.map(function (name) { return adapter.executeScript("return window." + name); }))
                 .then(function (values) {
-                if (values.every(lang_1.isNumber)) {
+                if (values.every(function (v) { return typeof v === 'number'; })) {
                     Promise.all(names.map(function (name) { return adapter.executeScript("delete window." + name); }))
                         .then(function (_) {
                         var map = {};

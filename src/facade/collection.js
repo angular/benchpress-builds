@@ -7,55 +7,6 @@
  */
 "use strict";
 var lang_1 = require('./lang');
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
-var createMapFromPairs = (function () {
-    try {
-        if (new Map([[1, 2]]).size === 1) {
-            return function createMapFromPairs(pairs) { return new Map(pairs); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromPairs(pairs) {
-        var map = new Map();
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i];
-            map.set(pair[0], pair[1]);
-        }
-        return map;
-    };
-})();
-var createMapFromMap = (function () {
-    try {
-        if (new Map(new Map())) {
-            return function createMapFromMap(m) { return new Map(m); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromMap(m) {
-        var map = new Map();
-        m.forEach(function (v, k) { map.set(k, v); });
-        return map;
-    };
-})();
-var _clearValues = (function () {
-    if ((new Map()).keys().next) {
-        return function _clearValues(m) {
-            var keyIterator = m.keys();
-            var k;
-            while (!((k = keyIterator.next()).done)) {
-                m.set(k.value, null);
-            }
-        };
-    }
-    else {
-        return function _clearValuesWithForeEach(m) {
-            m.forEach(function (v, k) { m.set(k, null); });
-        };
-    }
-})();
 // Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
 // TODO(mlaval): remove the work around once we have a working polyfill of Array.from
 var _arrayFromMap = (function () {
@@ -87,13 +38,6 @@ var MapWrapper = (function () {
         }
         return result;
     };
-    MapWrapper.toStringMap = function (m) {
-        var r = {};
-        m.forEach(function (v, k) { return r[k] = v; });
-        return r;
-    };
-    MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
-    MapWrapper.iterable = function (m) { return m; };
     MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
     MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
     return MapWrapper;
@@ -255,7 +199,7 @@ function _flattenArray(source, target) {
     if (lang_1.isPresent(source)) {
         for (var i = 0; i < source.length; i++) {
             var item = source[i];
-            if (lang_1.isArray(item)) {
+            if (Array.isArray(item)) {
                 _flattenArray(item, target);
             }
             else {
@@ -268,7 +212,7 @@ function _flattenArray(source, target) {
 function isListLikeIterable(obj) {
     if (!lang_1.isJsObject(obj))
         return false;
-    return lang_1.isArray(obj) ||
+    return Array.isArray(obj) ||
         (!(obj instanceof Map) &&
             lang_1.getSymbolIterator() in obj); // JS Iterable have a Symbol.iterator prop
 }
@@ -289,14 +233,14 @@ function areIterablesEqual(a, b, comparator) {
 }
 exports.areIterablesEqual = areIterablesEqual;
 function iterateListLike(obj, fn) {
-    if (lang_1.isArray(obj)) {
+    if (Array.isArray(obj)) {
         for (var i = 0; i < obj.length; i++) {
             fn(obj[i]);
         }
     }
     else {
         var iterator = obj[lang_1.getSymbolIterator()]();
-        var item;
+        var item = void 0;
         while (!((item = iterator.next()).done)) {
             fn(item.value);
         }
