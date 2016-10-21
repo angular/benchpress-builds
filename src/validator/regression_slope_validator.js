@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var collection_1 = require('../facade/collection');
 var statistic_1 = require('../statistic');
 var validator_1 = require('../validator');
 /**
@@ -31,7 +30,7 @@ var RegressionSlopeValidator = (function (_super) {
     };
     RegressionSlopeValidator.prototype.validate = function (completeSample) {
         if (completeSample.length >= this._sampleSize) {
-            var latestSample = collection_1.ListWrapper.slice(completeSample, completeSample.length - this._sampleSize, completeSample.length);
+            var latestSample = completeSample.slice(completeSample.length - this._sampleSize, completeSample.length);
             var xValues = [];
             var yValues = [];
             for (var i = 0; i < latestSample.length; i++) {

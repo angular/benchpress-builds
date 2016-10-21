@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var collection_1 = require('../facade/collection');
 var validator_1 = require('../validator');
 /**
  * A validator that waits for the sample to have a certain size.
@@ -26,7 +25,7 @@ var SizeValidator = (function (_super) {
     SizeValidator.prototype.describe = function () { return { 'sampleSize': this._sampleSize }; };
     SizeValidator.prototype.validate = function (completeSample) {
         if (completeSample.length >= this._sampleSize) {
-            return collection_1.ListWrapper.slice(completeSample, completeSample.length - this._sampleSize, completeSample.length);
+            return completeSample.slice(completeSample.length - this._sampleSize, completeSample.length);
         }
         else {
             return null;
