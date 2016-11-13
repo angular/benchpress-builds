@@ -150,13 +150,13 @@ var ChromeDriverExtension = (function (_super) {
             return normalizeEvent(event, { 'name': 'render' });
         }
         else if (this._isEvent(categories, name, ['devtools.timeline'], 'ResourceReceivedData')) {
-            var normArgs_1 = { 'encodedDataLength': args['data']['encodedDataLength'] };
-            return normalizeEvent(event, { 'name': 'receivedData', 'args': normArgs_1 });
+            var normArgs = { 'encodedDataLength': args['data']['encodedDataLength'] };
+            return normalizeEvent(event, { 'name': 'receivedData', 'args': normArgs });
         }
         else if (this._isEvent(categories, name, ['devtools.timeline'], 'ResourceSendRequest')) {
             var data = args['data'];
-            var normArgs_2 = { 'url': data['url'], 'method': data['requestMethod'] };
-            return normalizeEvent(event, { 'name': 'sendRequest', 'args': normArgs_2 });
+            var normArgs = { 'url': data['url'], 'method': data['requestMethod'] };
+            return normalizeEvent(event, { 'name': 'sendRequest', 'args': normArgs });
         }
         else if (this._isEvent(categories, name, ['blink.user_timing'], 'navigationStart')) {
             return normalizeEvent(event, { 'name': 'navigationStart' });
