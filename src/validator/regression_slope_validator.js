@@ -56,10 +56,10 @@ var RegressionSlopeValidator = (function (_super) {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    RegressionSlopeValidator.ctorParameters = [
+    RegressionSlopeValidator.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core_1.Inject, args: [RegressionSlopeValidator.SAMPLE_SIZE,] },] },
         { type: undefined, decorators: [{ type: core_1.Inject, args: [RegressionSlopeValidator.METRIC,] },] },
-    ];
+    ]; };
     return RegressionSlopeValidator;
 }(validator_1.Validator));
 exports.RegressionSlopeValidator = RegressionSlopeValidator;

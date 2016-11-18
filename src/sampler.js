@@ -79,7 +79,7 @@ var Sampler = (function () {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    Sampler.ctorParameters = [
+    Sampler.ctorParameters = function () { return [
         { type: web_driver_adapter_1.WebDriverAdapter, },
         { type: metric_1.Metric, },
         { type: reporter_1.Reporter, },
@@ -87,7 +87,7 @@ var Sampler = (function () {
         { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.PREPARE,] },] },
         { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.EXECUTE,] },] },
         { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.NOW,] },] },
-    ];
+    ]; };
     return Sampler;
 }());
 exports.Sampler = Sampler;
