@@ -78,11 +78,11 @@ var ConsoleReporter = (function (_super) {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    ConsoleReporter.ctorParameters = [
+    ConsoleReporter.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core_1.Inject, args: [ConsoleReporter.COLUMN_WIDTH,] },] },
         { type: sample_description_1.SampleDescription, },
         { type: Function, decorators: [{ type: core_1.Inject, args: [ConsoleReporter.PRINT,] },] },
-    ];
+    ]; };
     return ConsoleReporter;
 }(reporter_1.Reporter));
 exports.ConsoleReporter = ConsoleReporter;

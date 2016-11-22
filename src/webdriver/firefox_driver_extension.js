@@ -50,9 +50,9 @@ var FirefoxDriverExtension = (function (_super) {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    FirefoxDriverExtension.ctorParameters = [
+    FirefoxDriverExtension.ctorParameters = function () { return [
         { type: web_driver_adapter_1.WebDriverAdapter, },
-    ];
+    ]; };
     return FirefoxDriverExtension;
 }(web_driver_extension_1.WebDriverExtension));
 exports.FirefoxDriverExtension = FirefoxDriverExtension;

@@ -49,12 +49,12 @@ var JsonFileReporter = (function (_super) {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    JsonFileReporter.ctorParameters = [
+    JsonFileReporter.ctorParameters = function () { return [
         { type: sample_description_1.SampleDescription, },
         { type: undefined, decorators: [{ type: core_1.Inject, args: [JsonFileReporter.PATH,] },] },
         { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.WRITE_FILE,] },] },
         { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.NOW,] },] },
-    ];
+    ]; };
     return JsonFileReporter;
 }(reporter_1.Reporter));
 exports.JsonFileReporter = JsonFileReporter;

@@ -356,7 +356,7 @@ var PerflogMetric = (function (_super) {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    PerflogMetric.ctorParameters = [
+    PerflogMetric.ctorParameters = function () { return [
         { type: web_driver_extension_1.WebDriverExtension, },
         { type: Function, decorators: [{ type: core_1.Inject, args: [PerflogMetric.SET_TIMEOUT,] },] },
         { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.MICRO_METRICS,] },] },
@@ -364,7 +364,7 @@ var PerflogMetric = (function (_super) {
         { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.CAPTURE_FRAMES,] },] },
         { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.RECEIVED_DATA,] },] },
         { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.REQUEST_COUNT,] },] },
-    ];
+    ]; };
     return PerflogMetric;
 }(metric_1.Metric));
 exports.PerflogMetric = PerflogMetric;
