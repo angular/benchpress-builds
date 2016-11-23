@@ -37,9 +37,9 @@ var SizeValidator = (function (_super) {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    SizeValidator.ctorParameters = function () { return [
+    SizeValidator.ctorParameters = [
         { type: undefined, decorators: [{ type: core_1.Inject, args: [SizeValidator.SAMPLE_SIZE,] },] },
-    ]; };
+    ];
     return SizeValidator;
 }(validator_1.Validator));
 exports.SizeValidator = SizeValidator;

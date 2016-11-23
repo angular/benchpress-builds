@@ -98,9 +98,9 @@ var IOsDriverExtension = (function (_super) {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    IOsDriverExtension.ctorParameters = function () { return [
+    IOsDriverExtension.ctorParameters = [
         { type: web_driver_adapter_1.WebDriverAdapter, },
-    ]; };
+    ];
     return IOsDriverExtension;
 }(web_driver_extension_1.WebDriverExtension));
 exports.IOsDriverExtension = IOsDriverExtension;
