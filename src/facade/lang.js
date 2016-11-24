@@ -96,6 +96,7 @@ function isJsObject(o) {
 }
 exports.isJsObject = isJsObject;
 function print(obj) {
+    // tslint:disable-next-line:no-console
     console.log(obj);
 }
 exports.print = print;

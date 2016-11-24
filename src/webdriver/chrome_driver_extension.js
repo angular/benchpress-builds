@@ -180,10 +180,10 @@ var ChromeDriverExtension = (function (_super) {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    ChromeDriverExtension.ctorParameters = [
+    ChromeDriverExtension.ctorParameters = function () { return [
         { type: web_driver_adapter_1.WebDriverAdapter, },
         { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.USER_AGENT,] },] },
-    ];
+    ]; };
     return ChromeDriverExtension;
 }(web_driver_extension_1.WebDriverExtension));
 exports.ChromeDriverExtension = ChromeDriverExtension;
