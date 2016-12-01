@@ -69,10 +69,10 @@ var UserMetric = (function (_super) {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    UserMetric.ctorParameters = [
+    UserMetric.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.USER_METRICS,] },] },
         { type: web_driver_adapter_1.WebDriverAdapter, },
-    ];
+    ]; };
     return UserMetric;
 }(metric_1.Metric));
 exports.UserMetric = UserMetric;
