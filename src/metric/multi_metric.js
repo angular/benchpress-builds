@@ -63,5 +63,5 @@ function mergeStringMaps(maps) {
     maps.forEach(function (map) { Object.keys(map).forEach(function (prop) { result[prop] = map[prop]; }); });
     return result;
 }
-var _CHILDREN = new core_1.OpaqueToken('MultiMetric.children');
+var _CHILDREN = new core_1.InjectionToken('MultiMetric.children');
 //# sourceMappingURL=multi_metric.js.map

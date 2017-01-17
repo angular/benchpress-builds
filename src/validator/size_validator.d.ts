@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { MeasureValues } from '../measure_values';
 import { Validator } from '../validator';
 /**
@@ -13,9 +13,9 @@ import { Validator } from '../validator';
  */
 export declare class SizeValidator extends Validator {
     private _sampleSize;
-    static SAMPLE_SIZE: OpaqueToken;
+    static SAMPLE_SIZE: InjectionToken<{}>;
     static PROVIDERS: (typeof SizeValidator | {
-        provide: OpaqueToken;
+        provide: InjectionToken<{}>;
         useValue: number;
     })[];
     constructor(_sampleSize: number);

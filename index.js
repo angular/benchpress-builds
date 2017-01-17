@@ -9,8 +9,8 @@
 // Must be imported first, because angular2 decorators throws on load.
 require('reflect-metadata');
 var core_1 = require('@angular/core');
+exports.InjectionToken = core_1.InjectionToken;
 exports.Injector = core_1.Injector;
-exports.OpaqueToken = core_1.OpaqueToken;
 exports.ReflectiveInjector = core_1.ReflectiveInjector;
 var common_options_1 = require('./src/common_options');
 exports.Options = common_options_1.Options;

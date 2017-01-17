@@ -31,7 +31,7 @@ var SizeValidator = (function (_super) {
             return null;
         }
     };
-    SizeValidator.SAMPLE_SIZE = new core_1.OpaqueToken('SizeValidator.sampleSize');
+    SizeValidator.SAMPLE_SIZE = new core_1.InjectionToken('SizeValidator.sampleSize');
     SizeValidator.PROVIDERS = [SizeValidator, { provide: SizeValidator.SAMPLE_SIZE, useValue: 10 }];
     SizeValidator.decorators = [
         { type: core_1.Injectable },

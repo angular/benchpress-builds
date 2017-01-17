@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { MeasureValues } from '../measure_values';
 import { Validator } from '../validator';
 /**
@@ -15,13 +15,13 @@ import { Validator } from '../validator';
 export declare class RegressionSlopeValidator extends Validator {
     private _sampleSize;
     private _metric;
-    static SAMPLE_SIZE: OpaqueToken;
-    static METRIC: OpaqueToken;
+    static SAMPLE_SIZE: InjectionToken<{}>;
+    static METRIC: InjectionToken<{}>;
     static PROVIDERS: (typeof RegressionSlopeValidator | {
-        provide: OpaqueToken;
+        provide: InjectionToken<{}>;
         useValue: number;
     } | {
-        provide: OpaqueToken;
+        provide: InjectionToken<{}>;
         useValue: string;
     })[];
     constructor(_sampleSize: number, _metric: string);

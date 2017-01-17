@@ -6,7 +6,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { MeasureValues } from '../measure_values';
 import { Reporter } from '../reporter';
 import { SampleDescription } from '../sample_description';
@@ -16,13 +16,13 @@ import { SampleDescription } from '../sample_description';
 export declare class ConsoleReporter extends Reporter {
     private _columnWidth;
     private _print;
-    static PRINT: OpaqueToken;
-    static COLUMN_WIDTH: OpaqueToken;
+    static PRINT: InjectionToken<{}>;
+    static COLUMN_WIDTH: InjectionToken<{}>;
     static PROVIDERS: (typeof ConsoleReporter | {
-        provide: OpaqueToken;
+        provide: InjectionToken<{}>;
         useValue: number;
     } | {
-        provide: OpaqueToken;
+        provide: InjectionToken<{}>;
         useValue: (obj: Object | Error) => void;
     })[];
     private static _lpad(value, columnWidth, fill?);

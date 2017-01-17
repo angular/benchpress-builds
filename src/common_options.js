@@ -11,22 +11,22 @@ var fs = require('fs');
 var Options = (function () {
     function Options() {
     }
-    Options.SAMPLE_ID = new core_1.OpaqueToken('Options.sampleId');
-    Options.DEFAULT_DESCRIPTION = new core_1.OpaqueToken('Options.defaultDescription');
-    Options.SAMPLE_DESCRIPTION = new core_1.OpaqueToken('Options.sampleDescription');
-    Options.FORCE_GC = new core_1.OpaqueToken('Options.forceGc');
+    Options.SAMPLE_ID = new core_1.InjectionToken('Options.sampleId');
+    Options.DEFAULT_DESCRIPTION = new core_1.InjectionToken('Options.defaultDescription');
+    Options.SAMPLE_DESCRIPTION = new core_1.InjectionToken('Options.sampleDescription');
+    Options.FORCE_GC = new core_1.InjectionToken('Options.forceGc');
     Options.NO_PREPARE = function () { return true; };
-    Options.PREPARE = new core_1.OpaqueToken('Options.prepare');
-    Options.EXECUTE = new core_1.OpaqueToken('Options.execute');
-    Options.CAPABILITIES = new core_1.OpaqueToken('Options.capabilities');
-    Options.USER_AGENT = new core_1.OpaqueToken('Options.userAgent');
-    Options.MICRO_METRICS = new core_1.OpaqueToken('Options.microMetrics');
-    Options.USER_METRICS = new core_1.OpaqueToken('Options.userMetrics');
-    Options.NOW = new core_1.OpaqueToken('Options.now');
-    Options.WRITE_FILE = new core_1.OpaqueToken('Options.writeFile');
-    Options.RECEIVED_DATA = new core_1.OpaqueToken('Options.receivedData');
-    Options.REQUEST_COUNT = new core_1.OpaqueToken('Options.requestCount');
-    Options.CAPTURE_FRAMES = new core_1.OpaqueToken('Options.frameCapture');
+    Options.PREPARE = new core_1.InjectionToken('Options.prepare');
+    Options.EXECUTE = new core_1.InjectionToken('Options.execute');
+    Options.CAPABILITIES = new core_1.InjectionToken('Options.capabilities');
+    Options.USER_AGENT = new core_1.InjectionToken('Options.userAgent');
+    Options.MICRO_METRICS = new core_1.InjectionToken('Options.microMetrics');
+    Options.USER_METRICS = new core_1.InjectionToken('Options.userMetrics');
+    Options.NOW = new core_1.InjectionToken('Options.now');
+    Options.WRITE_FILE = new core_1.InjectionToken('Options.writeFile');
+    Options.RECEIVED_DATA = new core_1.InjectionToken('Options.receivedData');
+    Options.REQUEST_COUNT = new core_1.InjectionToken('Options.requestCount');
+    Options.CAPTURE_FRAMES = new core_1.InjectionToken('Options.frameCapture');
     Options.DEFAULT_PROVIDERS = [
         { provide: Options.DEFAULT_DESCRIPTION, useValue: {} },
         { provide: Options.SAMPLE_DESCRIPTION, useValue: {} },

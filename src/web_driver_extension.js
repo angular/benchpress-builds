@@ -74,5 +74,5 @@ var PerfLogFeatures = (function () {
     return PerfLogFeatures;
 }());
 exports.PerfLogFeatures = PerfLogFeatures;
-var _CHILDREN = new core_1.OpaqueToken('WebDriverExtension.children');
+var _CHILDREN = new core_1.InjectionToken('WebDriverExtension.children');
 //# sourceMappingURL=web_driver_extension.js.map

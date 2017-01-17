@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { Metric } from '../metric';
 import { WebDriverExtension } from '../web_driver_extension';
 /**
@@ -19,9 +19,9 @@ export declare class PerflogMetric extends Metric {
     private _captureFrames;
     private _receivedData;
     private _requestCount;
-    static SET_TIMEOUT: OpaqueToken;
+    static SET_TIMEOUT: InjectionToken<{}>;
     static PROVIDERS: (typeof PerflogMetric | {
-        provide: OpaqueToken;
+        provide: InjectionToken<{}>;
         useValue: (fn: Function, millis: number) => any;
     })[];
     private _remainingEvents;

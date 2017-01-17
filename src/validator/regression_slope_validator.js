@@ -46,8 +46,8 @@ var RegressionSlopeValidator = (function (_super) {
             return null;
         }
     };
-    RegressionSlopeValidator.SAMPLE_SIZE = new core_1.OpaqueToken('RegressionSlopeValidator.sampleSize');
-    RegressionSlopeValidator.METRIC = new core_1.OpaqueToken('RegressionSlopeValidator.metric');
+    RegressionSlopeValidator.SAMPLE_SIZE = new core_1.InjectionToken('RegressionSlopeValidator.sampleSize');
+    RegressionSlopeValidator.METRIC = new core_1.InjectionToken('RegressionSlopeValidator.metric');
     RegressionSlopeValidator.PROVIDERS = [
         RegressionSlopeValidator, { provide: RegressionSlopeValidator.SAMPLE_SIZE, useValue: 10 },
         { provide: RegressionSlopeValidator.METRIC, useValue: 'scriptTime' }

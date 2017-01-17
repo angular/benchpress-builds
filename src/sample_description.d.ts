@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { Metric } from './metric';
 import { Validator } from './validator';
 /**
@@ -23,7 +23,7 @@ export declare class SampleDescription {
         }, userDesc: {
             [key: string]: string;
         }) => SampleDescription;
-        deps: (OpaqueToken | typeof Metric | typeof Validator)[];
+        deps: (InjectionToken<{}> | typeof Metric | typeof Validator)[];
     }[];
     description: {
         [key: string]: any;

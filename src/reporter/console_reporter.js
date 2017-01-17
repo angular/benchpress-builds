@@ -68,8 +68,8 @@ var ConsoleReporter = (function (_super) {
         if (fill === void 0) { fill = ' '; }
         this._print(parts.map(function (part) { return ConsoleReporter._lpad(part, _this._columnWidth, fill); }).join(' | '));
     };
-    ConsoleReporter.PRINT = new core_1.OpaqueToken('ConsoleReporter.print');
-    ConsoleReporter.COLUMN_WIDTH = new core_1.OpaqueToken('ConsoleReporter.columnWidth');
+    ConsoleReporter.PRINT = new core_1.InjectionToken('ConsoleReporter.print');
+    ConsoleReporter.COLUMN_WIDTH = new core_1.InjectionToken('ConsoleReporter.columnWidth');
     ConsoleReporter.PROVIDERS = [
         ConsoleReporter, { provide: ConsoleReporter.COLUMN_WIDTH, useValue: 18 },
         { provide: ConsoleReporter.PRINT, useValue: lang_1.print }

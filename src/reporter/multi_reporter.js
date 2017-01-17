@@ -42,5 +42,5 @@ var MultiReporter = (function (_super) {
     return MultiReporter;
 }(reporter_1.Reporter));
 exports.MultiReporter = MultiReporter;
-var _CHILDREN = new core_1.OpaqueToken('MultiReporter.children');
+var _CHILDREN = new core_1.InjectionToken('MultiReporter.children');
 //# sourceMappingURL=multi_reporter.js.map

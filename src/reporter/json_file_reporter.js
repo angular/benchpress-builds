@@ -43,7 +43,7 @@ var JsonFileReporter = (function (_super) {
         var filePath = this._path + "/" + this._description.id + "_" + this._now().getTime() + ".json";
         return this._writeFile(filePath, content);
     };
-    JsonFileReporter.PATH = new core_1.OpaqueToken('JsonFileReporter.path');
+    JsonFileReporter.PATH = new core_1.InjectionToken('JsonFileReporter.path');
     JsonFileReporter.PROVIDERS = [JsonFileReporter, { provide: JsonFileReporter.PATH, useValue: '.' }];
     JsonFileReporter.decorators = [
         { type: core_1.Injectable },

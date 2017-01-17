@@ -5,26 +5,26 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 export declare class Options {
-    static SAMPLE_ID: OpaqueToken;
-    static DEFAULT_DESCRIPTION: OpaqueToken;
-    static SAMPLE_DESCRIPTION: OpaqueToken;
-    static FORCE_GC: OpaqueToken;
+    static SAMPLE_ID: InjectionToken<{}>;
+    static DEFAULT_DESCRIPTION: InjectionToken<{}>;
+    static SAMPLE_DESCRIPTION: InjectionToken<{}>;
+    static FORCE_GC: InjectionToken<{}>;
     static NO_PREPARE: () => boolean;
-    static PREPARE: OpaqueToken;
-    static EXECUTE: OpaqueToken;
-    static CAPABILITIES: OpaqueToken;
-    static USER_AGENT: OpaqueToken;
-    static MICRO_METRICS: OpaqueToken;
-    static USER_METRICS: OpaqueToken;
-    static NOW: OpaqueToken;
-    static WRITE_FILE: OpaqueToken;
-    static RECEIVED_DATA: OpaqueToken;
-    static REQUEST_COUNT: OpaqueToken;
-    static CAPTURE_FRAMES: OpaqueToken;
+    static PREPARE: InjectionToken<{}>;
+    static EXECUTE: InjectionToken<{}>;
+    static CAPABILITIES: InjectionToken<{}>;
+    static USER_AGENT: InjectionToken<{}>;
+    static MICRO_METRICS: InjectionToken<{}>;
+    static USER_METRICS: InjectionToken<{}>;
+    static NOW: InjectionToken<{}>;
+    static WRITE_FILE: InjectionToken<{}>;
+    static RECEIVED_DATA: InjectionToken<{}>;
+    static REQUEST_COUNT: InjectionToken<{}>;
+    static CAPTURE_FRAMES: InjectionToken<{}>;
     static DEFAULT_PROVIDERS: {
-        provide: OpaqueToken;
+        provide: InjectionToken<{}>;
         useValue: {};
     }[];
 }

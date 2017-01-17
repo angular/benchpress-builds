@@ -345,7 +345,7 @@ var PerflogMetric = (function (_super) {
             frameTimes.filter(function (t) { return t < _FRAME_TIME_SMOOTH_THRESHOLD; }).length / frameTimes.length;
     };
     PerflogMetric.prototype._markName = function (index) { return "" + _MARK_NAME_PREFIX + index; };
-    PerflogMetric.SET_TIMEOUT = new core_1.OpaqueToken('PerflogMetric.setTimeout');
+    PerflogMetric.SET_TIMEOUT = new core_1.InjectionToken('PerflogMetric.setTimeout');
     PerflogMetric.PROVIDERS = [
         PerflogMetric, {
             provide: PerflogMetric.SET_TIMEOUT,
