@@ -11,16 +11,19 @@
  * A valid sample is a sample that represents the population that should be observed
  * in the correct way.
  */
-class Validator {
+var Validator = (function () {
+    function Validator() {
+    }
     /**
      * Calculates a valid sample out of the complete sample
      */
-    validate(completeSample) { throw new Error('NYI'); }
+    Validator.prototype.validate = function (completeSample) { throw new Error('NYI'); };
     /**
      * Returns a Map that describes the properties of the validator
      * (e.g. sample size, ...)
      */
-    describe() { throw new Error('NYI'); }
-}
+    Validator.prototype.describe = function () { throw new Error('NYI'); };
+    return Validator;
+}());
 exports.Validator = Validator;
 //# sourceMappingURL=validator.js.map

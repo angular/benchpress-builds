@@ -9,11 +9,14 @@
 /**
  * A reporter reports measure values and the valid sample.
  */
-class Reporter {
-    reportMeasureValues(values) { throw new Error('NYI'); }
-    reportSample(completeSample, validSample) {
-        throw new Error('NYI');
+var Reporter = (function () {
+    function Reporter() {
     }
-}
+    Reporter.prototype.reportMeasureValues = function (values) { throw new Error('NYI'); };
+    Reporter.prototype.reportSample = function (completeSample, validSample) {
+        throw new Error('NYI');
+    };
+    return Reporter;
+}());
 exports.Reporter = Reporter;
 //# sourceMappingURL=reporter.js.map

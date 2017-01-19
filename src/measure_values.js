@@ -6,19 +6,20 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-class MeasureValues {
-    constructor(runIndex, timeStamp, values) {
+var MeasureValues = (function () {
+    function MeasureValues(runIndex, timeStamp, values) {
         this.runIndex = runIndex;
         this.timeStamp = timeStamp;
         this.values = values;
     }
-    toJson() {
+    MeasureValues.prototype.toJson = function () {
         return {
             'timeStamp': this.timeStamp.toJSON(),
             'runIndex': this.runIndex,
             'values': this.values,
         };
-    }
-}
+    };
+    return MeasureValues;
+}());
 exports.MeasureValues = MeasureValues;
 //# sourceMappingURL=measure_values.js.map

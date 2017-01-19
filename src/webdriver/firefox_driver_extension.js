@@ -6,46 +6,54 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const lang_1 = require('../facade/lang');
-const web_driver_adapter_1 = require('../web_driver_adapter');
-const web_driver_extension_1 = require('../web_driver_extension');
-class FirefoxDriverExtension extends web_driver_extension_1.WebDriverExtension {
-    constructor(_driver) {
-        super();
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var core_1 = require('@angular/core');
+var lang_1 = require('../facade/lang');
+var web_driver_adapter_1 = require('../web_driver_adapter');
+var web_driver_extension_1 = require('../web_driver_extension');
+var FirefoxDriverExtension = (function (_super) {
+    __extends(FirefoxDriverExtension, _super);
+    function FirefoxDriverExtension(_driver) {
+        _super.call(this);
         this._driver = _driver;
         this._profilerStarted = false;
     }
-    gc() { return this._driver.executeScript('window.forceGC()'); }
-    timeBegin(name) {
+    FirefoxDriverExtension.prototype.gc = function () { return this._driver.executeScript('window.forceGC()'); };
+    FirefoxDriverExtension.prototype.timeBegin = function (name) {
         if (!this._profilerStarted) {
             this._profilerStarted = true;
             this._driver.executeScript('window.startProfiler();');
         }
         return this._driver.executeScript('window.markStart("' + name + '");');
-    }
-    timeEnd(name, restartName = null) {
-        let script = 'window.markEnd("' + name + '");';
+    };
+    FirefoxDriverExtension.prototype.timeEnd = function (name, restartName) {
+        if (restartName === void 0) { restartName = null; }
+        var script = 'window.markEnd("' + name + '");';
         if (lang_1.isPresent(restartName)) {
             script += 'window.markStart("' + restartName + '");';
         }
         return this._driver.executeScript(script);
-    }
-    readPerfLog() {
+    };
+    FirefoxDriverExtension.prototype.readPerfLog = function () {
         return this._driver.executeAsyncScript('var cb = arguments[0]; window.getProfile(cb);');
-    }
-    perfLogFeatures() { return new web_driver_extension_1.PerfLogFeatures({ render: true, gc: true }); }
-    supports(capabilities) {
+    };
+    FirefoxDriverExtension.prototype.perfLogFeatures = function () { return new web_driver_extension_1.PerfLogFeatures({ render: true, gc: true }); };
+    FirefoxDriverExtension.prototype.supports = function (capabilities) {
         return capabilities['browserName'].toLowerCase() === 'firefox';
-    }
-}
-FirefoxDriverExtension.PROVIDERS = [FirefoxDriverExtension];
-FirefoxDriverExtension.decorators = [
-    { type: core_1.Injectable },
-];
-/** @nocollapse */
-FirefoxDriverExtension.ctorParameters = () => [
-    { type: web_driver_adapter_1.WebDriverAdapter, },
-];
+    };
+    FirefoxDriverExtension.PROVIDERS = [FirefoxDriverExtension];
+    FirefoxDriverExtension.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    FirefoxDriverExtension.ctorParameters = function () { return [
+        { type: web_driver_adapter_1.WebDriverAdapter, },
+    ]; };
+    return FirefoxDriverExtension;
+}(web_driver_extension_1.WebDriverExtension));
 exports.FirefoxDriverExtension = FirefoxDriverExtension;
 //# sourceMappingURL=firefox_driver_extension.js.map

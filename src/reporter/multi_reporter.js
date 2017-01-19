@@ -6,34 +6,41 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const reporter_1 = require('../reporter');
-class MultiReporter extends reporter_1.Reporter {
-    constructor(_reporters) {
-        super();
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var core_1 = require('@angular/core');
+var reporter_1 = require('../reporter');
+var MultiReporter = (function (_super) {
+    __extends(MultiReporter, _super);
+    function MultiReporter(_reporters) {
+        _super.call(this);
         this._reporters = _reporters;
     }
-    static provideWith(childTokens) {
+    MultiReporter.provideWith = function (childTokens) {
         return [
             {
                 provide: _CHILDREN,
-                useFactory: (injector) => childTokens.map(token => injector.get(token)),
+                useFactory: function (injector) { return childTokens.map(function (token) { return injector.get(token); }); },
                 deps: [core_1.Injector],
             },
             {
                 provide: MultiReporter,
-                useFactory: (children) => new MultiReporter(children),
+                useFactory: function (children) { return new MultiReporter(children); },
                 deps: [_CHILDREN]
             }
         ];
-    }
-    reportMeasureValues(values) {
-        return Promise.all(this._reporters.map(reporter => reporter.reportMeasureValues(values)));
-    }
-    reportSample(completeSample, validSample) {
-        return Promise.all(this._reporters.map(reporter => reporter.reportSample(completeSample, validSample)));
-    }
-}
+    };
+    MultiReporter.prototype.reportMeasureValues = function (values) {
+        return Promise.all(this._reporters.map(function (reporter) { return reporter.reportMeasureValues(values); }));
+    };
+    MultiReporter.prototype.reportSample = function (completeSample, validSample) {
+        return Promise.all(this._reporters.map(function (reporter) { return reporter.reportSample(completeSample, validSample); }));
+    };
+    return MultiReporter;
+}(reporter_1.Reporter));
 exports.MultiReporter = MultiReporter;
-const _CHILDREN = new core_1.InjectionToken('MultiReporter.children');
+var _CHILDREN = new core_1.InjectionToken('MultiReporter.children');
 //# sourceMappingURL=multi_reporter.js.map

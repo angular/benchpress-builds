@@ -6,34 +6,37 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-class Statistic {
-    static calculateCoefficientOfVariation(sample, mean) {
+var Statistic = (function () {
+    function Statistic() {
+    }
+    Statistic.calculateCoefficientOfVariation = function (sample, mean) {
         return Statistic.calculateStandardDeviation(sample, mean) / mean * 100;
-    }
-    static calculateMean(samples) {
-        let total = 0;
+    };
+    Statistic.calculateMean = function (samples) {
+        var total = 0;
         // TODO: use reduce
-        samples.forEach(x => total += x);
+        samples.forEach(function (x) { return total += x; });
         return total / samples.length;
-    }
-    static calculateStandardDeviation(samples, mean) {
-        let deviation = 0;
+    };
+    Statistic.calculateStandardDeviation = function (samples, mean) {
+        var deviation = 0;
         // TODO: use reduce
-        samples.forEach(x => deviation += Math.pow(x - mean, 2));
+        samples.forEach(function (x) { return deviation += Math.pow(x - mean, 2); });
         deviation = deviation / (samples.length);
         deviation = Math.sqrt(deviation);
         return deviation;
-    }
-    static calculateRegressionSlope(xValues, xMean, yValues, yMean) {
+    };
+    Statistic.calculateRegressionSlope = function (xValues, xMean, yValues, yMean) {
         // See http://en.wikipedia.org/wiki/Simple_linear_regression
-        let dividendSum = 0;
-        let divisorSum = 0;
-        for (let i = 0; i < xValues.length; i++) {
+        var dividendSum = 0;
+        var divisorSum = 0;
+        for (var i = 0; i < xValues.length; i++) {
             dividendSum += (xValues[i] - xMean) * (yValues[i] - yMean);
             divisorSum += Math.pow(xValues[i] - xMean, 2);
         }
         return dividendSum / divisorSum;
-    }
-}
+    };
+    return Statistic;
+}());
 exports.Statistic = Statistic;
 //# sourceMappingURL=statistic.js.map

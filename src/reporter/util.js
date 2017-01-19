@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const statistic_1 = require('../statistic');
+var statistic_1 = require('../statistic');
 function formatNum(n) {
     return n.toFixed(2);
 }
@@ -16,13 +16,13 @@ function sortedProps(obj) {
 }
 exports.sortedProps = sortedProps;
 function formatStats(validSamples, metricName) {
-    const samples = validSamples.map(measureValues => measureValues.values[metricName]);
-    const mean = statistic_1.Statistic.calculateMean(samples);
-    const cv = statistic_1.Statistic.calculateCoefficientOfVariation(samples, mean);
-    const formattedMean = formatNum(mean);
+    var samples = validSamples.map(function (measureValues) { return measureValues.values[metricName]; });
+    var mean = statistic_1.Statistic.calculateMean(samples);
+    var cv = statistic_1.Statistic.calculateCoefficientOfVariation(samples, mean);
+    var formattedMean = formatNum(mean);
     // Note: Don't use the unicode character for +- as it might cause
     // hickups for consoles...
-    return isNaN(cv) ? formattedMean : `${formattedMean}+-${Math.floor(cv)}%`;
+    return isNaN(cv) ? formattedMean : formattedMean + "+-" + Math.floor(cv) + "%";
 }
 exports.formatStats = formatStats;
 //# sourceMappingURL=util.js.map
