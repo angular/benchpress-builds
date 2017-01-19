@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var globalScope;
+let globalScope;
 if (typeof window === 'undefined') {
     if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
         // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
@@ -25,7 +25,7 @@ function scheduleMicroTask(fn) {
 exports.scheduleMicroTask = scheduleMicroTask;
 // Need to declare a new variable for global here since TypeScript
 // exports the original value of the symbol.
-var _global = globalScope;
+const _global = globalScope;
 exports.global = _global;
 function getTypeNameForDebugging(type) {
     return type['name'] || typeof type;
@@ -45,7 +45,7 @@ function isBlank(obj) {
     return obj == null;
 }
 exports.isBlank = isBlank;
-var STRING_MAP_PROTO = Object.getPrototypeOf({});
+const STRING_MAP_PROTO = Object.getPrototypeOf({});
 function isStrictStringMap(obj) {
     return typeof obj === 'object' && obj !== null && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
 }
@@ -62,29 +62,26 @@ function stringify(token) {
         return '' + token;
     }
     if (token.overriddenName) {
-        return "" + token.overriddenName;
+        return `${token.overriddenName}`;
     }
     if (token.name) {
-        return "" + token.name;
+        return `${token.name}`;
     }
-    var res = token.toString();
-    var newLineIndex = res.indexOf('\n');
+    const res = token.toString();
+    const newLineIndex = res.indexOf('\n');
     return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
 }
 exports.stringify = stringify;
-var NumberWrapper = (function () {
-    function NumberWrapper() {
-    }
-    NumberWrapper.parseIntAutoRadix = function (text) {
-        var result = parseInt(text);
+class NumberWrapper {
+    static parseIntAutoRadix(text) {
+        const result = parseInt(text);
         if (isNaN(result)) {
             throw new Error('Invalid integer literal when parsing ' + text);
         }
         return result;
-    };
-    NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
-    return NumberWrapper;
-}());
+    }
+    static isNumeric(value) { return !isNaN(value - parseFloat(value)); }
+}
 exports.NumberWrapper = NumberWrapper;
 // JS has NaN !== NaN
 function looseIdentical(a, b) {
@@ -105,15 +102,15 @@ function warn(obj) {
 }
 exports.warn = warn;
 function setValueOnPath(global, path, value) {
-    var parts = path.split('.');
-    var obj = global;
+    const parts = path.split('.');
+    let obj = global;
     while (parts.length > 1) {
-        var name_1 = parts.shift();
-        if (obj.hasOwnProperty(name_1) && obj[name_1] != null) {
-            obj = obj[name_1];
+        const name = parts.shift();
+        if (obj.hasOwnProperty(name) && obj[name] != null) {
+            obj = obj[name];
         }
         else {
-            obj = obj[name_1] = {};
+            obj = obj[name] = {};
         }
     }
     if (obj === undefined || obj === null) {
@@ -122,7 +119,7 @@ function setValueOnPath(global, path, value) {
     obj[parts.shift()] = value;
 }
 exports.setValueOnPath = setValueOnPath;
-var _symbolIterator = null;
+let _symbolIterator = null;
 function getSymbolIterator() {
     if (!_symbolIterator) {
         if (globalScope.Symbol && Symbol.iterator) {
@@ -130,9 +127,9 @@ function getSymbolIterator() {
         }
         else {
             // es6-shim specific logic
-            var keys = Object.getOwnPropertyNames(Map.prototype);
-            for (var i = 0; i < keys.length; ++i) {
-                var key = keys[i];
+            const keys = Object.getOwnPropertyNames(Map.prototype);
+            for (let i = 0; i < keys.length; ++i) {
+                const key = keys[i];
                 if (key !== 'entries' && key !== 'size' &&
                     Map.prototype[key] === Map.prototype['entries']) {
                     _symbolIterator = key;

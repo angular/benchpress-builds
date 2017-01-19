@@ -6,28 +6,26 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var core_1 = require('@angular/core');
-var common_options_1 = require('./common_options');
+const core_1 = require('@angular/core');
+const common_options_1 = require('./common_options');
 /**
  * A WebDriverExtension implements extended commands of the webdriver protocol
  * for a given browser, independent of the WebDriverAdapter.
  * Needs one implementation for every supported Browser.
  */
-var WebDriverExtension = (function () {
-    function WebDriverExtension() {
-    }
-    WebDriverExtension.provideFirstSupported = function (childTokens) {
-        var res = [
+class WebDriverExtension {
+    static provideFirstSupported(childTokens) {
+        const res = [
             {
                 provide: _CHILDREN,
-                useFactory: function (injector) { return childTokens.map(function (token) { return injector.get(token); }); },
+                useFactory: (injector) => childTokens.map(token => injector.get(token)),
                 deps: [core_1.Injector]
             },
             {
                 provide: WebDriverExtension,
-                useFactory: function (children, capabilities) {
-                    var delegate;
-                    children.forEach(function (extension) {
+                useFactory: (children, capabilities) => {
+                    let delegate;
+                    children.forEach(extension => {
                         if (extension.supports(capabilities)) {
                             delegate = extension;
                         }
@@ -41,10 +39,10 @@ var WebDriverExtension = (function () {
             }
         ];
         return res;
-    };
-    WebDriverExtension.prototype.gc = function () { throw new Error('NYI'); };
-    WebDriverExtension.prototype.timeBegin = function (name) { throw new Error('NYI'); };
-    WebDriverExtension.prototype.timeEnd = function (name, restartName) { throw new Error('NYI'); };
+    }
+    gc() { throw new Error('NYI'); }
+    timeBegin(name) { throw new Error('NYI'); }
+    timeEnd(name, restartName) { throw new Error('NYI'); }
     /**
      * Format:
      * - cat: category of the event
@@ -57,22 +55,19 @@ var WebDriverExtension = (function () {
      * Based on [Chrome Trace Event
      *Format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit)
      **/
-    WebDriverExtension.prototype.readPerfLog = function () { throw new Error('NYI'); };
-    WebDriverExtension.prototype.perfLogFeatures = function () { throw new Error('NYI'); };
-    WebDriverExtension.prototype.supports = function (capabilities) { return true; };
-    return WebDriverExtension;
-}());
+    readPerfLog() { throw new Error('NYI'); }
+    perfLogFeatures() { throw new Error('NYI'); }
+    supports(capabilities) { return true; }
+}
 exports.WebDriverExtension = WebDriverExtension;
-var PerfLogFeatures = (function () {
-    function PerfLogFeatures(_a) {
-        var _b = _a === void 0 ? {} : _a, _c = _b.render, render = _c === void 0 ? false : _c, _d = _b.gc, gc = _d === void 0 ? false : _d, _e = _b.frameCapture, frameCapture = _e === void 0 ? false : _e, _f = _b.userTiming, userTiming = _f === void 0 ? false : _f;
+class PerfLogFeatures {
+    constructor({ render = false, gc = false, frameCapture = false, userTiming = false } = {}) {
         this.render = render;
         this.gc = gc;
         this.frameCapture = frameCapture;
         this.userTiming = userTiming;
     }
-    return PerfLogFeatures;
-}());
+}
 exports.PerfLogFeatures = PerfLogFeatures;
-var _CHILDREN = new core_1.InjectionToken('WebDriverExtension.children');
+const _CHILDREN = new core_1.InjectionToken('WebDriverExtension.children');
 //# sourceMappingURL=web_driver_extension.js.map

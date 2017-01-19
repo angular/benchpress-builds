@@ -6,45 +6,42 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var core_1 = require('@angular/core');
-var fs = require('fs');
-var Options = (function () {
-    function Options() {
-    }
-    Options.SAMPLE_ID = new core_1.InjectionToken('Options.sampleId');
-    Options.DEFAULT_DESCRIPTION = new core_1.InjectionToken('Options.defaultDescription');
-    Options.SAMPLE_DESCRIPTION = new core_1.InjectionToken('Options.sampleDescription');
-    Options.FORCE_GC = new core_1.InjectionToken('Options.forceGc');
-    Options.NO_PREPARE = function () { return true; };
-    Options.PREPARE = new core_1.InjectionToken('Options.prepare');
-    Options.EXECUTE = new core_1.InjectionToken('Options.execute');
-    Options.CAPABILITIES = new core_1.InjectionToken('Options.capabilities');
-    Options.USER_AGENT = new core_1.InjectionToken('Options.userAgent');
-    Options.MICRO_METRICS = new core_1.InjectionToken('Options.microMetrics');
-    Options.USER_METRICS = new core_1.InjectionToken('Options.userMetrics');
-    Options.NOW = new core_1.InjectionToken('Options.now');
-    Options.WRITE_FILE = new core_1.InjectionToken('Options.writeFile');
-    Options.RECEIVED_DATA = new core_1.InjectionToken('Options.receivedData');
-    Options.REQUEST_COUNT = new core_1.InjectionToken('Options.requestCount');
-    Options.CAPTURE_FRAMES = new core_1.InjectionToken('Options.frameCapture');
-    Options.DEFAULT_PROVIDERS = [
-        { provide: Options.DEFAULT_DESCRIPTION, useValue: {} },
-        { provide: Options.SAMPLE_DESCRIPTION, useValue: {} },
-        { provide: Options.FORCE_GC, useValue: false },
-        { provide: Options.PREPARE, useValue: Options.NO_PREPARE },
-        { provide: Options.MICRO_METRICS, useValue: {} }, { provide: Options.USER_METRICS, useValue: {} },
-        { provide: Options.NOW, useValue: function () { return new Date(); } },
-        { provide: Options.RECEIVED_DATA, useValue: false },
-        { provide: Options.REQUEST_COUNT, useValue: false },
-        { provide: Options.CAPTURE_FRAMES, useValue: false },
-        { provide: Options.WRITE_FILE, useValue: writeFile }
-    ];
-    return Options;
-}());
+const core_1 = require('@angular/core');
+const fs = require('fs');
+class Options {
+}
+Options.SAMPLE_ID = new core_1.InjectionToken('Options.sampleId');
+Options.DEFAULT_DESCRIPTION = new core_1.InjectionToken('Options.defaultDescription');
+Options.SAMPLE_DESCRIPTION = new core_1.InjectionToken('Options.sampleDescription');
+Options.FORCE_GC = new core_1.InjectionToken('Options.forceGc');
+Options.NO_PREPARE = () => true;
+Options.PREPARE = new core_1.InjectionToken('Options.prepare');
+Options.EXECUTE = new core_1.InjectionToken('Options.execute');
+Options.CAPABILITIES = new core_1.InjectionToken('Options.capabilities');
+Options.USER_AGENT = new core_1.InjectionToken('Options.userAgent');
+Options.MICRO_METRICS = new core_1.InjectionToken('Options.microMetrics');
+Options.USER_METRICS = new core_1.InjectionToken('Options.userMetrics');
+Options.NOW = new core_1.InjectionToken('Options.now');
+Options.WRITE_FILE = new core_1.InjectionToken('Options.writeFile');
+Options.RECEIVED_DATA = new core_1.InjectionToken('Options.receivedData');
+Options.REQUEST_COUNT = new core_1.InjectionToken('Options.requestCount');
+Options.CAPTURE_FRAMES = new core_1.InjectionToken('Options.frameCapture');
+Options.DEFAULT_PROVIDERS = [
+    { provide: Options.DEFAULT_DESCRIPTION, useValue: {} },
+    { provide: Options.SAMPLE_DESCRIPTION, useValue: {} },
+    { provide: Options.FORCE_GC, useValue: false },
+    { provide: Options.PREPARE, useValue: Options.NO_PREPARE },
+    { provide: Options.MICRO_METRICS, useValue: {} }, { provide: Options.USER_METRICS, useValue: {} },
+    { provide: Options.NOW, useValue: () => new Date() },
+    { provide: Options.RECEIVED_DATA, useValue: false },
+    { provide: Options.REQUEST_COUNT, useValue: false },
+    { provide: Options.CAPTURE_FRAMES, useValue: false },
+    { provide: Options.WRITE_FILE, useValue: writeFile }
+];
 exports.Options = Options;
 function writeFile(filename, content) {
     return new Promise(function (resolve, reject) {
-        fs.writeFile(filename, content, function (error) {
+        fs.writeFile(filename, content, (error) => {
             if (error) {
                 reject(error);
             }

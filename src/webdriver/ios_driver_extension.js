@@ -6,64 +6,54 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var core_1 = require('@angular/core');
-var lang_1 = require('../facade/lang');
-var web_driver_adapter_1 = require('../web_driver_adapter');
-var web_driver_extension_1 = require('../web_driver_extension');
-var IOsDriverExtension = (function (_super) {
-    __extends(IOsDriverExtension, _super);
-    function IOsDriverExtension(_driver) {
-        _super.call(this);
+const core_1 = require('@angular/core');
+const lang_1 = require('../facade/lang');
+const web_driver_adapter_1 = require('../web_driver_adapter');
+const web_driver_extension_1 = require('../web_driver_extension');
+class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
+    constructor(_driver) {
+        super();
         this._driver = _driver;
     }
-    IOsDriverExtension.prototype.gc = function () { throw new Error('Force GC is not supported on iOS'); };
-    IOsDriverExtension.prototype.timeBegin = function (name) {
-        return this._driver.executeScript("console.time('" + name + "');");
-    };
-    IOsDriverExtension.prototype.timeEnd = function (name, restartName) {
-        if (restartName === void 0) { restartName = null; }
-        var script = "console.timeEnd('" + name + "');";
+    gc() { throw new Error('Force GC is not supported on iOS'); }
+    timeBegin(name) {
+        return this._driver.executeScript(`console.time('${name}');`);
+    }
+    timeEnd(name, restartName = null) {
+        let script = `console.timeEnd('${name}');`;
         if (lang_1.isPresent(restartName)) {
-            script += "console.time('" + restartName + "');";
+            script += `console.time('${restartName}');`;
         }
         return this._driver.executeScript(script);
-    };
+    }
     // See https://github.com/WebKit/webkit/tree/master/Source/WebInspectorUI/Versions
-    IOsDriverExtension.prototype.readPerfLog = function () {
-        var _this = this;
+    readPerfLog() {
         // TODO(tbosch): Bug in IOsDriver: Need to execute at least one command
         // so that the browser logs can be read out!
         return this._driver.executeScript('1+1')
-            .then(function (_) { return _this._driver.logs('performance'); })
-            .then(function (entries) {
-            var records = [];
-            entries.forEach(function (entry) {
-                var message = JSON.parse(entry['message'])['message'];
+            .then((_) => this._driver.logs('performance'))
+            .then((entries) => {
+            const records = [];
+            entries.forEach(entry => {
+                const message = JSON.parse(entry['message'])['message'];
                 if (message['method'] === 'Timeline.eventRecorded') {
                     records.push(message['params']['record']);
                 }
             });
-            return _this._convertPerfRecordsToEvents(records);
+            return this._convertPerfRecordsToEvents(records);
         });
-    };
+    }
     /** @internal */
-    IOsDriverExtension.prototype._convertPerfRecordsToEvents = function (records, events) {
-        var _this = this;
-        if (events === void 0) { events = null; }
+    _convertPerfRecordsToEvents(records, events = null) {
         if (!events) {
             events = [];
         }
-        records.forEach(function (record) {
-            var endEvent = null;
-            var type = record['type'];
-            var data = record['data'];
-            var startTime = record['startTime'];
-            var endTime = record['endTime'];
+        records.forEach((record) => {
+            let endEvent = null;
+            const type = record['type'];
+            const data = record['data'];
+            const startTime = record['startTime'];
+            const endTime = record['endTime'];
             if (type === 'FunctionCall' && (data == null || data['scriptName'] !== 'InjectedScript')) {
                 events.push(createStartEvent('script', startTime));
                 endEvent = createEndEvent('script', endTime);
@@ -81,32 +71,30 @@ var IOsDriverExtension = (function (_super) {
             }
             // Note: ios used to support GCEvent up until iOS 6 :-(
             if (lang_1.isPresent(record['children'])) {
-                _this._convertPerfRecordsToEvents(record['children'], events);
+                this._convertPerfRecordsToEvents(record['children'], events);
             }
             if (lang_1.isPresent(endEvent)) {
                 events.push(endEvent);
             }
         });
         return events;
-    };
-    IOsDriverExtension.prototype.perfLogFeatures = function () { return new web_driver_extension_1.PerfLogFeatures({ render: true }); };
-    IOsDriverExtension.prototype.supports = function (capabilities) {
+    }
+    perfLogFeatures() { return new web_driver_extension_1.PerfLogFeatures({ render: true }); }
+    supports(capabilities) {
         return capabilities['browserName'].toLowerCase() === 'safari';
-    };
-    IOsDriverExtension.PROVIDERS = [IOsDriverExtension];
-    IOsDriverExtension.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    IOsDriverExtension.ctorParameters = function () { return [
-        { type: web_driver_adapter_1.WebDriverAdapter, },
-    ]; };
-    return IOsDriverExtension;
-}(web_driver_extension_1.WebDriverExtension));
+    }
+}
+IOsDriverExtension.PROVIDERS = [IOsDriverExtension];
+IOsDriverExtension.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+IOsDriverExtension.ctorParameters = () => [
+    { type: web_driver_adapter_1.WebDriverAdapter, },
+];
 exports.IOsDriverExtension = IOsDriverExtension;
-function createEvent(ph, name, time, args) {
-    if (args === void 0) { args = null; }
-    var result = {
+function createEvent(ph, name, time, args = null) {
+    const result = {
         'cat': 'timeline',
         'name': name,
         'ts': time,
@@ -120,12 +108,10 @@ function createEvent(ph, name, time, args) {
     }
     return result;
 }
-function createStartEvent(name, time, args) {
-    if (args === void 0) { args = null; }
+function createStartEvent(name, time, args = null) {
     return createEvent('B', name, time, args);
 }
-function createEndEvent(name, time, args) {
-    if (args === void 0) { args = null; }
+function createEndEvent(name, time, args = null) {
     return createEvent('E', name, time, args);
 }
 function createMarkStartEvent(name, time) {
