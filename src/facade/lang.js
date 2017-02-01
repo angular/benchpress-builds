@@ -50,10 +50,6 @@ function isStrictStringMap(obj) {
     return typeof obj === 'object' && obj !== null && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
 }
 exports.isStrictStringMap = isStrictStringMap;
-function isDate(obj) {
-    return obj instanceof Date && !isNaN(obj.valueOf());
-}
-exports.isDate = isDate;
 function stringify(token) {
     if (typeof token === 'string') {
         return token;
