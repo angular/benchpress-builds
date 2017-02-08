@@ -11,22 +11,23 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var lang_1 = require('../facade/lang');
-var reporter_1 = require('../reporter');
-var sample_description_1 = require('../sample_description');
-var util_1 = require('./util');
+var core_1 = require("@angular/core");
+var lang_1 = require("../facade/lang");
+var reporter_1 = require("../reporter");
+var sample_description_1 = require("../sample_description");
+var util_1 = require("./util");
 /**
  * A reporter for the console
  */
 var ConsoleReporter = (function (_super) {
     __extends(ConsoleReporter, _super);
     function ConsoleReporter(_columnWidth, sampleDescription, _print) {
-        _super.call(this);
-        this._columnWidth = _columnWidth;
-        this._print = _print;
-        this._metricNames = util_1.sortedProps(sampleDescription.metrics);
-        this._printDescription(sampleDescription);
+        var _this = _super.call(this) || this;
+        _this._columnWidth = _columnWidth;
+        _this._print = _print;
+        _this._metricNames = util_1.sortedProps(sampleDescription.metrics);
+        _this._printDescription(sampleDescription);
+        return _this;
     }
     ConsoleReporter._lpad = function (value, columnWidth, fill) {
         if (fill === void 0) { fill = ' '; }
@@ -68,22 +69,22 @@ var ConsoleReporter = (function (_super) {
         if (fill === void 0) { fill = ' '; }
         this._print(parts.map(function (part) { return ConsoleReporter._lpad(part, _this._columnWidth, fill); }).join(' | '));
     };
-    ConsoleReporter.PRINT = new core_1.InjectionToken('ConsoleReporter.print');
-    ConsoleReporter.COLUMN_WIDTH = new core_1.InjectionToken('ConsoleReporter.columnWidth');
-    ConsoleReporter.PROVIDERS = [
-        ConsoleReporter, { provide: ConsoleReporter.COLUMN_WIDTH, useValue: 18 },
-        { provide: ConsoleReporter.PRINT, useValue: lang_1.print }
-    ];
-    ConsoleReporter.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    ConsoleReporter.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [ConsoleReporter.COLUMN_WIDTH,] },] },
-        { type: sample_description_1.SampleDescription, },
-        { type: Function, decorators: [{ type: core_1.Inject, args: [ConsoleReporter.PRINT,] },] },
-    ]; };
     return ConsoleReporter;
 }(reporter_1.Reporter));
+ConsoleReporter.PRINT = new core_1.InjectionToken('ConsoleReporter.print');
+ConsoleReporter.COLUMN_WIDTH = new core_1.InjectionToken('ConsoleReporter.columnWidth');
+ConsoleReporter.PROVIDERS = [
+    ConsoleReporter, { provide: ConsoleReporter.COLUMN_WIDTH, useValue: 18 },
+    { provide: ConsoleReporter.PRINT, useValue: lang_1.print }
+];
+ConsoleReporter.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+ConsoleReporter.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: core_1.Inject, args: [ConsoleReporter.COLUMN_WIDTH,] },] },
+    { type: sample_description_1.SampleDescription, },
+    { type: Function, decorators: [{ type: core_1.Inject, args: [ConsoleReporter.PRINT,] },] },
+]; };
 exports.ConsoleReporter = ConsoleReporter;
 //# sourceMappingURL=console_reporter.js.map

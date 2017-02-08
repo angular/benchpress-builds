@@ -11,16 +11,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var common_options_1 = require('../common_options');
-var metric_1 = require('../metric');
-var web_driver_adapter_1 = require('../web_driver_adapter');
+var core_1 = require("@angular/core");
+var common_options_1 = require("../common_options");
+var metric_1 = require("../metric");
+var web_driver_adapter_1 = require("../web_driver_adapter");
 var UserMetric = (function (_super) {
     __extends(UserMetric, _super);
     function UserMetric(_userMetrics, _wdAdapter) {
-        _super.call(this);
-        this._userMetrics = _userMetrics;
-        this._wdAdapter = _wdAdapter;
+        var _this = _super.call(this) || this;
+        _this._userMetrics = _userMetrics;
+        _this._wdAdapter = _wdAdapter;
+        return _this;
     }
     /**
      * Starts measuring
@@ -64,16 +65,16 @@ var UserMetric = (function (_super) {
      * (e.g. units, ...)
      */
     UserMetric.prototype.describe = function () { return this._userMetrics; };
-    UserMetric.PROVIDERS = [UserMetric];
-    UserMetric.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    UserMetric.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.USER_METRICS,] },] },
-        { type: web_driver_adapter_1.WebDriverAdapter, },
-    ]; };
     return UserMetric;
 }(metric_1.Metric));
+UserMetric.PROVIDERS = [UserMetric];
+UserMetric.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+UserMetric.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.USER_METRICS,] },] },
+    { type: web_driver_adapter_1.WebDriverAdapter, },
+]; };
 exports.UserMetric = UserMetric;
 //# sourceMappingURL=user_metric.js.map

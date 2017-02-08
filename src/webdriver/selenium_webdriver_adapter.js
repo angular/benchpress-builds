@@ -11,15 +11,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var web_driver_adapter_1 = require('../web_driver_adapter');
+var web_driver_adapter_1 = require("../web_driver_adapter");
 /**
  * Adapter for the selenium-webdriver.
  */
 var SeleniumWebDriverAdapter = (function (_super) {
     __extends(SeleniumWebDriverAdapter, _super);
     function SeleniumWebDriverAdapter(_driver) {
-        _super.call(this);
-        this._driver = _driver;
+        var _this = _super.call(this) || this;
+        _this._driver = _driver;
+        return _this;
     }
     SeleniumWebDriverAdapter.prototype.waitFor = function (callback) { return this._driver.call(callback); };
     SeleniumWebDriverAdapter.prototype.executeScript = function (script) { return this._driver.executeScript(script); };
@@ -38,12 +39,12 @@ var SeleniumWebDriverAdapter = (function (_super) {
         // performance logs in the correct way via manage().logs
         return this._driver.schedule(new Command('getLog').setParameter('type', type), 'WebDriver.manage().logs().get(' + type + ')');
     };
-    SeleniumWebDriverAdapter.PROTRACTOR_PROVIDERS = [{
-            provide: web_driver_adapter_1.WebDriverAdapter,
-            useFactory: function () { return new SeleniumWebDriverAdapter(global.browser); }
-        }];
     return SeleniumWebDriverAdapter;
 }(web_driver_adapter_1.WebDriverAdapter));
+SeleniumWebDriverAdapter.PROTRACTOR_PROVIDERS = [{
+        provide: web_driver_adapter_1.WebDriverAdapter,
+        useFactory: function () { return new SeleniumWebDriverAdapter(global.browser); }
+    }];
 exports.SeleniumWebDriverAdapter = SeleniumWebDriverAdapter;
 /**
  * Copy of the `Command` class of webdriver as

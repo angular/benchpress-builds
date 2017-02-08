@@ -11,15 +11,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var lang_1 = require('../facade/lang');
-var web_driver_adapter_1 = require('../web_driver_adapter');
-var web_driver_extension_1 = require('../web_driver_extension');
+var core_1 = require("@angular/core");
+var lang_1 = require("../facade/lang");
+var web_driver_adapter_1 = require("../web_driver_adapter");
+var web_driver_extension_1 = require("../web_driver_extension");
 var IOsDriverExtension = (function (_super) {
     __extends(IOsDriverExtension, _super);
     function IOsDriverExtension(_driver) {
-        _super.call(this);
-        this._driver = _driver;
+        var _this = _super.call(this) || this;
+        _this._driver = _driver;
+        return _this;
     }
     IOsDriverExtension.prototype.gc = function () { throw new Error('Force GC is not supported on iOS'); };
     IOsDriverExtension.prototype.timeBegin = function (name) {
@@ -93,16 +94,16 @@ var IOsDriverExtension = (function (_super) {
     IOsDriverExtension.prototype.supports = function (capabilities) {
         return capabilities['browserName'].toLowerCase() === 'safari';
     };
-    IOsDriverExtension.PROVIDERS = [IOsDriverExtension];
-    IOsDriverExtension.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    IOsDriverExtension.ctorParameters = function () { return [
-        { type: web_driver_adapter_1.WebDriverAdapter, },
-    ]; };
     return IOsDriverExtension;
 }(web_driver_extension_1.WebDriverExtension));
+IOsDriverExtension.PROVIDERS = [IOsDriverExtension];
+IOsDriverExtension.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+IOsDriverExtension.ctorParameters = function () { return [
+    { type: web_driver_adapter_1.WebDriverAdapter, },
+]; };
 exports.IOsDriverExtension = IOsDriverExtension;
 function createEvent(ph, name, time, args) {
     if (args === void 0) { args = null; }

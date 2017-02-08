@@ -6,14 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var core_1 = require('@angular/core');
-var common_options_1 = require('./common_options');
-var lang_1 = require('./facade/lang');
-var measure_values_1 = require('./measure_values');
-var metric_1 = require('./metric');
-var reporter_1 = require('./reporter');
-var validator_1 = require('./validator');
-var web_driver_adapter_1 = require('./web_driver_adapter');
+var core_1 = require("@angular/core");
+var common_options_1 = require("./common_options");
+var lang_1 = require("./facade/lang");
+var measure_values_1 = require("./measure_values");
+var metric_1 = require("./metric");
+var reporter_1 = require("./reporter");
+var validator_1 = require("./validator");
+var web_driver_adapter_1 = require("./web_driver_adapter");
 /**
  * The Sampler owns the sample loop:
  * 1. calls the prepare/execute callbacks,
@@ -74,22 +74,22 @@ var Sampler = (function () {
         }
         return resultPromise.then(function (_) { return new SampleState(completeSample, validSample); });
     };
-    Sampler.PROVIDERS = [Sampler];
-    Sampler.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    Sampler.ctorParameters = function () { return [
-        { type: web_driver_adapter_1.WebDriverAdapter, },
-        { type: metric_1.Metric, },
-        { type: reporter_1.Reporter, },
-        { type: validator_1.Validator, },
-        { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.PREPARE,] },] },
-        { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.EXECUTE,] },] },
-        { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.NOW,] },] },
-    ]; };
     return Sampler;
 }());
+Sampler.PROVIDERS = [Sampler];
+Sampler.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+Sampler.ctorParameters = function () { return [
+    { type: web_driver_adapter_1.WebDriverAdapter, },
+    { type: metric_1.Metric, },
+    { type: reporter_1.Reporter, },
+    { type: validator_1.Validator, },
+    { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.PREPARE,] },] },
+    { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.EXECUTE,] },] },
+    { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.NOW,] },] },
+]; };
 exports.Sampler = Sampler;
 var SampleState = (function () {
     function SampleState(completeSample, validSample) {

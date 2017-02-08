@@ -1,5 +1,5 @@
 import { WebDriverAdapter } from '../web_driver_adapter';
-import { PerfLogEvent, PerfLogFeatures, WebDriverExtension } from '../web_driver_extension';
+import { PerfLogFeatures, WebDriverExtension } from '../web_driver_extension';
 export declare class IOsDriverExtension extends WebDriverExtension {
     private _driver;
     static PROVIDERS: typeof IOsDriverExtension[];
@@ -7,7 +7,7 @@ export declare class IOsDriverExtension extends WebDriverExtension {
     gc(): Promise<any>;
     timeBegin(name: string): Promise<any>;
     timeEnd(name: string, restartName?: string): Promise<any>;
-    readPerfLog(): Promise<PerfLogEvent[]>;
+    readPerfLog(): Promise<any>;
     /** @internal */
     private _convertPerfRecordsToEvents(records, events?);
     perfLogFeatures(): PerfLogFeatures;

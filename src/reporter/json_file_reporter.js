@@ -11,22 +11,23 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var common_options_1 = require('../common_options');
-var reporter_1 = require('../reporter');
-var sample_description_1 = require('../sample_description');
-var util_1 = require('./util');
+var core_1 = require("@angular/core");
+var common_options_1 = require("../common_options");
+var reporter_1 = require("../reporter");
+var sample_description_1 = require("../sample_description");
+var util_1 = require("./util");
 /**
  * A reporter that writes results into a json file.
  */
 var JsonFileReporter = (function (_super) {
     __extends(JsonFileReporter, _super);
     function JsonFileReporter(_description, _path, _writeFile, _now) {
-        _super.call(this);
-        this._description = _description;
-        this._path = _path;
-        this._writeFile = _writeFile;
-        this._now = _now;
+        var _this = _super.call(this) || this;
+        _this._description = _description;
+        _this._path = _path;
+        _this._writeFile = _writeFile;
+        _this._now = _now;
+        return _this;
     }
     JsonFileReporter.prototype.reportMeasureValues = function (measureValues) { return Promise.resolve(null); };
     JsonFileReporter.prototype.reportSample = function (completeSample, validSample) {
@@ -43,19 +44,19 @@ var JsonFileReporter = (function (_super) {
         var filePath = this._path + "/" + this._description.id + "_" + this._now().getTime() + ".json";
         return this._writeFile(filePath, content);
     };
-    JsonFileReporter.PATH = new core_1.InjectionToken('JsonFileReporter.path');
-    JsonFileReporter.PROVIDERS = [JsonFileReporter, { provide: JsonFileReporter.PATH, useValue: '.' }];
-    JsonFileReporter.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    JsonFileReporter.ctorParameters = function () { return [
-        { type: sample_description_1.SampleDescription, },
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [JsonFileReporter.PATH,] },] },
-        { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.WRITE_FILE,] },] },
-        { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.NOW,] },] },
-    ]; };
     return JsonFileReporter;
 }(reporter_1.Reporter));
+JsonFileReporter.PATH = new core_1.InjectionToken('JsonFileReporter.path');
+JsonFileReporter.PROVIDERS = [JsonFileReporter, { provide: JsonFileReporter.PATH, useValue: '.' }];
+JsonFileReporter.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+JsonFileReporter.ctorParameters = function () { return [
+    { type: sample_description_1.SampleDescription, },
+    { type: undefined, decorators: [{ type: core_1.Inject, args: [JsonFileReporter.PATH,] },] },
+    { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.WRITE_FILE,] },] },
+    { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.NOW,] },] },
+]; };
 exports.JsonFileReporter = JsonFileReporter;
 //# sourceMappingURL=json_file_reporter.js.map

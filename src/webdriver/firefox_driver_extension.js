@@ -11,16 +11,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var lang_1 = require('../facade/lang');
-var web_driver_adapter_1 = require('../web_driver_adapter');
-var web_driver_extension_1 = require('../web_driver_extension');
+var core_1 = require("@angular/core");
+var lang_1 = require("../facade/lang");
+var web_driver_adapter_1 = require("../web_driver_adapter");
+var web_driver_extension_1 = require("../web_driver_extension");
 var FirefoxDriverExtension = (function (_super) {
     __extends(FirefoxDriverExtension, _super);
     function FirefoxDriverExtension(_driver) {
-        _super.call(this);
-        this._driver = _driver;
-        this._profilerStarted = false;
+        var _this = _super.call(this) || this;
+        _this._driver = _driver;
+        _this._profilerStarted = false;
+        return _this;
     }
     FirefoxDriverExtension.prototype.gc = function () { return this._driver.executeScript('window.forceGC()'); };
     FirefoxDriverExtension.prototype.timeBegin = function (name) {
@@ -45,15 +46,15 @@ var FirefoxDriverExtension = (function (_super) {
     FirefoxDriverExtension.prototype.supports = function (capabilities) {
         return capabilities['browserName'].toLowerCase() === 'firefox';
     };
-    FirefoxDriverExtension.PROVIDERS = [FirefoxDriverExtension];
-    FirefoxDriverExtension.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    FirefoxDriverExtension.ctorParameters = function () { return [
-        { type: web_driver_adapter_1.WebDriverAdapter, },
-    ]; };
     return FirefoxDriverExtension;
 }(web_driver_extension_1.WebDriverExtension));
+FirefoxDriverExtension.PROVIDERS = [FirefoxDriverExtension];
+FirefoxDriverExtension.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+FirefoxDriverExtension.ctorParameters = function () { return [
+    { type: web_driver_adapter_1.WebDriverAdapter, },
+]; };
 exports.FirefoxDriverExtension = FirefoxDriverExtension;
 //# sourceMappingURL=firefox_driver_extension.js.map

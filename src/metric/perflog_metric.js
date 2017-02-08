@@ -11,10 +11,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var common_options_1 = require('../common_options');
-var metric_1 = require('../metric');
-var web_driver_extension_1 = require('../web_driver_extension');
+var core_1 = require("@angular/core");
+var common_options_1 = require("../common_options");
+var metric_1 = require("../metric");
+var web_driver_extension_1 = require("../web_driver_extension");
 /**
  * A metric that reads out the performance log
  */
@@ -26,22 +26,23 @@ var PerflogMetric = (function (_super) {
      * @param microMetrics Name and description of metrics provided via console.time / console.timeEnd
      **/
     function PerflogMetric(_driverExtension, _setTimeout, _microMetrics, _forceGc, _captureFrames, _receivedData, _requestCount) {
-        _super.call(this);
-        this._driverExtension = _driverExtension;
-        this._setTimeout = _setTimeout;
-        this._microMetrics = _microMetrics;
-        this._forceGc = _forceGc;
-        this._captureFrames = _captureFrames;
-        this._receivedData = _receivedData;
-        this._requestCount = _requestCount;
-        this._remainingEvents = [];
-        this._measureCount = 0;
-        this._perfLogFeatures = _driverExtension.perfLogFeatures();
-        if (!this._perfLogFeatures.userTiming) {
+        var _this = _super.call(this) || this;
+        _this._driverExtension = _driverExtension;
+        _this._setTimeout = _setTimeout;
+        _this._microMetrics = _microMetrics;
+        _this._forceGc = _forceGc;
+        _this._captureFrames = _captureFrames;
+        _this._receivedData = _receivedData;
+        _this._requestCount = _requestCount;
+        _this._remainingEvents = [];
+        _this._measureCount = 0;
+        _this._perfLogFeatures = _driverExtension.perfLogFeatures();
+        if (!_this._perfLogFeatures.userTiming) {
             // User timing is needed for navigationStart.
-            this._receivedData = false;
-            this._requestCount = false;
+            _this._receivedData = false;
+            _this._requestCount = false;
         }
+        return _this;
     }
     PerflogMetric.prototype.describe = function () {
         var res = {
@@ -345,28 +346,28 @@ var PerflogMetric = (function (_super) {
             frameTimes.filter(function (t) { return t < _FRAME_TIME_SMOOTH_THRESHOLD; }).length / frameTimes.length;
     };
     PerflogMetric.prototype._markName = function (index) { return "" + _MARK_NAME_PREFIX + index; };
-    PerflogMetric.SET_TIMEOUT = new core_1.InjectionToken('PerflogMetric.setTimeout');
-    PerflogMetric.PROVIDERS = [
-        PerflogMetric, {
-            provide: PerflogMetric.SET_TIMEOUT,
-            useValue: function (fn, millis) { return setTimeout(fn, millis); }
-        }
-    ];
-    PerflogMetric.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    PerflogMetric.ctorParameters = function () { return [
-        { type: web_driver_extension_1.WebDriverExtension, },
-        { type: Function, decorators: [{ type: core_1.Inject, args: [PerflogMetric.SET_TIMEOUT,] },] },
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.MICRO_METRICS,] },] },
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.FORCE_GC,] },] },
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.CAPTURE_FRAMES,] },] },
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.RECEIVED_DATA,] },] },
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.REQUEST_COUNT,] },] },
-    ]; };
     return PerflogMetric;
 }(metric_1.Metric));
+PerflogMetric.SET_TIMEOUT = new core_1.InjectionToken('PerflogMetric.setTimeout');
+PerflogMetric.PROVIDERS = [
+    PerflogMetric, {
+        provide: PerflogMetric.SET_TIMEOUT,
+        useValue: function (fn, millis) { return setTimeout(fn, millis); }
+    }
+];
+PerflogMetric.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+PerflogMetric.ctorParameters = function () { return [
+    { type: web_driver_extension_1.WebDriverExtension, },
+    { type: Function, decorators: [{ type: core_1.Inject, args: [PerflogMetric.SET_TIMEOUT,] },] },
+    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.MICRO_METRICS,] },] },
+    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.FORCE_GC,] },] },
+    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.CAPTURE_FRAMES,] },] },
+    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.RECEIVED_DATA,] },] },
+    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.REQUEST_COUNT,] },] },
+]; };
 exports.PerflogMetric = PerflogMetric;
 var _MICRO_ITERATIONS_REGEX = /(.+)\*(\d+)$/;
 var _MAX_RETRY_COUNT = 20;

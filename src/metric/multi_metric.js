@@ -11,13 +11,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var metric_1 = require('../metric');
+var core_1 = require("@angular/core");
+var metric_1 = require("../metric");
 var MultiMetric = (function (_super) {
     __extends(MultiMetric, _super);
     function MultiMetric(_metrics) {
-        _super.call(this);
-        this._metrics = _metrics;
+        var _this = _super.call(this) || this;
+        _this._metrics = _metrics;
+        return _this;
     }
     MultiMetric.provideWith = function (childTokens) {
         return [

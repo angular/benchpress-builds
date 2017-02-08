@@ -6,26 +6,26 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var core_1 = require('@angular/core');
-var common_options_1 = require('./common_options');
-var lang_1 = require('./facade/lang');
-var metric_1 = require('./metric');
-var multi_metric_1 = require('./metric/multi_metric');
-var perflog_metric_1 = require('./metric/perflog_metric');
-var user_metric_1 = require('./metric/user_metric');
-var reporter_1 = require('./reporter');
-var console_reporter_1 = require('./reporter/console_reporter');
-var multi_reporter_1 = require('./reporter/multi_reporter');
-var sample_description_1 = require('./sample_description');
-var sampler_1 = require('./sampler');
-var validator_1 = require('./validator');
-var regression_slope_validator_1 = require('./validator/regression_slope_validator');
-var size_validator_1 = require('./validator/size_validator');
-var web_driver_adapter_1 = require('./web_driver_adapter');
-var web_driver_extension_1 = require('./web_driver_extension');
-var chrome_driver_extension_1 = require('./webdriver/chrome_driver_extension');
-var firefox_driver_extension_1 = require('./webdriver/firefox_driver_extension');
-var ios_driver_extension_1 = require('./webdriver/ios_driver_extension');
+var core_1 = require("@angular/core");
+var common_options_1 = require("./common_options");
+var lang_1 = require("./facade/lang");
+var metric_1 = require("./metric");
+var multi_metric_1 = require("./metric/multi_metric");
+var perflog_metric_1 = require("./metric/perflog_metric");
+var user_metric_1 = require("./metric/user_metric");
+var reporter_1 = require("./reporter");
+var console_reporter_1 = require("./reporter/console_reporter");
+var multi_reporter_1 = require("./reporter/multi_reporter");
+var sample_description_1 = require("./sample_description");
+var sampler_1 = require("./sampler");
+var validator_1 = require("./validator");
+var regression_slope_validator_1 = require("./validator/regression_slope_validator");
+var size_validator_1 = require("./validator/size_validator");
+var web_driver_adapter_1 = require("./web_driver_adapter");
+var web_driver_extension_1 = require("./web_driver_extension");
+var chrome_driver_extension_1 = require("./webdriver/chrome_driver_extension");
+var firefox_driver_extension_1 = require("./webdriver/firefox_driver_extension");
+var ios_driver_extension_1 = require("./webdriver/ios_driver_extension");
 /**
  * The Runner is the main entry point for executing a sample run.
  * It provides defaults, creates the injector and calls the sampler.

@@ -11,10 +11,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var common_options_1 = require('../common_options');
-var web_driver_adapter_1 = require('../web_driver_adapter');
-var web_driver_extension_1 = require('../web_driver_extension');
+var core_1 = require("@angular/core");
+var common_options_1 = require("../common_options");
+var web_driver_adapter_1 = require("../web_driver_adapter");
+var web_driver_extension_1 = require("../web_driver_extension");
 /**
  * Set the following 'traceCategories' to collect metrics in Chrome:
  * 'v8,blink.console,disabled-by-default-devtools.timeline,devtools.timeline,blink.user_timing'
@@ -25,9 +25,10 @@ var web_driver_extension_1 = require('../web_driver_extension');
 var ChromeDriverExtension = (function (_super) {
     __extends(ChromeDriverExtension, _super);
     function ChromeDriverExtension(_driver, userAgent) {
-        _super.call(this);
-        this._driver = _driver;
-        this._majorChromeVersion = this._parseChromeVersion(userAgent);
+        var _this = _super.call(this) || this;
+        _this._driver = _driver;
+        _this._majorChromeVersion = _this._parseChromeVersion(userAgent);
+        return _this;
     }
     ChromeDriverExtension.prototype._parseChromeVersion = function (userAgent) {
         if (!userAgent) {
@@ -175,17 +176,17 @@ var ChromeDriverExtension = (function (_super) {
     ChromeDriverExtension.prototype.supports = function (capabilities) {
         return this._majorChromeVersion >= 44 && capabilities['browserName'].toLowerCase() === 'chrome';
     };
-    ChromeDriverExtension.PROVIDERS = [ChromeDriverExtension];
-    ChromeDriverExtension.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    ChromeDriverExtension.ctorParameters = function () { return [
-        { type: web_driver_adapter_1.WebDriverAdapter, },
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.USER_AGENT,] },] },
-    ]; };
     return ChromeDriverExtension;
 }(web_driver_extension_1.WebDriverExtension));
+ChromeDriverExtension.PROVIDERS = [ChromeDriverExtension];
+ChromeDriverExtension.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+ChromeDriverExtension.ctorParameters = function () { return [
+    { type: web_driver_adapter_1.WebDriverAdapter, },
+    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.USER_AGENT,] },] },
+]; };
 exports.ChromeDriverExtension = ChromeDriverExtension;
 function normalizeEvent(chromeEvent, data) {
     var ph = chromeEvent['ph'].toUpperCase();

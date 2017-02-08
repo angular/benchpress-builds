@@ -11,13 +11,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var reporter_1 = require('../reporter');
+var core_1 = require("@angular/core");
+var reporter_1 = require("../reporter");
 var MultiReporter = (function (_super) {
     __extends(MultiReporter, _super);
     function MultiReporter(_reporters) {
-        _super.call(this);
-        this._reporters = _reporters;
+        var _this = _super.call(this) || this;
+        _this._reporters = _reporters;
+        return _this;
     }
     MultiReporter.provideWith = function (childTokens) {
         return [
