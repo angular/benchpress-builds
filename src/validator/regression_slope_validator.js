@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const statistic_1 = require('../statistic');
-const validator_1 = require('../validator');
+const core_1 = require("@angular/core");
+const statistic_1 = require("../statistic");
+const validator_1 = require("../validator");
 /**
  * A validator that checks the regression slope of a specific metric.
  * Waits for the regression slope to be >=0.

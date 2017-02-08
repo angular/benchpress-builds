@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const statistic_1 = require('../statistic');
+const statistic_1 = require("../statistic");
 function formatNum(n) {
     return n.toFixed(2);
 }

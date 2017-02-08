@@ -6,11 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const lang_1 = require('../facade/lang');
-const reporter_1 = require('../reporter');
-const sample_description_1 = require('../sample_description');
-const util_1 = require('./util');
+const core_1 = require("@angular/core");
+const lang_1 = require("../facade/lang");
+const reporter_1 = require("../reporter");
+const sample_description_1 = require("../sample_description");
+const util_1 = require("./util");
 /**
  * A reporter for the console
  */

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const common_options_1 = require('../common_options');
-const metric_1 = require('../metric');
-const web_driver_extension_1 = require('../web_driver_extension');
+const core_1 = require("@angular/core");
+const common_options_1 = require("../common_options");
+const metric_1 = require("../metric");
+const web_driver_extension_1 = require("../web_driver_extension");
 /**
  * A metric that reads out the performance log
  */

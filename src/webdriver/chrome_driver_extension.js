@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const common_options_1 = require('../common_options');
-const web_driver_adapter_1 = require('../web_driver_adapter');
-const web_driver_extension_1 = require('../web_driver_extension');
+const core_1 = require("@angular/core");
+const common_options_1 = require("../common_options");
+const web_driver_adapter_1 = require("../web_driver_adapter");
+const web_driver_extension_1 = require("../web_driver_extension");
 /**
  * Set the following 'traceCategories' to collect metrics in Chrome:
  * 'v8,blink.console,disabled-by-default-devtools.timeline,devtools.timeline,blink.user_timing'
@@ -57,7 +57,7 @@ class ChromeDriverExtension extends web_driver_extension_1.WebDriverExtension {
             .then((_) => this._driver.logs('performance'))
             .then((entries) => {
             const events = [];
-            entries.forEach(entry => {
+            entries.forEach((entry) => {
                 const message = JSON.parse(entry['message'])['message'];
                 if (message['method'] === 'Tracing.dataCollected') {
                     events.push(message['params']);

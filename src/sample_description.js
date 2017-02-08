@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const common_options_1 = require('./common_options');
-const metric_1 = require('./metric');
-const validator_1 = require('./validator');
+const common_options_1 = require("./common_options");
+const metric_1 = require("./metric");
+const validator_1 = require("./validator");
 /**
  * SampleDescription merges all available descriptions about a sample
  */

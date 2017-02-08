@@ -6,14 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const common_options_1 = require('./common_options');
-const lang_1 = require('./facade/lang');
-const measure_values_1 = require('./measure_values');
-const metric_1 = require('./metric');
-const reporter_1 = require('./reporter');
-const validator_1 = require('./validator');
-const web_driver_adapter_1 = require('./web_driver_adapter');
+const core_1 = require("@angular/core");
+const common_options_1 = require("./common_options");
+const lang_1 = require("./facade/lang");
+const measure_values_1 = require("./measure_values");
+const metric_1 = require("./metric");
+const reporter_1 = require("./reporter");
+const validator_1 = require("./validator");
+const web_driver_adapter_1 = require("./web_driver_adapter");
 /**
  * The Sampler owns the sample loop:
  * 1. calls the prepare/execute callbacks,

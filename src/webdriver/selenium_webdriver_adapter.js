@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const web_driver_adapter_1 = require('../web_driver_adapter');
+const web_driver_adapter_1 = require("../web_driver_adapter");
 /**
  * Adapter for the selenium-webdriver.
  */

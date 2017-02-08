@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const common_options_1 = require('./common_options');
+const core_1 = require("@angular/core");
+const common_options_1 = require("./common_options");
 /**
  * A WebDriverExtension implements extended commands of the webdriver protocol
  * for a given browser, independent of the WebDriverAdapter.

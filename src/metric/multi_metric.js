@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const metric_1 = require('../metric');
+const core_1 = require("@angular/core");
+const metric_1 = require("../metric");
 class MultiMetric extends metric_1.Metric {
     constructor(_metrics) {
         super();

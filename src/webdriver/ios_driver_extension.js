@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const lang_1 = require('../facade/lang');
-const web_driver_adapter_1 = require('../web_driver_adapter');
-const web_driver_extension_1 = require('../web_driver_extension');
+const core_1 = require("@angular/core");
+const lang_1 = require("../facade/lang");
+const web_driver_adapter_1 = require("../web_driver_adapter");
+const web_driver_extension_1 = require("../web_driver_extension");
 class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
     constructor(_driver) {
         super();
@@ -34,7 +34,7 @@ class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
             .then((_) => this._driver.logs('performance'))
             .then((entries) => {
             const records = [];
-            entries.forEach(entry => {
+            entries.forEach((entry) => {
                 const message = JSON.parse(entry['message'])['message'];
                 if (message['method'] === 'Timeline.eventRecorded') {
                     records.push(message['params']['record']);

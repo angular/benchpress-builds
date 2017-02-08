@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const validator_1 = require('../validator');
+const core_1 = require("@angular/core");
+const validator_1 = require("../validator");
 /**
  * A validator that waits for the sample to have a certain size.
  */

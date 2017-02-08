@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const reporter_1 = require('../reporter');
+const core_1 = require("@angular/core");
+const reporter_1 = require("../reporter");
 class MultiReporter extends reporter_1.Reporter {
     constructor(_reporters) {
         super();

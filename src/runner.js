@@ -6,26 +6,26 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const common_options_1 = require('./common_options');
-const lang_1 = require('./facade/lang');
-const metric_1 = require('./metric');
-const multi_metric_1 = require('./metric/multi_metric');
-const perflog_metric_1 = require('./metric/perflog_metric');
-const user_metric_1 = require('./metric/user_metric');
-const reporter_1 = require('./reporter');
-const console_reporter_1 = require('./reporter/console_reporter');
-const multi_reporter_1 = require('./reporter/multi_reporter');
-const sample_description_1 = require('./sample_description');
-const sampler_1 = require('./sampler');
-const validator_1 = require('./validator');
-const regression_slope_validator_1 = require('./validator/regression_slope_validator');
-const size_validator_1 = require('./validator/size_validator');
-const web_driver_adapter_1 = require('./web_driver_adapter');
-const web_driver_extension_1 = require('./web_driver_extension');
-const chrome_driver_extension_1 = require('./webdriver/chrome_driver_extension');
-const firefox_driver_extension_1 = require('./webdriver/firefox_driver_extension');
-const ios_driver_extension_1 = require('./webdriver/ios_driver_extension');
+const core_1 = require("@angular/core");
+const common_options_1 = require("./common_options");
+const lang_1 = require("./facade/lang");
+const metric_1 = require("./metric");
+const multi_metric_1 = require("./metric/multi_metric");
+const perflog_metric_1 = require("./metric/perflog_metric");
+const user_metric_1 = require("./metric/user_metric");
+const reporter_1 = require("./reporter");
+const console_reporter_1 = require("./reporter/console_reporter");
+const multi_reporter_1 = require("./reporter/multi_reporter");
+const sample_description_1 = require("./sample_description");
+const sampler_1 = require("./sampler");
+const validator_1 = require("./validator");
+const regression_slope_validator_1 = require("./validator/regression_slope_validator");
+const size_validator_1 = require("./validator/size_validator");
+const web_driver_adapter_1 = require("./web_driver_adapter");
+const web_driver_extension_1 = require("./web_driver_extension");
+const chrome_driver_extension_1 = require("./webdriver/chrome_driver_extension");
+const firefox_driver_extension_1 = require("./webdriver/firefox_driver_extension");
+const ios_driver_extension_1 = require("./webdriver/ios_driver_extension");
 /**
  * The Runner is the main entry point for executing a sample run.
  * It provides defaults, creates the injector and calls the sampler.

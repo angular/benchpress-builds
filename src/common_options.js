@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-const core_1 = require('@angular/core');
-const fs = require('fs');
+const core_1 = require("@angular/core");
+const fs = require("fs");
 class Options {
 }
 Options.SAMPLE_ID = new core_1.InjectionToken('Options.sampleId');
