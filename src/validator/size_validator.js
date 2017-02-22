@@ -6,42 +6,34 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var core_1 = require("@angular/core");
-var validator_1 = require("../validator");
+const core_1 = require("@angular/core");
+const validator_1 = require("../validator");
 /**
  * A validator that waits for the sample to have a certain size.
  */
-var SizeValidator = (function (_super) {
-    __extends(SizeValidator, _super);
-    function SizeValidator(_sampleSize) {
-        var _this = _super.call(this) || this;
-        _this._sampleSize = _sampleSize;
-        return _this;
+class SizeValidator extends validator_1.Validator {
+    constructor(_sampleSize) {
+        super();
+        this._sampleSize = _sampleSize;
     }
-    SizeValidator.prototype.describe = function () { return { 'sampleSize': this._sampleSize }; };
-    SizeValidator.prototype.validate = function (completeSample) {
+    describe() { return { 'sampleSize': this._sampleSize }; }
+    validate(completeSample) {
         if (completeSample.length >= this._sampleSize) {
             return completeSample.slice(completeSample.length - this._sampleSize, completeSample.length);
         }
         else {
             return null;
         }
-    };
-    return SizeValidator;
-}(validator_1.Validator));
+    }
+}
 SizeValidator.SAMPLE_SIZE = new core_1.InjectionToken('SizeValidator.sampleSize');
 SizeValidator.PROVIDERS = [SizeValidator, { provide: SizeValidator.SAMPLE_SIZE, useValue: 10 }];
 SizeValidator.decorators = [
     { type: core_1.Injectable },
 ];
 /** @nocollapse */
-SizeValidator.ctorParameters = function () { return [
+SizeValidator.ctorParameters = () => [
     { type: undefined, decorators: [{ type: core_1.Inject, args: [SizeValidator.SAMPLE_SIZE,] },] },
-]; };
+];
 exports.SizeValidator = SizeValidator;
 //# sourceMappingURL=size_validator.js.map

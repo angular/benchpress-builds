@@ -6,18 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var core_1 = require("@angular/core");
-var fs = require("fs");
-var Options = (function () {
-    function Options() {
-    }
-    return Options;
-}());
+const core_1 = require("@angular/core");
+const fs = require("fs");
+class Options {
+}
 Options.SAMPLE_ID = new core_1.InjectionToken('Options.sampleId');
 Options.DEFAULT_DESCRIPTION = new core_1.InjectionToken('Options.defaultDescription');
 Options.SAMPLE_DESCRIPTION = new core_1.InjectionToken('Options.sampleDescription');
 Options.FORCE_GC = new core_1.InjectionToken('Options.forceGc');
-Options.NO_PREPARE = function () { return true; };
+Options.NO_PREPARE = () => true;
 Options.PREPARE = new core_1.InjectionToken('Options.prepare');
 Options.EXECUTE = new core_1.InjectionToken('Options.execute');
 Options.CAPABILITIES = new core_1.InjectionToken('Options.capabilities');
@@ -35,7 +32,7 @@ Options.DEFAULT_PROVIDERS = [
     { provide: Options.FORCE_GC, useValue: false },
     { provide: Options.PREPARE, useValue: Options.NO_PREPARE },
     { provide: Options.MICRO_METRICS, useValue: {} }, { provide: Options.USER_METRICS, useValue: {} },
-    { provide: Options.NOW, useValue: function () { return new Date(); } },
+    { provide: Options.NOW, useValue: () => new Date() },
     { provide: Options.RECEIVED_DATA, useValue: false },
     { provide: Options.REQUEST_COUNT, useValue: false },
     { provide: Options.CAPTURE_FRAMES, useValue: false },
@@ -44,7 +41,7 @@ Options.DEFAULT_PROVIDERS = [
 exports.Options = Options;
 function writeFile(filename, content) {
     return new Promise(function (resolve, reject) {
-        fs.writeFile(filename, content, function (error) {
+        fs.writeFile(filename, content, (error) => {
             if (error) {
                 reject(error);
             }

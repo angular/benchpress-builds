@@ -9,25 +9,22 @@
 /**
  * A metric is measures values
  */
-var Metric = (function () {
-    function Metric() {
-    }
+class Metric {
     /**
      * Starts measuring
      */
-    Metric.prototype.beginMeasure = function () { throw new Error('NYI'); };
+    beginMeasure() { throw new Error('NYI'); }
     /**
      * Ends measuring and reports the data
      * since the begin call.
      * @param restart: Whether to restart right after this.
      */
-    Metric.prototype.endMeasure = function (restart) { throw new Error('NYI'); };
+    endMeasure(restart) { throw new Error('NYI'); }
     /**
      * Describes the metrics provided by this metric implementation.
      * (e.g. units, ...)
      */
-    Metric.prototype.describe = function () { throw new Error('NYI'); };
-    return Metric;
-}());
+    describe() { throw new Error('NYI'); }
+}
 exports.Metric = Metric;
 //# sourceMappingURL=metric.js.map
