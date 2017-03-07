@@ -22,7 +22,7 @@ export declare class ConsoleReporter extends Reporter {
         useValue: number;
     } | {
         provide: InjectionToken<{}>;
-        useValue: (obj: Object | Error) => void;
+        useValue: (v: any) => void;
     })[];
     private static _lpad(value, columnWidth, fill?);
     private _metricNames;

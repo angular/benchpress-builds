@@ -7,7 +7,6 @@
  */
 "use strict";
 const core_1 = require("@angular/core");
-const lang_1 = require("../facade/lang");
 const web_driver_adapter_1 = require("../web_driver_adapter");
 const web_driver_extension_1 = require("../web_driver_extension");
 class FirefoxDriverExtension extends web_driver_extension_1.WebDriverExtension {
@@ -26,7 +25,7 @@ class FirefoxDriverExtension extends web_driver_extension_1.WebDriverExtension {
     }
     timeEnd(name, restartName = null) {
         let script = 'window.markEnd("' + name + '");';
-        if (lang_1.isPresent(restartName)) {
+        if (restartName != null) {
             script += 'window.markStart("' + restartName + '");';
         }
         return this._driver.executeScript(script);

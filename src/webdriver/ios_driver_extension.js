@@ -7,7 +7,6 @@
  */
 "use strict";
 const core_1 = require("@angular/core");
-const lang_1 = require("../facade/lang");
 const web_driver_adapter_1 = require("../web_driver_adapter");
 const web_driver_extension_1 = require("../web_driver_extension");
 class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
@@ -21,7 +20,7 @@ class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
     }
     timeEnd(name, restartName = null) {
         let script = `console.timeEnd('${name}');`;
-        if (lang_1.isPresent(restartName)) {
+        if (restartName != null) {
             script += `console.time('${restartName}');`;
         }
         return this._driver.executeScript(script);
@@ -70,10 +69,10 @@ class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
                 endEvent = createEndEvent('render', endTime);
             }
             // Note: ios used to support GCEvent up until iOS 6 :-(
-            if (lang_1.isPresent(record['children'])) {
+            if (record['children'] != null) {
                 this._convertPerfRecordsToEvents(record['children'], events);
             }
-            if (lang_1.isPresent(endEvent)) {
+            if (endEvent != null) {
                 events.push(endEvent);
             }
         });
@@ -103,7 +102,7 @@ function createEvent(ph, name, time, args = null) {
         // the perflog...
         'pid': 'pid0'
     };
-    if (lang_1.isPresent(args)) {
+    if (args != null) {
         result['args'] = args;
     }
     return result;

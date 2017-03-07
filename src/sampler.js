@@ -8,7 +8,6 @@
 "use strict";
 const core_1 = require("@angular/core");
 const common_options_1 = require("./common_options");
-const lang_1 = require("./facade/lang");
 const measure_values_1 = require("./measure_values");
 const metric_1 = require("./metric");
 const reporter_1 = require("./reporter");
@@ -35,7 +34,7 @@ class Sampler {
     sample() {
         const loop = (lastState) => {
             return this._iterate(lastState).then((newState) => {
-                if (lang_1.isPresent(newState.validSample)) {
+                if (newState.validSample != null) {
                     return newState;
                 }
                 else {
@@ -65,7 +64,7 @@ class Sampler {
         const completeSample = state.completeSample.concat([measureValues]);
         const validSample = this._validator.validate(completeSample);
         let resultPromise = this._reporter.reportMeasureValues(measureValues);
-        if (lang_1.isPresent(validSample)) {
+        if (validSample != null) {
             resultPromise =
                 resultPromise.then((_) => this._reporter.reportSample(completeSample, validSample));
         }

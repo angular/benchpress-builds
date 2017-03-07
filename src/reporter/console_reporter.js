@@ -7,7 +7,6 @@
  */
 "use strict";
 const core_1 = require("@angular/core");
-const lang_1 = require("../facade/lang");
 const reporter_1 = require("../reporter");
 const sample_description_1 = require("../sample_description");
 const util_1 = require("./util");
@@ -62,8 +61,13 @@ class ConsoleReporter extends reporter_1.Reporter {
 ConsoleReporter.PRINT = new core_1.InjectionToken('ConsoleReporter.print');
 ConsoleReporter.COLUMN_WIDTH = new core_1.InjectionToken('ConsoleReporter.columnWidth');
 ConsoleReporter.PROVIDERS = [
-    ConsoleReporter, { provide: ConsoleReporter.COLUMN_WIDTH, useValue: 18 },
-    { provide: ConsoleReporter.PRINT, useValue: lang_1.print }
+    ConsoleReporter, { provide: ConsoleReporter.COLUMN_WIDTH, useValue: 18 }, {
+        provide: ConsoleReporter.PRINT,
+        useValue: function (v) {
+            // tslint:disable-next-line:no-console
+            console.log(v);
+        }
+    }
 ];
 ConsoleReporter.decorators = [
     { type: core_1.Injectable },

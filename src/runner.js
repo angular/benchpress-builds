@@ -8,7 +8,6 @@
 "use strict";
 const core_1 = require("@angular/core");
 const common_options_1 = require("./common_options");
-const lang_1 = require("./facade/lang");
 const metric_1 = require("./metric");
 const multi_metric_1 = require("./metric/multi_metric");
 const perflog_metric_1 = require("./metric/perflog_metric");
@@ -39,16 +38,16 @@ class Runner {
             _DEFAULT_PROVIDERS, this._defaultProviders, { provide: common_options_1.Options.SAMPLE_ID, useValue: id },
             { provide: common_options_1.Options.EXECUTE, useValue: execute }
         ];
-        if (lang_1.isPresent(prepare)) {
+        if (prepare != null) {
             sampleProviders.push({ provide: common_options_1.Options.PREPARE, useValue: prepare });
         }
-        if (lang_1.isPresent(microMetrics)) {
+        if (microMetrics != null) {
             sampleProviders.push({ provide: common_options_1.Options.MICRO_METRICS, useValue: microMetrics });
         }
-        if (lang_1.isPresent(userMetrics)) {
+        if (userMetrics != null) {
             sampleProviders.push({ provide: common_options_1.Options.USER_METRICS, useValue: userMetrics });
         }
-        if (lang_1.isPresent(providers)) {
+        if (providers != null) {
             sampleProviders.push(providers);
         }
         const inj = core_1.ReflectiveInjector.resolveAndCreate(sampleProviders);
