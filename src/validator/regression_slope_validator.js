@@ -6,6 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 const core_1 = require("@angular/core");
 const statistic_1 = require("../statistic");
 const validator_1 = require("../validator");
@@ -13,7 +22,7 @@ const validator_1 = require("../validator");
  * A validator that checks the regression slope of a specific metric.
  * Waits for the regression slope to be >=0.
  */
-class RegressionSlopeValidator extends validator_1.Validator {
+let RegressionSlopeValidator = RegressionSlopeValidator_1 = class RegressionSlopeValidator extends validator_1.Validator {
     constructor(_sampleSize, _metric) {
         super();
         this._sampleSize = _sampleSize;
@@ -40,20 +49,18 @@ class RegressionSlopeValidator extends validator_1.Validator {
             return null;
         }
     }
-}
+};
 RegressionSlopeValidator.SAMPLE_SIZE = new core_1.InjectionToken('RegressionSlopeValidator.sampleSize');
 RegressionSlopeValidator.METRIC = new core_1.InjectionToken('RegressionSlopeValidator.metric');
 RegressionSlopeValidator.PROVIDERS = [
-    RegressionSlopeValidator, { provide: RegressionSlopeValidator.SAMPLE_SIZE, useValue: 10 },
-    { provide: RegressionSlopeValidator.METRIC, useValue: 'scriptTime' }
+    RegressionSlopeValidator_1, { provide: RegressionSlopeValidator_1.SAMPLE_SIZE, useValue: 10 },
+    { provide: RegressionSlopeValidator_1.METRIC, useValue: 'scriptTime' }
 ];
-RegressionSlopeValidator.decorators = [
-    { type: core_1.Injectable },
-];
-/** @nocollapse */
-RegressionSlopeValidator.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [RegressionSlopeValidator.SAMPLE_SIZE,] },] },
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [RegressionSlopeValidator.METRIC,] },] },
-];
+RegressionSlopeValidator = RegressionSlopeValidator_1 = __decorate([
+    core_1.Injectable(),
+    __param(0, core_1.Inject(RegressionSlopeValidator_1.SAMPLE_SIZE)),
+    __param(1, core_1.Inject(RegressionSlopeValidator_1.METRIC))
+], RegressionSlopeValidator);
 exports.RegressionSlopeValidator = RegressionSlopeValidator;
+var RegressionSlopeValidator_1;
 //# sourceMappingURL=regression_slope_validator.js.map

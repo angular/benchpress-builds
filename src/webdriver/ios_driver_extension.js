@@ -6,10 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 const core_1 = require("@angular/core");
-const web_driver_adapter_1 = require("../web_driver_adapter");
 const web_driver_extension_1 = require("../web_driver_extension");
-class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
+let IOsDriverExtension = IOsDriverExtension_1 = class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
     constructor(_driver) {
         super();
         this._driver = _driver;
@@ -82,15 +87,11 @@ class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
     supports(capabilities) {
         return capabilities['browserName'].toLowerCase() === 'safari';
     }
-}
-IOsDriverExtension.PROVIDERS = [IOsDriverExtension];
-IOsDriverExtension.decorators = [
-    { type: core_1.Injectable },
-];
-/** @nocollapse */
-IOsDriverExtension.ctorParameters = () => [
-    { type: web_driver_adapter_1.WebDriverAdapter, },
-];
+};
+IOsDriverExtension.PROVIDERS = [IOsDriverExtension_1];
+IOsDriverExtension = IOsDriverExtension_1 = __decorate([
+    core_1.Injectable()
+], IOsDriverExtension);
 exports.IOsDriverExtension = IOsDriverExtension;
 function createEvent(ph, name, time, args = null) {
     const result = {
@@ -119,4 +120,5 @@ function createMarkStartEvent(name, time) {
 function createMarkEndEvent(name, time) {
     return createEvent('E', name, time);
 }
+var IOsDriverExtension_1;
 //# sourceMappingURL=ios_driver_extension.js.map

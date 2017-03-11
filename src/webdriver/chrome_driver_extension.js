@@ -6,9 +6,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 const core_1 = require("@angular/core");
 const common_options_1 = require("../common_options");
-const web_driver_adapter_1 = require("../web_driver_adapter");
 const web_driver_extension_1 = require("../web_driver_extension");
 /**
  * Set the following 'traceCategories' to collect metrics in Chrome:
@@ -17,7 +25,7 @@ const web_driver_extension_1 = require("../web_driver_extension");
  * In order to collect the frame rate related metrics, add 'benchmark'
  * to the list above.
  */
-class ChromeDriverExtension extends web_driver_extension_1.WebDriverExtension {
+let ChromeDriverExtension = ChromeDriverExtension_1 = class ChromeDriverExtension extends web_driver_extension_1.WebDriverExtension {
     constructor(_driver, userAgent) {
         super();
         this._driver = _driver;
@@ -164,16 +172,12 @@ class ChromeDriverExtension extends web_driver_extension_1.WebDriverExtension {
     supports(capabilities) {
         return this._majorChromeVersion >= 44 && capabilities['browserName'].toLowerCase() === 'chrome';
     }
-}
-ChromeDriverExtension.PROVIDERS = [ChromeDriverExtension];
-ChromeDriverExtension.decorators = [
-    { type: core_1.Injectable },
-];
-/** @nocollapse */
-ChromeDriverExtension.ctorParameters = () => [
-    { type: web_driver_adapter_1.WebDriverAdapter, },
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.USER_AGENT,] },] },
-];
+};
+ChromeDriverExtension.PROVIDERS = [ChromeDriverExtension_1];
+ChromeDriverExtension = ChromeDriverExtension_1 = __decorate([
+    core_1.Injectable(),
+    __param(1, core_1.Inject(common_options_1.Options.USER_AGENT))
+], ChromeDriverExtension);
 exports.ChromeDriverExtension = ChromeDriverExtension;
 function normalizeEvent(chromeEvent, data) {
     let ph = chromeEvent['ph'].toUpperCase();
@@ -200,4 +204,5 @@ function normalizeEvent(chromeEvent, data) {
     }
     return result;
 }
+var ChromeDriverExtension_1;
 //# sourceMappingURL=chrome_driver_extension.js.map

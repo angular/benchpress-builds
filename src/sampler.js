@@ -6,13 +6,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 const core_1 = require("@angular/core");
 const common_options_1 = require("./common_options");
 const measure_values_1 = require("./measure_values");
-const metric_1 = require("./metric");
-const reporter_1 = require("./reporter");
-const validator_1 = require("./validator");
-const web_driver_adapter_1 = require("./web_driver_adapter");
 /**
  * The Sampler owns the sample loop:
  * 1. calls the prepare/execute callbacks,
@@ -21,7 +26,7 @@ const web_driver_adapter_1 = require("./web_driver_adapter");
  * 4. reports the new data to the reporter
  * 5. loop until there is a valid sample
  */
-class Sampler {
+let Sampler = Sampler_1 = class Sampler {
     constructor(_driver, _metric, _reporter, _validator, _prepare, _execute, _now) {
         this._driver = _driver;
         this._metric = _metric;
@@ -70,21 +75,14 @@ class Sampler {
         }
         return resultPromise.then((_) => new SampleState(completeSample, validSample));
     }
-}
-Sampler.PROVIDERS = [Sampler];
-Sampler.decorators = [
-    { type: core_1.Injectable },
-];
-/** @nocollapse */
-Sampler.ctorParameters = () => [
-    { type: web_driver_adapter_1.WebDriverAdapter, },
-    { type: metric_1.Metric, },
-    { type: reporter_1.Reporter, },
-    { type: validator_1.Validator, },
-    { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.PREPARE,] },] },
-    { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.EXECUTE,] },] },
-    { type: Function, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.NOW,] },] },
-];
+};
+Sampler.PROVIDERS = [Sampler_1];
+Sampler = Sampler_1 = __decorate([
+    core_1.Injectable(),
+    __param(4, core_1.Inject(common_options_1.Options.PREPARE)),
+    __param(5, core_1.Inject(common_options_1.Options.EXECUTE)),
+    __param(6, core_1.Inject(common_options_1.Options.NOW))
+], Sampler);
 exports.Sampler = Sampler;
 class SampleState {
     constructor(completeSample, validSample) {
@@ -93,4 +91,5 @@ class SampleState {
     }
 }
 exports.SampleState = SampleState;
+var Sampler_1;
 //# sourceMappingURL=sampler.js.map

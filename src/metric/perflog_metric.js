@@ -6,14 +6,22 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 const core_1 = require("@angular/core");
 const common_options_1 = require("../common_options");
 const metric_1 = require("../metric");
-const web_driver_extension_1 = require("../web_driver_extension");
 /**
  * A metric that reads out the performance log
  */
-class PerflogMetric extends metric_1.Metric {
+let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metric {
     /**
      * @param driverExtension
      * @param setTimeout
@@ -331,27 +339,23 @@ class PerflogMetric extends metric_1.Metric {
             frameTimes.filter(t => t < _FRAME_TIME_SMOOTH_THRESHOLD).length / frameTimes.length;
     }
     _markName(index) { return `${_MARK_NAME_PREFIX}${index}`; }
-}
+};
 PerflogMetric.SET_TIMEOUT = new core_1.InjectionToken('PerflogMetric.setTimeout');
 PerflogMetric.PROVIDERS = [
-    PerflogMetric, {
-        provide: PerflogMetric.SET_TIMEOUT,
+    PerflogMetric_1, {
+        provide: PerflogMetric_1.SET_TIMEOUT,
         useValue: (fn, millis) => setTimeout(fn, millis)
     }
 ];
-PerflogMetric.decorators = [
-    { type: core_1.Injectable },
-];
-/** @nocollapse */
-PerflogMetric.ctorParameters = () => [
-    { type: web_driver_extension_1.WebDriverExtension, },
-    { type: Function, decorators: [{ type: core_1.Inject, args: [PerflogMetric.SET_TIMEOUT,] },] },
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.MICRO_METRICS,] },] },
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.FORCE_GC,] },] },
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.CAPTURE_FRAMES,] },] },
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.RECEIVED_DATA,] },] },
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [common_options_1.Options.REQUEST_COUNT,] },] },
-];
+PerflogMetric = PerflogMetric_1 = __decorate([
+    core_1.Injectable(),
+    __param(1, core_1.Inject(PerflogMetric_1.SET_TIMEOUT)),
+    __param(2, core_1.Inject(common_options_1.Options.MICRO_METRICS)),
+    __param(3, core_1.Inject(common_options_1.Options.FORCE_GC)),
+    __param(4, core_1.Inject(common_options_1.Options.CAPTURE_FRAMES)),
+    __param(5, core_1.Inject(common_options_1.Options.RECEIVED_DATA)),
+    __param(6, core_1.Inject(common_options_1.Options.REQUEST_COUNT))
+], PerflogMetric);
 exports.PerflogMetric = PerflogMetric;
 const _MICRO_ITERATIONS_REGEX = /(.+)\*(\d+)$/;
 const _MAX_RETRY_COUNT = 20;
@@ -359,4 +363,5 @@ const _MARK_NAME_PREFIX = 'benchpress';
 const _MARK_NAME_FRAME_CAPUTRE = 'frameCapture';
 // using 17ms as a somewhat looser threshold, instead of 16.6666ms
 const _FRAME_TIME_SMOOTH_THRESHOLD = 17;
+var PerflogMetric_1;
 //# sourceMappingURL=perflog_metric.js.map

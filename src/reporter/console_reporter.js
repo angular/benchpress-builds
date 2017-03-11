@@ -6,14 +6,22 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 const core_1 = require("@angular/core");
 const reporter_1 = require("../reporter");
-const sample_description_1 = require("../sample_description");
 const util_1 = require("./util");
 /**
  * A reporter for the console
  */
-class ConsoleReporter extends reporter_1.Reporter {
+let ConsoleReporter = ConsoleReporter_1 = class ConsoleReporter extends reporter_1.Reporter {
     constructor(_columnWidth, sampleDescription, _print) {
         super();
         this._columnWidth = _columnWidth;
@@ -55,28 +63,25 @@ class ConsoleReporter extends reporter_1.Reporter {
         return Promise.resolve(null);
     }
     _printStringRow(parts, fill = ' ') {
-        this._print(parts.map(part => ConsoleReporter._lpad(part, this._columnWidth, fill)).join(' | '));
+        this._print(parts.map(part => ConsoleReporter_1._lpad(part, this._columnWidth, fill)).join(' | '));
     }
-}
+};
 ConsoleReporter.PRINT = new core_1.InjectionToken('ConsoleReporter.print');
 ConsoleReporter.COLUMN_WIDTH = new core_1.InjectionToken('ConsoleReporter.columnWidth');
 ConsoleReporter.PROVIDERS = [
-    ConsoleReporter, { provide: ConsoleReporter.COLUMN_WIDTH, useValue: 18 }, {
-        provide: ConsoleReporter.PRINT,
+    ConsoleReporter_1, { provide: ConsoleReporter_1.COLUMN_WIDTH, useValue: 18 }, {
+        provide: ConsoleReporter_1.PRINT,
         useValue: function (v) {
             // tslint:disable-next-line:no-console
             console.log(v);
         }
     }
 ];
-ConsoleReporter.decorators = [
-    { type: core_1.Injectable },
-];
-/** @nocollapse */
-ConsoleReporter.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: core_1.Inject, args: [ConsoleReporter.COLUMN_WIDTH,] },] },
-    { type: sample_description_1.SampleDescription, },
-    { type: Function, decorators: [{ type: core_1.Inject, args: [ConsoleReporter.PRINT,] },] },
-];
+ConsoleReporter = ConsoleReporter_1 = __decorate([
+    core_1.Injectable(),
+    __param(0, core_1.Inject(ConsoleReporter_1.COLUMN_WIDTH)),
+    __param(2, core_1.Inject(ConsoleReporter_1.PRINT))
+], ConsoleReporter);
 exports.ConsoleReporter = ConsoleReporter;
+var ConsoleReporter_1;
 //# sourceMappingURL=console_reporter.js.map
