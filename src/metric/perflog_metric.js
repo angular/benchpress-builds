@@ -254,7 +254,7 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
             else if (this._receivedData && name === 'receivedData' && ph === 'I') {
                 result['receivedData'] += event['args']['encodedDataLength'];
             }
-            if (ph === 'B' && name === _MARK_NAME_FRAME_CAPUTRE) {
+            if (ph === 'B' && name === _MARK_NAME_FRAME_CAPTURE) {
                 if (frameCaptureStartEvent) {
                     throw new Error('can capture frames only once per benchmark run');
                 }
@@ -263,7 +263,7 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
                 }
                 frameCaptureStartEvent = event;
             }
-            else if (ph === 'E' && name === _MARK_NAME_FRAME_CAPUTRE) {
+            else if (ph === 'E' && name === _MARK_NAME_FRAME_CAPTURE) {
                 if (!frameCaptureStartEvent) {
                     throw new Error('missing start event for frame capture');
                 }
@@ -360,7 +360,7 @@ exports.PerflogMetric = PerflogMetric;
 const _MICRO_ITERATIONS_REGEX = /(.+)\*(\d+)$/;
 const _MAX_RETRY_COUNT = 20;
 const _MARK_NAME_PREFIX = 'benchpress';
-const _MARK_NAME_FRAME_CAPUTRE = 'frameCapture';
+const _MARK_NAME_FRAME_CAPTURE = 'frameCapture';
 // using 17ms as a somewhat looser threshold, instead of 16.6666ms
 const _FRAME_TIME_SMOOTH_THRESHOLD = 17;
 var PerflogMetric_1;
