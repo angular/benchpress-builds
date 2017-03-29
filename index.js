@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-// Must be imported first, because angular2 decorators throws on load.
+// Must be imported first, because Angular decorators throw on load.
 require("reflect-metadata");
 var core_1 = require("@angular/core");
 exports.InjectionToken = core_1.InjectionToken;
