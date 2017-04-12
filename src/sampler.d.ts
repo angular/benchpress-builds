@@ -27,6 +27,6 @@ export declare class Sampler {
 }
 export declare class SampleState {
     completeSample: MeasureValues[];
-    validSample: MeasureValues[];
-    constructor(completeSample: MeasureValues[], validSample: MeasureValues[]);
+    validSample: MeasureValues[] | null;
+    constructor(completeSample: MeasureValues[], validSample: MeasureValues[] | null);
 }

@@ -15,7 +15,7 @@ export declare class ChromeDriverExtension extends WebDriverExtension {
     private _parseChromeVersion(userAgent);
     gc(): Promise<any>;
     timeBegin(name: string): Promise<any>;
-    timeEnd(name: string, restartName?: string): Promise<any>;
+    timeEnd(name: string, restartName?: string | null): Promise<any>;
     readPerfLog(): Promise<PerfLogEvent[]>;
     private _convertPerfRecordsToEvents(chromeEvents, normalizedEvents?);
     private _convertEvent(event, categories);

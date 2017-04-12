@@ -6,7 +6,7 @@ export declare class IOsDriverExtension extends WebDriverExtension {
     constructor(_driver: WebDriverAdapter);
     gc(): Promise<any>;
     timeBegin(name: string): Promise<any>;
-    timeEnd(name: string, restartName?: string): Promise<any>;
+    timeEnd(name: string, restartName?: string | null): Promise<any>;
     readPerfLog(): Promise<any>;
     /** @internal */
     private _convertPerfRecordsToEvents(records, events?);

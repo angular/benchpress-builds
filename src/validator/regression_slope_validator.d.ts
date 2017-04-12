@@ -28,5 +28,5 @@ export declare class RegressionSlopeValidator extends Validator {
     describe(): {
         [key: string]: any;
     };
-    validate(completeSample: MeasureValues[]): MeasureValues[];
+    validate(completeSample: MeasureValues[]): MeasureValues[] | null;
 }
