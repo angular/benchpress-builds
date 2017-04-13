@@ -24,7 +24,7 @@ class WebDriverExtension {
             {
                 provide: WebDriverExtension,
                 useFactory: (children, capabilities) => {
-                    let delegate;
+                    let delegate = undefined;
                     children.forEach(extension => {
                         if (extension.supports(capabilities)) {
                             delegate = extension;
