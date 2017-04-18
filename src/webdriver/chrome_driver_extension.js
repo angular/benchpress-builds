@@ -29,6 +29,7 @@ let ChromeDriverExtension = ChromeDriverExtension_1 = class ChromeDriverExtensio
     constructor(_driver, userAgent) {
         super();
         this._driver = _driver;
+        this._firstRun = true;
         this._majorChromeVersion = this._parseChromeVersion(userAgent);
     }
     _parseChromeVersion(userAgent) {
@@ -47,6 +48,12 @@ let ChromeDriverExtension = ChromeDriverExtension_1 = class ChromeDriverExtensio
     }
     gc() { return this._driver.executeScript('window.gc()'); }
     timeBegin(name) {
+        if (this._firstRun) {
+            this._firstRun = false;
+            // Before the first run, read out the existing performance logs
+            // so that the chrome buffer does not fill up.
+            this._driver.logs('performance');
+        }
         return this._driver.executeScript(`console.time('${name}');`);
     }
     timeEnd(name, restartName = null) {
