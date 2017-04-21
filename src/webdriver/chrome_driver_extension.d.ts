@@ -11,6 +11,7 @@ export declare class ChromeDriverExtension extends WebDriverExtension {
     private _driver;
     static PROVIDERS: typeof ChromeDriverExtension[];
     private _majorChromeVersion;
+    private _firstRun;
     constructor(_driver: WebDriverAdapter, userAgent: string);
     private _parseChromeVersion(userAgent);
     gc(): Promise<any>;
