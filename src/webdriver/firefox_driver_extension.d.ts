@@ -8,7 +8,7 @@ export declare class FirefoxDriverExtension extends WebDriverExtension {
     gc(): Promise<any>;
     timeBegin(name: string): Promise<any>;
     timeEnd(name: string, restartName?: string | null): Promise<any>;
-    readPerfLog(): Promise<PerfLogEvent>;
+    readPerfLog(): Promise<PerfLogEvent[]>;
     perfLogFeatures(): PerfLogFeatures;
     supports(capabilities: {
         [key: string]: any;
