@@ -14,7 +14,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
-const web_driver_adapter_1 = require("../web_driver_adapter");
 const web_driver_extension_1 = require("../web_driver_extension");
 let IOsDriverExtension = IOsDriverExtension_1 = class IOsDriverExtension extends web_driver_extension_1.WebDriverExtension {
     constructor(_driver) {
@@ -90,7 +89,7 @@ let IOsDriverExtension = IOsDriverExtension_1 = class IOsDriverExtension extends
         return capabilities['browserName'].toLowerCase() === 'safari';
     }
 };
-IOsDriverExtension.PROVIDERS = [{ provide: IOsDriverExtension_1, deps: [web_driver_adapter_1.WebDriverAdapter] }];
+IOsDriverExtension.PROVIDERS = [IOsDriverExtension_1];
 IOsDriverExtension = IOsDriverExtension_1 = __decorate([
     core_1.Injectable()
 ], IOsDriverExtension);

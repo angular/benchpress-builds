@@ -18,7 +18,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const common_options_1 = require("../common_options");
-const web_driver_adapter_1 = require("../web_driver_adapter");
 const web_driver_extension_1 = require("../web_driver_extension");
 /**
  * Set the following 'traceCategories' to collect metrics in Chrome:
@@ -182,10 +181,7 @@ let ChromeDriverExtension = ChromeDriverExtension_1 = class ChromeDriverExtensio
         return this._majorChromeVersion >= 44 && capabilities['browserName'].toLowerCase() === 'chrome';
     }
 };
-ChromeDriverExtension.PROVIDERS = [{
-        provide: ChromeDriverExtension_1,
-        deps: [web_driver_adapter_1.WebDriverAdapter, common_options_1.Options.USER_AGENT]
-    }];
+ChromeDriverExtension.PROVIDERS = [ChromeDriverExtension_1];
 ChromeDriverExtension = ChromeDriverExtension_1 = __decorate([
     core_1.Injectable(),
     __param(1, core_1.Inject(common_options_1.Options.USER_AGENT))

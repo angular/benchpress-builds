@@ -18,7 +18,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const reporter_1 = require("../reporter");
-const sample_description_1 = require("../sample_description");
 const util_1 = require("./util");
 /**
  * A reporter for the console
@@ -71,11 +70,7 @@ let ConsoleReporter = ConsoleReporter_1 = class ConsoleReporter extends reporter
 ConsoleReporter.PRINT = new core_1.InjectionToken('ConsoleReporter.print');
 ConsoleReporter.COLUMN_WIDTH = new core_1.InjectionToken('ConsoleReporter.columnWidth');
 ConsoleReporter.PROVIDERS = [
-    {
-        provide: ConsoleReporter_1,
-        deps: [ConsoleReporter_1.COLUMN_WIDTH, sample_description_1.SampleDescription, ConsoleReporter_1.PRINT]
-    },
-    { provide: ConsoleReporter_1.COLUMN_WIDTH, useValue: 18 }, {
+    ConsoleReporter_1, { provide: ConsoleReporter_1.COLUMN_WIDTH, useValue: 18 }, {
         provide: ConsoleReporter_1.PRINT,
         useValue: function (v) {
             // tslint:disable-next-line:no-console

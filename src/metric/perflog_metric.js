@@ -19,7 +19,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const common_options_1 = require("../common_options");
 const metric_1 = require("../metric");
-const web_driver_extension_1 = require("../web_driver_extension");
 /**
  * A metric that reads out the performance log
  */
@@ -344,14 +343,7 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
 };
 PerflogMetric.SET_TIMEOUT = new core_1.InjectionToken('PerflogMetric.setTimeout');
 PerflogMetric.PROVIDERS = [
-    {
-        provide: PerflogMetric_1,
-        deps: [
-            web_driver_extension_1.WebDriverExtension, PerflogMetric_1.SET_TIMEOUT, common_options_1.Options.MICRO_METRICS, common_options_1.Options.FORCE_GC,
-            common_options_1.Options.CAPTURE_FRAMES, common_options_1.Options.RECEIVED_DATA, common_options_1.Options.REQUEST_COUNT
-        ]
-    },
-    {
+    PerflogMetric_1, {
         provide: PerflogMetric_1.SET_TIMEOUT,
         useValue: (fn, millis) => setTimeout(fn, millis)
     }

@@ -17,10 +17,7 @@ export declare class RegressionSlopeValidator extends Validator {
     private _metric;
     static SAMPLE_SIZE: InjectionToken<{}>;
     static METRIC: InjectionToken<{}>;
-    static PROVIDERS: ({
-        provide: typeof RegressionSlopeValidator;
-        deps: InjectionToken<{}>[];
-    } | {
+    static PROVIDERS: (typeof RegressionSlopeValidator | {
         provide: InjectionToken<{}>;
         useValue: number;
     } | {

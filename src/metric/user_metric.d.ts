@@ -1,17 +1,9 @@
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-import { StaticProvider } from '@angular/core';
 import { Metric } from '../metric';
 import { WebDriverAdapter } from '../web_driver_adapter';
 export declare class UserMetric extends Metric {
     private _userMetrics;
     private _wdAdapter;
-    static PROVIDERS: StaticProvider[];
+    static PROVIDERS: typeof UserMetric[];
     constructor(_userMetrics: {
         [key: string]: string;
     }, _wdAdapter: WebDriverAdapter);

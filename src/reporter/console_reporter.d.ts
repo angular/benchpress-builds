@@ -17,10 +17,7 @@ export declare class ConsoleReporter extends Reporter {
     private _print;
     static PRINT: InjectionToken<{}>;
     static COLUMN_WIDTH: InjectionToken<{}>;
-    static PROVIDERS: ({
-        provide: typeof ConsoleReporter;
-        deps: (InjectionToken<{}> | typeof SampleDescription)[];
-    } | {
+    static PROVIDERS: (typeof ConsoleReporter | {
         provide: InjectionToken<{}>;
         useValue: number;
     } | {

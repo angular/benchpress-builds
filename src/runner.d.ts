@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { StaticProvider } from '@angular/core';
+import { Provider } from '@angular/core';
 import { SampleState } from './sampler';
 /**
  * The Runner is the main entry point for executing a sample run.
@@ -13,7 +13,7 @@ import { SampleState } from './sampler';
  */
 export declare class Runner {
     private _defaultProviders;
-    constructor(_defaultProviders?: StaticProvider[]);
+    constructor(_defaultProviders?: Provider[]);
     sample({id, execute, prepare, microMetrics, providers, userMetrics}: {
         id: string;
         execute?: Function;
@@ -21,7 +21,7 @@ export declare class Runner {
         microMetrics?: {
             [key: string]: string;
         };
-        providers?: StaticProvider[];
+        providers?: Provider[];
         userMetrics?: {
             [key: string]: string;
         };

@@ -37,10 +37,7 @@ let SizeValidator = SizeValidator_1 = class SizeValidator extends validator_1.Va
     }
 };
 SizeValidator.SAMPLE_SIZE = new core_1.InjectionToken('SizeValidator.sampleSize');
-SizeValidator.PROVIDERS = [
-    { provide: SizeValidator_1, deps: [SizeValidator_1.SAMPLE_SIZE] },
-    { provide: SizeValidator_1.SAMPLE_SIZE, useValue: 10 }
-];
+SizeValidator.PROVIDERS = [SizeValidator_1, { provide: SizeValidator_1.SAMPLE_SIZE, useValue: 10 }];
 SizeValidator = SizeValidator_1 = __decorate([
     core_1.Injectable(),
     __param(0, core_1.Inject(SizeValidator_1.SAMPLE_SIZE))
