@@ -54,7 +54,11 @@ let RegressionSlopeValidator = RegressionSlopeValidator_1 = class RegressionSlop
 RegressionSlopeValidator.SAMPLE_SIZE = new core_1.InjectionToken('RegressionSlopeValidator.sampleSize');
 RegressionSlopeValidator.METRIC = new core_1.InjectionToken('RegressionSlopeValidator.metric');
 RegressionSlopeValidator.PROVIDERS = [
-    RegressionSlopeValidator_1, { provide: RegressionSlopeValidator_1.SAMPLE_SIZE, useValue: 10 },
+    {
+        provide: RegressionSlopeValidator_1,
+        deps: [RegressionSlopeValidator_1.SAMPLE_SIZE, RegressionSlopeValidator_1.METRIC]
+    },
+    { provide: RegressionSlopeValidator_1.SAMPLE_SIZE, useValue: 10 },
     { provide: RegressionSlopeValidator_1.METRIC, useValue: 'scriptTime' }
 ];
 RegressionSlopeValidator = RegressionSlopeValidator_1 = __decorate([

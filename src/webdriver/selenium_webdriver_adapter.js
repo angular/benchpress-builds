@@ -36,7 +36,8 @@ class SeleniumWebDriverAdapter extends web_driver_adapter_1.WebDriverAdapter {
 }
 SeleniumWebDriverAdapter.PROTRACTOR_PROVIDERS = [{
         provide: web_driver_adapter_1.WebDriverAdapter,
-        useFactory: () => new SeleniumWebDriverAdapter(global.browser)
+        useFactory: () => new SeleniumWebDriverAdapter(global.browser),
+        deps: []
     }];
 exports.SeleniumWebDriverAdapter = SeleniumWebDriverAdapter;
 /**
