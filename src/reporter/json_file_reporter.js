@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,7 +6,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,9 +15,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const common_options_1 = require("../common_options");
 const reporter_1 = require("../reporter");
+const sample_description_1 = require("../sample_description");
 const util_1 = require("./util");
 /**
  * A reporter that writes results into a json file.
@@ -47,7 +49,13 @@ let JsonFileReporter = JsonFileReporter_1 = class JsonFileReporter extends repor
     }
 };
 JsonFileReporter.PATH = new core_1.InjectionToken('JsonFileReporter.path');
-JsonFileReporter.PROVIDERS = [JsonFileReporter_1, { provide: JsonFileReporter_1.PATH, useValue: '.' }];
+JsonFileReporter.PROVIDERS = [
+    {
+        provide: JsonFileReporter_1,
+        deps: [sample_description_1.SampleDescription, JsonFileReporter_1.PATH, common_options_1.Options.WRITE_FILE, common_options_1.Options.NOW]
+    },
+    { provide: JsonFileReporter_1.PATH, useValue: '.' }
+];
 JsonFileReporter = JsonFileReporter_1 = __decorate([
     core_1.Injectable(),
     __param(1, core_1.Inject(JsonFileReporter_1.PATH)),

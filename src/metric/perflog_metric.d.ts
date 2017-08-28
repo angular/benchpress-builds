@@ -20,7 +20,10 @@ export declare class PerflogMetric extends Metric {
     private _receivedData;
     private _requestCount;
     static SET_TIMEOUT: InjectionToken<{}>;
-    static PROVIDERS: (typeof PerflogMetric | {
+    static PROVIDERS: ({
+        provide: typeof PerflogMetric;
+        deps: (InjectionToken<{}> | typeof WebDriverExtension)[];
+    } | {
         provide: InjectionToken<{}>;
         useValue: (fn: Function, millis: number) => any;
     })[];

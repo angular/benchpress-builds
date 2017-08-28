@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,7 +6,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,8 +15,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const common_options_1 = require("../common_options");
+const web_driver_adapter_1 = require("../web_driver_adapter");
 const web_driver_extension_1 = require("../web_driver_extension");
 /**
  * Set the following 'traceCategories' to collect metrics in Chrome:
@@ -104,7 +106,7 @@ let ChromeDriverExtension = ChromeDriverExtension_1 = class ChromeDriverExtensio
         }
         else if (this._isEvent(categories, name, ['benchmark'], 'BenchmarkInstrumentation::ImplThreadRenderingStats')) {
             // TODO(goderbauer): Instead of BenchmarkInstrumentation::ImplThreadRenderingStats the
-            // following events should be used (if available) for more accurate measurments:
+            // following events should be used (if available) for more accurate measurements:
             //   1st choice: vsync_before - ground truth on Android
             //   2nd choice: BenchmarkInstrumentation::DisplayRenderingStats - available on systems with
             //               new surfaces framework (not broadly enabled yet)
@@ -180,7 +182,10 @@ let ChromeDriverExtension = ChromeDriverExtension_1 = class ChromeDriverExtensio
         return this._majorChromeVersion >= 44 && capabilities['browserName'].toLowerCase() === 'chrome';
     }
 };
-ChromeDriverExtension.PROVIDERS = [ChromeDriverExtension_1];
+ChromeDriverExtension.PROVIDERS = [{
+        provide: ChromeDriverExtension_1,
+        deps: [web_driver_adapter_1.WebDriverAdapter, common_options_1.Options.USER_AGENT]
+    }];
 ChromeDriverExtension = ChromeDriverExtension_1 = __decorate([
     core_1.Injectable(),
     __param(1, core_1.Inject(common_options_1.Options.USER_AGENT))

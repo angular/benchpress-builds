@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,14 +6,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
+const web_driver_adapter_1 = require("../web_driver_adapter");
 const web_driver_extension_1 = require("../web_driver_extension");
 let FirefoxDriverExtension = FirefoxDriverExtension_1 = class FirefoxDriverExtension extends web_driver_extension_1.WebDriverExtension {
     constructor(_driver) {
@@ -43,7 +45,7 @@ let FirefoxDriverExtension = FirefoxDriverExtension_1 = class FirefoxDriverExten
         return capabilities['browserName'].toLowerCase() === 'firefox';
     }
 };
-FirefoxDriverExtension.PROVIDERS = [FirefoxDriverExtension_1];
+FirefoxDriverExtension.PROVIDERS = [{ provide: FirefoxDriverExtension_1, deps: [web_driver_adapter_1.WebDriverAdapter] }];
 FirefoxDriverExtension = FirefoxDriverExtension_1 = __decorate([
     core_1.Injectable()
 ], FirefoxDriverExtension);
