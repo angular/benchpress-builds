@@ -45,8 +45,6 @@ export declare class PerflogMetric extends Metric {
     endMeasure(restart: boolean): Promise<{
         [key: string]: number;
     }>;
-    /** @internal */
-    private _endPlainMeasureAndMeasureForceGc(restartMeasure);
     private _beginMeasure();
     private _endMeasure(restart);
     private _readUntilEndMark(markName, loopCount?, startEvent?);

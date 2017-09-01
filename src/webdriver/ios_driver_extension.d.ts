@@ -11,8 +11,6 @@ export declare class IOsDriverExtension extends WebDriverExtension {
     timeBegin(name: string): Promise<any>;
     timeEnd(name: string, restartName?: string | null): Promise<any>;
     readPerfLog(): Promise<PerfLogEvent[]>;
-    /** @internal */
-    private _convertPerfRecordsToEvents(records, events?);
     perfLogFeatures(): PerfLogFeatures;
     supports(capabilities: {
         [key: string]: any;
