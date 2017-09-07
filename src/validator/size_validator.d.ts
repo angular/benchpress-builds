@@ -14,7 +14,10 @@ import { Validator } from '../validator';
 export declare class SizeValidator extends Validator {
     private _sampleSize;
     static SAMPLE_SIZE: InjectionToken<{}>;
-    static PROVIDERS: (typeof SizeValidator | {
+    static PROVIDERS: ({
+        provide: typeof SizeValidator;
+        deps: InjectionToken<{}>[];
+    } | {
         provide: InjectionToken<{}>;
         useValue: number;
     })[];
@@ -22,5 +25,5 @@ export declare class SizeValidator extends Validator {
     describe(): {
         [key: string]: any;
     };
-    validate(completeSample: MeasureValues[]): MeasureValues[];
+    validate(completeSample: MeasureValues[]): MeasureValues[] | null;
 }

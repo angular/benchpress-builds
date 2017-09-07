@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,7 +6,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,9 +15,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const common_options_1 = require("../common_options");
 const metric_1 = require("../metric");
+const web_driver_extension_1 = require("../web_driver_extension");
 /**
  * A metric that reads out the performance log
  */
@@ -254,7 +256,7 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
             else if (this._receivedData && name === 'receivedData' && ph === 'I') {
                 result['receivedData'] += event['args']['encodedDataLength'];
             }
-            if (ph === 'B' && name === _MARK_NAME_FRAME_CAPUTRE) {
+            if (ph === 'B' && name === _MARK_NAME_FRAME_CAPTURE) {
                 if (frameCaptureStartEvent) {
                     throw new Error('can capture frames only once per benchmark run');
                 }
@@ -263,7 +265,7 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
                 }
                 frameCaptureStartEvent = event;
             }
-            else if (ph === 'E' && name === _MARK_NAME_FRAME_CAPUTRE) {
+            else if (ph === 'E' && name === _MARK_NAME_FRAME_CAPTURE) {
                 if (!frameCaptureStartEvent) {
                     throw new Error('missing start event for frame capture');
                 }
@@ -342,7 +344,14 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
 };
 PerflogMetric.SET_TIMEOUT = new core_1.InjectionToken('PerflogMetric.setTimeout');
 PerflogMetric.PROVIDERS = [
-    PerflogMetric_1, {
+    {
+        provide: PerflogMetric_1,
+        deps: [
+            web_driver_extension_1.WebDriverExtension, PerflogMetric_1.SET_TIMEOUT, common_options_1.Options.MICRO_METRICS, common_options_1.Options.FORCE_GC,
+            common_options_1.Options.CAPTURE_FRAMES, common_options_1.Options.RECEIVED_DATA, common_options_1.Options.REQUEST_COUNT
+        ]
+    },
+    {
         provide: PerflogMetric_1.SET_TIMEOUT,
         useValue: (fn, millis) => setTimeout(fn, millis)
     }
@@ -360,7 +369,7 @@ exports.PerflogMetric = PerflogMetric;
 const _MICRO_ITERATIONS_REGEX = /(.+)\*(\d+)$/;
 const _MAX_RETRY_COUNT = 20;
 const _MARK_NAME_PREFIX = 'benchpress';
-const _MARK_NAME_FRAME_CAPUTRE = 'frameCapture';
+const _MARK_NAME_FRAME_CAPTURE = 'frameCapture';
 // using 17ms as a somewhat looser threshold, instead of 16.6666ms
 const _FRAME_TIME_SMOOTH_THRESHOLD = 17;
 var PerflogMetric_1;

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,7 +6,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,9 +15,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const common_options_1 = require("./common_options");
 const measure_values_1 = require("./measure_values");
+const metric_1 = require("./metric");
+const reporter_1 = require("./reporter");
+const validator_1 = require("./validator");
+const web_driver_adapter_1 = require("./web_driver_adapter");
 /**
  * The Sampler owns the sample loop:
  * 1. calls the prepare/execute callbacks,
@@ -76,7 +81,12 @@ let Sampler = Sampler_1 = class Sampler {
         return resultPromise.then((_) => new SampleState(completeSample, validSample));
     }
 };
-Sampler.PROVIDERS = [Sampler_1];
+Sampler.PROVIDERS = [{
+        provide: Sampler_1,
+        deps: [
+            web_driver_adapter_1.WebDriverAdapter, metric_1.Metric, reporter_1.Reporter, validator_1.Validator, common_options_1.Options.PREPARE, common_options_1.Options.EXECUTE, common_options_1.Options.NOW
+        ]
+    }];
 Sampler = Sampler_1 = __decorate([
     core_1.Injectable(),
     __param(4, core_1.Inject(common_options_1.Options.PREPARE)),

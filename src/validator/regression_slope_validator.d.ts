@@ -17,7 +17,10 @@ export declare class RegressionSlopeValidator extends Validator {
     private _metric;
     static SAMPLE_SIZE: InjectionToken<{}>;
     static METRIC: InjectionToken<{}>;
-    static PROVIDERS: (typeof RegressionSlopeValidator | {
+    static PROVIDERS: ({
+        provide: typeof RegressionSlopeValidator;
+        deps: InjectionToken<{}>[];
+    } | {
         provide: InjectionToken<{}>;
         useValue: number;
     } | {
@@ -28,5 +31,5 @@ export declare class RegressionSlopeValidator extends Validator {
     describe(): {
         [key: string]: any;
     };
-    validate(completeSample: MeasureValues[]): MeasureValues[];
+    validate(completeSample: MeasureValues[]): MeasureValues[] | null;
 }

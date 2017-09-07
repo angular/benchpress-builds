@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,8 +6,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
-// Must be imported first, because angular2 decorators throws on load.
+Object.defineProperty(exports, "__esModule", { value: true });
+// Must be imported first, because Angular decorators throw on load.
 require("reflect-metadata");
 var core_1 = require("@angular/core");
 exports.InjectionToken = core_1.InjectionToken;

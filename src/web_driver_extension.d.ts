@@ -23,7 +23,7 @@ export declare abstract class WebDriverExtension {
     static provideFirstSupported(childTokens: any[]): any[];
     gc(): Promise<any>;
     timeBegin(name: string): Promise<any>;
-    timeEnd(name: string, restartName: string): Promise<any>;
+    timeEnd(name: string, restartName: string | null): Promise<any>;
     /**
      * Format:
      * - cat: category of the event

@@ -15,7 +15,7 @@ export declare abstract class Validator {
     /**
      * Calculates a valid sample out of the complete sample
      */
-    validate(completeSample: MeasureValues[]): MeasureValues[];
+    validate(completeSample: MeasureValues[]): MeasureValues[] | null;
     /**
      * Returns a Map that describes the properties of the validator
      * (e.g. sample size, ...)
