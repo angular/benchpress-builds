@@ -18,7 +18,10 @@ export declare class JsonFileReporter extends Reporter {
     private _writeFile;
     private _now;
     static PATH: InjectionToken<{}>;
-    static PROVIDERS: (typeof JsonFileReporter | {
+    static PROVIDERS: ({
+        provide: typeof JsonFileReporter;
+        deps: (InjectionToken<{}> | typeof SampleDescription)[];
+    } | {
         provide: InjectionToken<{}>;
         useValue: string;
     })[];
