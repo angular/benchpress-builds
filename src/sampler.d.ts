@@ -1,3 +1,11 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { StaticProvider } from '@angular/core';
 import { MeasureValues } from './measure_values';
 import { Metric } from './metric';
 import { Reporter } from './reporter';
@@ -19,7 +27,7 @@ export declare class Sampler {
     private _prepare;
     private _execute;
     private _now;
-    static PROVIDERS: typeof Sampler[];
+    static PROVIDERS: StaticProvider[];
     constructor(_driver: WebDriverAdapter, _metric: Metric, _reporter: Reporter, _validator: Validator, _prepare: Function, _execute: Function, _now: Function);
     sample(): Promise<SampleState>;
     private _iterate(lastState);

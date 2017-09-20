@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import 'reflect-metadata';
-export { InjectionToken, Injector, Provider, ReflectiveInjector } from '@angular/core';
+export { InjectionToken, Injector, Provider, ReflectiveInjector, StaticProvider } from '@angular/core';
 export { Options } from './src/common_options';
 export { MeasureValues } from './src/measure_values';
 export { Metric } from './src/metric';

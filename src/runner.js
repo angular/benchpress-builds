@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,7 +6,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const common_options_1 = require("./common_options");
 const metric_1 = require("./metric");
@@ -50,7 +51,7 @@ class Runner {
         if (providers != null) {
             sampleProviders.push(providers);
         }
-        const inj = core_1.ReflectiveInjector.resolveAndCreate(sampleProviders);
+        const inj = core_1.Injector.create(sampleProviders);
         const adapter = inj.get(web_driver_adapter_1.WebDriverAdapter);
         return Promise
             .all([adapter.capabilities(), adapter.executeScript('return window.navigator.userAgent;')])
@@ -62,7 +63,7 @@ class Runner {
             // Only WebDriverAdapter is reused.
             // TODO vsavkin consider changing it when toAsyncFactory is added back or when child
             // injectors are handled better.
-            const injector = core_1.ReflectiveInjector.resolveAndCreate([
+            const injector = core_1.Injector.create([
                 sampleProviders, { provide: common_options_1.Options.CAPABILITIES, useValue: capabilities },
                 { provide: common_options_1.Options.USER_AGENT, useValue: userAgent },
                 { provide: web_driver_adapter_1.WebDriverAdapter, useValue: adapter }
