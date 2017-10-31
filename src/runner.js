@@ -68,6 +68,8 @@ class Runner {
                 { provide: common_options_1.Options.USER_AGENT, useValue: userAgent },
                 { provide: web_driver_adapter_1.WebDriverAdapter, useValue: adapter }
             ]);
+            // TODO: With TypeScript 2.5 injector.get does not infer correctly the
+            // return type. Remove 'any' and investigate the issue.
             const sampler = injector.get(sampler_1.Sampler);
             return sampler.sample();
         });
