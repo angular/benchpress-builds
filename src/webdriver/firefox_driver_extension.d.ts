@@ -4,7 +4,7 @@ export declare class FirefoxDriverExtension extends WebDriverExtension {
     private _driver;
     static PROVIDERS: {
         provide: typeof FirefoxDriverExtension;
-        deps: typeof WebDriverAdapter[];
+        deps: (typeof WebDriverAdapter)[];
     }[];
     private _profilerStarted;
     constructor(_driver: WebDriverAdapter);
