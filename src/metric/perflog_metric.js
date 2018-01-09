@@ -229,6 +229,9 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
             // not all events have been received, no further processing for now
             return null;
         }
+        if (markStartEvent.pid !== markEndEvent.pid) {
+            result['invalid'] = 1;
+        }
         let gcTimeInScript = 0;
         let renderTimeInScript = 0;
         const frameTimestamps = [];

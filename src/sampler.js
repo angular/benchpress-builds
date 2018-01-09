@@ -70,7 +70,12 @@ let Sampler = Sampler_1 = class Sampler {
         }
         return resultPromise.then((_) => this._driver.waitFor(this._execute))
             .then((_) => this._metric.endMeasure(this._prepare === common_options_1.Options.NO_PREPARE))
-            .then((measureValues) => this._report(lastState, measureValues));
+            .then((measureValues) => {
+            if (!!measureValues['invalid']) {
+                return lastState;
+            }
+            return this._report(lastState, measureValues);
+        });
     }
     _report(state, metricValues) {
         const measureValues = new measure_values_1.MeasureValues(state.completeSample.length, this._now(), metricValues);
