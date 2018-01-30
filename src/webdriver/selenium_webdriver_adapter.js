@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,7 +6,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const web_driver_adapter_1 = require("../web_driver_adapter");
 /**
  * Adapter for the selenium-webdriver.
@@ -23,7 +24,9 @@ class SeleniumWebDriverAdapter extends web_driver_adapter_1.WebDriverAdapter {
     capabilities() {
         return this._driver.getCapabilities().then((capsObject) => {
             const localData = {};
-            capsObject.forEach((value, key) => { localData[key] = value; });
+            for (const key of Array.from(capsObject.keys())) {
+                localData[key] = capsObject.get(key);
+            }
             return localData;
         });
     }
@@ -35,7 +38,8 @@ class SeleniumWebDriverAdapter extends web_driver_adapter_1.WebDriverAdapter {
 }
 SeleniumWebDriverAdapter.PROTRACTOR_PROVIDERS = [{
         provide: web_driver_adapter_1.WebDriverAdapter,
-        useFactory: () => new SeleniumWebDriverAdapter(global.browser)
+        useFactory: () => new SeleniumWebDriverAdapter(global.browser),
+        deps: []
     }];
 exports.SeleniumWebDriverAdapter = SeleniumWebDriverAdapter;
 /**

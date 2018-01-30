@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,19 +6,23 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const common_options_1 = require("../common_options");
 const metric_1 = require("../metric");
+const web_driver_extension_1 = require("../web_driver_extension");
 /**
  * A metric that reads out the performance log
  */
@@ -26,8 +31,10 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
      * @param driverExtension
      * @param setTimeout
      * @param microMetrics Name and description of metrics provided via console.time / console.timeEnd
+     * @param ignoreNavigation If true, don't measure from navigationStart events. These events are
+     *   usually triggered by a page load, but can also be triggered when adding iframes to the DOM.
      **/
-    constructor(_driverExtension, _setTimeout, _microMetrics, _forceGc, _captureFrames, _receivedData, _requestCount) {
+    constructor(_driverExtension, _setTimeout, _microMetrics, _forceGc, _captureFrames, _receivedData, _requestCount, _ignoreNavigation) {
         super();
         this._driverExtension = _driverExtension;
         this._setTimeout = _setTimeout;
@@ -36,6 +43,7 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
         this._captureFrames = _captureFrames;
         this._receivedData = _receivedData;
         this._requestCount = _requestCount;
+        this._ignoreNavigation = _ignoreNavigation;
         this._remainingEvents = [];
         this._measureCount = 0;
         this._perfLogFeatures = _driverExtension.perfLogFeatures();
@@ -208,7 +216,7 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
             if (ph === 'B' && name === markName) {
                 markStartEvent = event;
             }
-            else if (ph === 'I' && name === 'navigationStart') {
+            else if (ph === 'I' && name === 'navigationStart' && !this._ignoreNavigation) {
                 // if a benchmark measures reload of a page, use the last
                 // navigationStart as begin event
                 markStartEvent = event;
@@ -220,6 +228,9 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
         if (!markStartEvent || !markEndEvent) {
             // not all events have been received, no further processing for now
             return null;
+        }
+        if (markStartEvent.pid !== markEndEvent.pid) {
+            result['invalid'] = 1;
         }
         let gcTimeInScript = 0;
         let renderTimeInScript = 0;
@@ -254,7 +265,7 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
             else if (this._receivedData && name === 'receivedData' && ph === 'I') {
                 result['receivedData'] += event['args']['encodedDataLength'];
             }
-            if (ph === 'B' && name === _MARK_NAME_FRAME_CAPUTRE) {
+            if (ph === 'B' && name === _MARK_NAME_FRAME_CAPTURE) {
                 if (frameCaptureStartEvent) {
                     throw new Error('can capture frames only once per benchmark run');
                 }
@@ -263,7 +274,7 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
                 }
                 frameCaptureStartEvent = event;
             }
-            else if (ph === 'E' && name === _MARK_NAME_FRAME_CAPUTRE) {
+            else if (ph === 'E' && name === _MARK_NAME_FRAME_CAPTURE) {
                 if (!frameCaptureStartEvent) {
                     throw new Error('missing start event for frame capture');
                 }
@@ -341,11 +352,21 @@ let PerflogMetric = PerflogMetric_1 = class PerflogMetric extends metric_1.Metri
     _markName(index) { return `${_MARK_NAME_PREFIX}${index}`; }
 };
 PerflogMetric.SET_TIMEOUT = new core_1.InjectionToken('PerflogMetric.setTimeout');
+PerflogMetric.IGNORE_NAVIGATION = new core_1.InjectionToken('PerflogMetric.ignoreNavigation');
 PerflogMetric.PROVIDERS = [
-    PerflogMetric_1, {
+    {
+        provide: PerflogMetric_1,
+        deps: [
+            web_driver_extension_1.WebDriverExtension, PerflogMetric_1.SET_TIMEOUT, common_options_1.Options.MICRO_METRICS, common_options_1.Options.FORCE_GC,
+            common_options_1.Options.CAPTURE_FRAMES, common_options_1.Options.RECEIVED_DATA, common_options_1.Options.REQUEST_COUNT,
+            PerflogMetric_1.IGNORE_NAVIGATION
+        ]
+    },
+    {
         provide: PerflogMetric_1.SET_TIMEOUT,
         useValue: (fn, millis) => setTimeout(fn, millis)
-    }
+    },
+    { provide: PerflogMetric_1.IGNORE_NAVIGATION, useValue: false }
 ];
 PerflogMetric = PerflogMetric_1 = __decorate([
     core_1.Injectable(),
@@ -354,13 +375,16 @@ PerflogMetric = PerflogMetric_1 = __decorate([
     __param(3, core_1.Inject(common_options_1.Options.FORCE_GC)),
     __param(4, core_1.Inject(common_options_1.Options.CAPTURE_FRAMES)),
     __param(5, core_1.Inject(common_options_1.Options.RECEIVED_DATA)),
-    __param(6, core_1.Inject(common_options_1.Options.REQUEST_COUNT))
+    __param(6, core_1.Inject(common_options_1.Options.REQUEST_COUNT)),
+    __param(7, core_1.Inject(PerflogMetric_1.IGNORE_NAVIGATION)),
+    __metadata("design:paramtypes", [web_driver_extension_1.WebDriverExtension,
+        Function, Object, Boolean, Boolean, Boolean, Boolean, Boolean])
 ], PerflogMetric);
 exports.PerflogMetric = PerflogMetric;
 const _MICRO_ITERATIONS_REGEX = /(.+)\*(\d+)$/;
 const _MAX_RETRY_COUNT = 20;
 const _MARK_NAME_PREFIX = 'benchpress';
-const _MARK_NAME_FRAME_CAPUTRE = 'frameCapture';
+const _MARK_NAME_FRAME_CAPTURE = 'frameCapture';
 // using 17ms as a somewhat looser threshold, instead of 16.6666ms
 const _FRAME_TIME_SMOOTH_THRESHOLD = 17;
 var PerflogMetric_1;
