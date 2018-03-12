@@ -20,12 +20,15 @@ export declare class RegressionSlopeValidator extends Validator {
     static PROVIDERS: ({
         provide: typeof RegressionSlopeValidator;
         deps: InjectionToken<{}>[];
+        useValue?: undefined;
     } | {
         provide: InjectionToken<{}>;
         useValue: number;
+        deps?: undefined;
     } | {
         provide: InjectionToken<{}>;
         useValue: string;
+        deps?: undefined;
     })[];
     constructor(_sampleSize: number, _metric: string);
     describe(): {

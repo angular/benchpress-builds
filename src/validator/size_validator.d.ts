@@ -17,9 +17,11 @@ export declare class SizeValidator extends Validator {
     static PROVIDERS: ({
         provide: typeof SizeValidator;
         deps: InjectionToken<{}>[];
+        useValue?: undefined;
     } | {
         provide: InjectionToken<{}>;
         useValue: number;
+        deps?: undefined;
     })[];
     constructor(_sampleSize: number);
     describe(): {
