@@ -19,13 +19,21 @@ export declare class PerflogMetric extends Metric {
     private _captureFrames;
     private _receivedData;
     private _requestCount;
+    private _ignoreNavigation;
     static SET_TIMEOUT: InjectionToken<{}>;
+    static IGNORE_NAVIGATION: InjectionToken<{}>;
     static PROVIDERS: ({
         provide: typeof PerflogMetric;
         deps: (InjectionToken<{}> | typeof WebDriverExtension)[];
+        useValue?: undefined;
     } | {
         provide: InjectionToken<{}>;
         useValue: (fn: Function, millis: number) => any;
+        deps?: undefined;
+    } | {
+        provide: InjectionToken<{}>;
+        useValue: boolean;
+        deps?: undefined;
     })[];
     private _remainingEvents;
     private _measureCount;
@@ -34,10 +42,12 @@ export declare class PerflogMetric extends Metric {
      * @param driverExtension
      * @param setTimeout
      * @param microMetrics Name and description of metrics provided via console.time / console.timeEnd
+     * @param ignoreNavigation If true, don't measure from navigationStart events. These events are
+     *   usually triggered by a page load, but can also be triggered when adding iframes to the DOM.
      **/
     constructor(_driverExtension: WebDriverExtension, _setTimeout: Function, _microMetrics: {
         [key: string]: string;
-    }, _forceGc: boolean, _captureFrames: boolean, _receivedData: boolean, _requestCount: boolean);
+    }, _forceGc: boolean, _captureFrames: boolean, _receivedData: boolean, _requestCount: boolean, _ignoreNavigation: boolean);
     describe(): {
         [key: string]: string;
     };

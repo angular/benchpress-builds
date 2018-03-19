@@ -20,12 +20,15 @@ export declare class ConsoleReporter extends Reporter {
     static PROVIDERS: ({
         provide: typeof ConsoleReporter;
         deps: (InjectionToken<{}> | typeof SampleDescription)[];
+        useValue?: undefined;
     } | {
         provide: InjectionToken<{}>;
         useValue: number;
+        deps?: undefined;
     } | {
         provide: InjectionToken<{}>;
         useValue: (v: any) => void;
+        deps?: undefined;
     })[];
     private static _lpad(value, columnWidth, fill?);
     private _metricNames;

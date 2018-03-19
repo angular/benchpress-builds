@@ -23,8 +23,11 @@ export declare class Options {
     static RECEIVED_DATA: InjectionToken<{}>;
     static REQUEST_COUNT: InjectionToken<{}>;
     static CAPTURE_FRAMES: InjectionToken<{}>;
-    static DEFAULT_PROVIDERS: {
+    static DEFAULT_PROVIDERS: ({
         provide: InjectionToken<{}>;
         useValue: {};
-    }[];
+    } | {
+        provide: InjectionToken<{}>;
+        useValue: boolean;
+    })[];
 }
