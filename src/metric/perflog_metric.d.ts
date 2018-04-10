@@ -25,12 +25,15 @@ export declare class PerflogMetric extends Metric {
     static PROVIDERS: ({
         provide: typeof PerflogMetric;
         deps: (InjectionToken<{}> | typeof WebDriverExtension)[];
+        useValue?: undefined;
     } | {
         provide: InjectionToken<{}>;
         useValue: (fn: Function, millis: number) => any;
+        deps?: undefined;
     } | {
         provide: InjectionToken<{}>;
         useValue: boolean;
+        deps?: undefined;
     })[];
     private _remainingEvents;
     private _measureCount;

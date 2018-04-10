@@ -21,9 +21,11 @@ export declare class JsonFileReporter extends Reporter {
     static PROVIDERS: ({
         provide: typeof JsonFileReporter;
         deps: (InjectionToken<{}> | typeof SampleDescription)[];
+        useValue?: undefined;
     } | {
         provide: InjectionToken<{}>;
         useValue: string;
+        deps?: undefined;
     })[];
     constructor(_description: SampleDescription, _path: string, _writeFile: Function, _now: Function);
     reportMeasureValues(measureValues: MeasureValues): Promise<any>;

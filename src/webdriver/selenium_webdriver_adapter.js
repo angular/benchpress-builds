@@ -24,7 +24,9 @@ class SeleniumWebDriverAdapter extends web_driver_adapter_1.WebDriverAdapter {
     capabilities() {
         return this._driver.getCapabilities().then((capsObject) => {
             const localData = {};
-            capsObject.forEach((value, key) => { localData[key] = value; });
+            for (const key of Array.from(capsObject.keys())) {
+                localData[key] = capsObject.get(key);
+            }
             return localData;
         });
     }
