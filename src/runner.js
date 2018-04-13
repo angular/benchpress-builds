@@ -61,7 +61,7 @@ class Runner {
             // This might still create instances twice. We are creating a new injector with all the
             // providers.
             // Only WebDriverAdapter is reused.
-            // TODO vsavkin consider changing it when toAsyncFactory is added back or when child
+            // TODO(vsavkin): consider changing it when toAsyncFactory is added back or when child
             // injectors are handled better.
             const injector = core_1.Injector.create([
                 sampleProviders, { provide: common_options_1.Options.CAPABILITIES, useValue: capabilities },
